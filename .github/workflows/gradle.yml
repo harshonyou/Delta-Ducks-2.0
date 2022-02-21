@@ -30,4 +30,4 @@ jobs:
       with:
         arguments: build
     - name: Test Project
-      run: gradlew clean tests:test
+      run: ./gradlew clean tests:test

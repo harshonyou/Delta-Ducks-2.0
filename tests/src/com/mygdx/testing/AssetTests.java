@@ -1,4 +1,4 @@
-package de.tomgrill.gdxtesting;
+package com.mygdx.testing;
 
 import com.badlogic.gdx.Gdx;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package de.tomgrill.gdxtesting;
+package com.mygdx.testing;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
