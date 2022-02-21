@@ -29,10 +29,10 @@ public final class ResourceManager {
      * The equivalent to a constructor
      */
     public static void Initialise() {
-        if (initialized) {
+        if (initialised) {
             return;
         }
-        initialiszed = true;
+        initialised = true;
         manager = new AssetManager();
         loaded = false;
         ids = new ArrayList<>();
