@@ -18,12 +18,12 @@ import static com.mygdx.utils.Constants.TILE_SIZE;
  * Creates the quests and manages their completion and order
  */
 public class QuestManager {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
     private static ArrayList<Quest> allQuests;
     private static Chest chest;
 
-    public static void Initialize() {
-        initialized = true;
+    public static void Initialise() {
+        initialised = true;
         allQuests = new ArrayList<>();
         chest = new Chest();
 
