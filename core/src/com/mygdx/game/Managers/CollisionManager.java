@@ -9,13 +9,13 @@ import com.mygdx.game.Physics.CollisionInfo;
  * Handels collision callbacks for box2d
  */
 public class CollisionManager implements ContactListener {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
 
     public CollisionManager() {
-        if (initialized) {
+        if (initialised) {
             throw new RuntimeException("Collision manager cant be instantiated more then once");
         }
-        initialized = true;
+        initialised = true;
     }
 
     /**
