@@ -20,13 +20,13 @@ import static com.mygdx.utils.Constants.PHYSICS_TIME_STEP;
  */
 public final class PhysicsManager {
     private static final float TILE_SIZE_INV = 1.0f;
-    public static boolean initialized = false;
+    public static boolean initialised = false;
     public static World box2DWorld;
     private static ArrayList<Body> box2DBodies;
     private static Box2DDebugRenderer debug;
 
-    public static void Initialize() {
-        Initialize(false);
+    public static void Initialise() {
+        Initialise(false);
     }
 
     /**
@@ -34,11 +34,11 @@ public final class PhysicsManager {
      *
      * @param drawDebug true to show debug borders
      */
-    public static void Initialize(boolean drawDebug) {
+    public static void Initialise(boolean drawDebug) {
         if (initialized) {
             return;
         }
-        initialized = true;
+        initialised = true;
         box2DWorld = new World(new Vector2(0, 0), true);
         box2DBodies = new ArrayList<>();
         box2DWorld.setContactListener(new CollisionManager());
