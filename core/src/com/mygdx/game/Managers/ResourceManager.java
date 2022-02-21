@@ -17,7 +17,7 @@ import java.util.HashMap;
  * Manages all assets and disposes of them when appropriate
  */
 public final class ResourceManager {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
     private static boolean loaded;
     private static AssetManager manager;
     private static ArrayList<String> ids;
@@ -28,11 +28,11 @@ public final class ResourceManager {
     /**
      * The equivalent to a constructor
      */
-    public static void Initialize() {
+    public static void Initialise() {
         if (initialized) {
             return;
         }
-        initialized = true;
+        initialiszed = true;
         manager = new AssetManager();
         loaded = false;
         ids = new ArrayList<>();
