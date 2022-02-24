@@ -14,16 +14,16 @@ public final class EntityManager {
     private static ArrayList<String> entityNames;
     private static ArrayList<Entity> entities;
     private static ArrayList<Component> components;
-    private static boolean initialised = false;
+    private static boolean initialized = false;
 
     /**
      * Should only be called once although if it isn't called at all it will be called automatically
      */
-    public static void Initialise() {
+    public static void Initialize() {
         entityNames = new ArrayList<>();
         entities = new ArrayList<>();
         components = new ArrayList<>();
-        initialised = true;
+        initialized = true;
     }
 
     /**

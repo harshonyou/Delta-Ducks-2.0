@@ -14,14 +14,14 @@ import static com.mygdx.utils.Constants.*;
  * holds the primary sprite batch and rendering camera
  */
 public final class RenderingManager {
-    private static boolean initialised = false;
+    private static boolean initialized = false;
     private static ArrayList<Component> renderItems;
     private static ArrayList<ArrayList<Integer>> layers;
     private static OrthographicCamera camera;
     private static SpriteBatch batch;
 
-    public static void Initialise() {
-        initialised = true;
+    public static void Initialize() {
+        initialized = true;
         renderItems = new ArrayList<>();
 
         batch = new SpriteBatch();

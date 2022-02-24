@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
  */
 public final class GameManager {
-    private static boolean initialised = false;
+    private static boolean initialized = false;
     private static ArrayList<Faction> factions;
     private static ArrayList<Ship> ships;
     private static ArrayList<College> colleges;
@@ -33,8 +33,8 @@ public final class GameManager {
     /**
      * facilitates creation of the game
      */
-    public static void Initialise() {
-        initialised = true;
+    public static void Initialize() {
+        initialized = true;
         currentElement = 0;
         settings = new JsonReader().
                 parse(Gdx.files.internal("GameSettings.json"));
