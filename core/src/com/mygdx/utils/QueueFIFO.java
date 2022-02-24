@@ -17,7 +17,7 @@ public class QueueFIFO<T> implements Queue<T> {
     private int topIndex;
 
     /**
-     * Initialize all properties
+     * Initialise all properties
      */
     public QueueFIFO() {
         topIndex = -1;
