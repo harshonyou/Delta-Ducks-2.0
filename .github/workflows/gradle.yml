@@ -44,5 +44,5 @@ jobs:
         with:
           branch: gh-pages 
           folder: tests/build/reports/tests/test
-          commit-message: 'Deploying to gh-pages from @ [${{github.run_id}}](https://github.com/harshonyou/How-Hard-Can-It-Be/actions/runs/${{github.run_id}})'
+          commit-message: 'Deployed from RUNID-${{github.run_id}}'
           target-folder: docs/report
