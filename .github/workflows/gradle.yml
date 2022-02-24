@@ -32,7 +32,7 @@ jobs:
     - name: Test Project
       run: ./gradlew clean tests:test
     - name: Archive test report
-    uses: actions/upload-artifact@v2
-     with:
-      name: Test report
-      path: tests/build/reports/tests/test
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test report
+        path: tests/build/reports/tests/test
