@@ -21,6 +21,7 @@ public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
     private static int atlas_id;
     private boolean isFlag;
+    private float health = 1;
 
     Building() {
         super();
@@ -97,12 +98,18 @@ public class Building extends Entity implements CollisionCallBack {
     public void EnterTrigger(CollisionInfo info) {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
+
+            health -= .2;
+            if (health <= 0) {
+                destroy();
+            }
+
             // the ball if from the same faction
             /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
                     getComponent(Pirate.class).getFaction().getName())) {
                 return;
             }*/
-            destroy();
+            // destroy();
             ((CannonBall) info.a).kill();
         }
     }
