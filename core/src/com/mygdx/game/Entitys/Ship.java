@@ -21,6 +21,7 @@ import java.util.Objects;
  * Base class for game ships, Player & NPC.
  */
 public class Ship extends Entity implements CollisionCallBack {
+    private static int health = 100;
     private static int shipCount = 0;
     public static ObjectMap<Vector2, String> shipDirections;
 
@@ -172,6 +173,8 @@ public class Ship extends Entity implements CollisionCallBack {
     public void EnterTrigger(CollisionInfo info) {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
+
+            getComponent(Pirate.class).takeDamage(0.2f);
         }
     }
 
