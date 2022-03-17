@@ -26,6 +26,9 @@ public class CollisionManager implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         // generally calls the correct callback on the appropriate objects (not as intuitive as id like though)
+        System.out.println(contact.getFixtureA().getUserData());
+        System.out.println(contact.getFixtureB().getUserData());
+
         Fixture fa = contact.getFixtureA();
         Body ba = fa.getBody();
         Object oa = ba.getUserData();
@@ -45,6 +48,9 @@ public class CollisionManager implements ContactListener {
 
         info.a = (Entity) cbA;
         info.b = (Entity) cbB;
+
+//        System.out.println(cbA);
+//        System.out.println(cbB);
 
         if (cbA != null) {
             // fa is sensor but not fb

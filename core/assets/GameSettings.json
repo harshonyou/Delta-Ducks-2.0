@@ -84,7 +84,7 @@
   },
   "college": {
     "spawnRadius": 3,
-    "numBuildings": 12
+    "numBuildings": 1
   },
   "quests": {
     "count": 6,

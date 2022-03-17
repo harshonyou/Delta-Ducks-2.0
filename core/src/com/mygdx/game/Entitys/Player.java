@@ -1,5 +1,6 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.PlayerController;
 import com.mygdx.game.Managers.GameManager;
@@ -38,4 +39,9 @@ public class Player extends Ship {
     public int getAmmo() {
         return getComponent(Pirate.class).getAmmo();
     }
+
+//    public static Vector2 getLoc(){
+//        return getPosition();
+//    }
+
 }

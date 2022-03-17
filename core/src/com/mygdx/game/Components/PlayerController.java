@@ -14,7 +14,7 @@ import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
  * Responsible for the keyboard/mouse control of the player
  */
 public class PlayerController extends Component {
-    private Player player;
+    private static Player player;
     private float speed;
 
     public PlayerController() {
@@ -68,6 +68,18 @@ public class PlayerController extends Component {
             // unit dir to fire
             ((Ship) parent).shoot();
         }
+//        System.out.println(((Ship) parent).getPosition());
+//        System.out.println(PlayerController.getLoc());
+
+        //Player
+    }
+
+    public static Vector2 getLoc(){
+        return player.getPosition();
+    }
+
+    public static Player getPlayer(){
+        return player;
     }
 
     /**

@@ -182,6 +182,12 @@ public final class GameManager {
         currentElement %= cacheSize;
     }
 
+    public static void shoot(Vector2 dir, Vector2 pos) {
+        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+        ballCache.get(currentElement++).fire(dir, pos);
+        currentElement %= cacheSize;
+    }
+
     /**
      * uses a* not sure if it works but i think it does
      *

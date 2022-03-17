@@ -2,10 +2,8 @@ package com.mygdx.game.Entitys;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
+import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
@@ -58,6 +56,7 @@ public class Building extends Entity implements CollisionCallBack {
 
         RigidBody rb = new RigidBody(PhysicsBodyType.Static, r, getComponent(Transform.class));
         rb.setCallback(this);
+        rb.addTrigger(200, "lmao");
         addComponent(rb);
     }
 
@@ -80,7 +79,17 @@ public class Building extends Entity implements CollisionCallBack {
 
     @Override
     public void BeginContact(CollisionInfo info) {
-
+        System.out.println("god");
+        if (info.a instanceof CannonBall && isAlive()) {
+            CannonBall b = (CannonBall) info.a;
+            // the ball if from the same faction
+            /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
+                    getComponent(Pirate.class).getFaction().getName())) {
+                return;
+            }*/
+            destroy();
+            ((CannonBall) info.a).kill();
+        }
     }
 
     @Override
@@ -95,16 +104,9 @@ public class Building extends Entity implements CollisionCallBack {
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (info.a instanceof CannonBall && isAlive()) {
-            CannonBall b = (CannonBall) info.a;
-            // the ball if from the same faction
-            /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
-                    getComponent(Pirate.class).getFaction().getName())) {
-                return;
-            }*/
-            destroy();
-            ((CannonBall) info.a).kill();
-        }
+        System.out.println("Yikes");
+        System.out.println(PlayerController.getLoc());
+//        GameManager.shoot(PlayerController.getPlayer(), new Vector2(800,800));
     }
 
     @Override

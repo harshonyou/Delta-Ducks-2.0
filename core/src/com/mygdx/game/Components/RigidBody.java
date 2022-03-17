@@ -31,16 +31,9 @@ public class RigidBody extends Component {
         this(type, r, t, false);
     }
 
-    /**
-     * Can create body that is trigger or callable
-     *
-     * @param type      defines how it interacts with other objects
-     * @param r         used for creating the fixture (aka the collider)
-     * @param t         used for positioning and scaling the collider
-     * @param isTrigger false allows for collision true doesn't
-     */
-    public RigidBody(PhysicsBodyType type, Renderable r, Transform t, boolean isTrigger) {
+    public RigidBody(boolean targetMe, PhysicsBodyType type, Renderable r, Transform t) {
         this();
+        // Body def
         BodyDef def = new BodyDef();
         switch (type) {
             case Static:
@@ -66,6 +59,56 @@ public class RigidBody extends Component {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(h_x, h_y);
 
+        // Fixture def
+        FixtureDef f = new FixtureDef();
+        f.isSensor = true;
+        f.shape = shape;
+        f.density = type == PhysicsBodyType.Static ? 0.0f : 1.0f;
+        f.restitution = 0; // prevents bouncing
+        f.friction = 0;
+
+        bodyId = PhysicsManager.createBody(def, f, null);
+
+        shape.dispose();
+    }
+
+    /**
+     * Can create body that is trigger or callable
+     *
+     * @param type      defines how it interacts with other objects
+     * @param r         used for creating the fixture (aka the collider)
+     * @param t         used for positioning and scaling the collider
+     * @param isTrigger false allows for collision true doesn't
+     */
+    public RigidBody(PhysicsBodyType type, Renderable r, Transform t, boolean isTrigger) {
+        this();
+        // Body def
+        BodyDef def = new BodyDef();
+        switch (type) {
+            case Static:
+                def.type = BodyDef.BodyType.StaticBody;
+                break;
+            case Dynamic:
+                def.type = BodyDef.BodyType.DynamicBody;
+                break;
+            case Kinematic:
+                def.type = BodyDef.BodyType.KinematicBody;
+                break;
+        }
+        float h_x = r.sprite.getWidth() * 0.5f;
+        float h_y = r.sprite.getHeight() * 0.5f;
+        halfDim.set(h_x, h_y);
+
+        def.position.set(t.getPosition().x + h_x, t.getPosition().y + h_y);
+        h_x *= t.getScale().x;
+        h_y *= t.getScale().y;
+
+        def.angle = t.getRotation();
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(h_x, h_y);
+
+        // Fixture def
         FixtureDef f = new FixtureDef();
         f.isSensor = isTrigger;
         f.shape = shape;
@@ -76,6 +119,7 @@ public class RigidBody extends Component {
         bodyId = PhysicsManager.createBody(def, f, null);
 
         shape.dispose();
+        // itna code hai ye
     }
 
     /**

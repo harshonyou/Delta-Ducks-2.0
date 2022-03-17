@@ -67,6 +67,7 @@ public class College extends Entity {
                 pos = Utilities.tilesToDistance(pos).add(origin);
 
                 Building b = new Building();
+
                 buildings.add(b);
 
                 String b_name = Utilities.randomChoice(buildingNames, 0);
@@ -76,9 +77,9 @@ public class College extends Entity {
 
 
         }
-        Building flag = new Building(true);
-        buildings.add(flag);
-        flag.create(origin, colour);
+//        Building flag = new Building(true);
+//        buildings.add(flag);
+//        flag.create(origin, colour);
     }
 
     /**

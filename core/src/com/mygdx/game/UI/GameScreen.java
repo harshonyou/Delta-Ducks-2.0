@@ -37,7 +37,7 @@ public class GameScreen extends Page {
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
         INIT_CONSTANTS();
-        PhysicsManager.Initialise(false);
+        PhysicsManager.Initialise(true);
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
