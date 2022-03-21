@@ -1,4 +1,4 @@
-package com.mygdx.testing;
+package com.mygdx.testing.game;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
