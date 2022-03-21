@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+// TODO: Clean up this mess
 /**
  * creates game constants and is updated when appropriate (I know some aren't technically constants)
  */
@@ -69,7 +70,7 @@ public final class Constants {
     public static final boolean VSYNC = true;
     public static final float BUILDING_SCALE = 1.5f;
 
-    public static float TILE_SIZE;
+    public static float TILE_SIZE = 32;
 
     public static Vector3 BACKGROUND_COLOUR;
 
