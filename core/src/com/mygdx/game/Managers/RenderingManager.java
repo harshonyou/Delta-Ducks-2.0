@@ -1,11 +1,13 @@
 package com.mygdx.game.Managers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Components.Component;
 import com.mygdx.game.Entitys.Building;
-
+import com.mygdx.game.Entitys.College;
 import java.util.ArrayList;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import static com.mygdx.utils.Constants.*;
 
@@ -19,11 +21,12 @@ public final class RenderingManager {
     private static ArrayList<ArrayList<Integer>> layers;
     private static OrthographicCamera camera;
     private static SpriteBatch batch;
+    private static Texture healthbar;
 
     public static void Initialize() {
         initialized = true;
         renderItems = new ArrayList<>();
-
+        Texture healthbar = new Texture("blank.png");
         batch = new SpriteBatch();
         // batch.enableBlending();
         camera = new OrthographicCamera();
@@ -89,9 +92,15 @@ public final class RenderingManager {
             renderItems.get(i).render();
         }*/
 
+        for (int i = 0; i < GameManager.colleges.size(); i++) {
+            College college0 = GameManager.colleges.get(i);
+            //for (int j = 0; j < college0.buildings.size(); j++) {
+                //Building building0 = college0.buildings.get(i);
+                //batch.draw(healthbar, building0.xpos, building0.ypos, 100, 10);
+            //}
+        }
         batch.end();
     }
-
     public static void cleanUp() {
         batch.dispose();
     }

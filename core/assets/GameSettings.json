@@ -83,8 +83,8 @@
     "shipSpawnRadius": 15
   },
   "college": {
-    "spawnRadius": 3,
-    "numBuildings": 12
+    "spawnRadius": 1,
+    "numBuildings": 1
   },
   "quests": {
     "count": 6,

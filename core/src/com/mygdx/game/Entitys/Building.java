@@ -21,11 +21,13 @@ public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
     private static int atlas_id;
     private boolean isFlag;
-    private float health = 1;
-
+    public float health;
+    public int ypos;
+    public int xpos;
     Building() {
         super();
         isFlag = false;
+        health = 1;
         Transform t = new Transform();
         t.setScale(BUILDING_SCALE, BUILDING_SCALE);
         Pirate p = new Pirate();
@@ -56,7 +58,8 @@ public class Building extends Entity implements CollisionCallBack {
         r.setTexture(s);
         getComponent(Transform.class).setPosition(pos);
         buildingName = name;
-
+        this.ypos = (int) pos.y;
+        this.xpos = (int) pos.x;
         RigidBody rb = new RigidBody(PhysicsBodyType.Static, r, getComponent(Transform.class));
         rb.setCallback(this);
         addComponent(rb);
@@ -98,18 +101,16 @@ public class Building extends Entity implements CollisionCallBack {
     public void EnterTrigger(CollisionInfo info) {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
-
-            health -= .2;
-            if (health <= 0) {
-                destroy();
-            }
-
             // the ball if from the same faction
             /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
                     getComponent(Pirate.class).getFaction().getName())) {
                 return;
             }*/
-            // destroy();
+            health = (float) (health - 0.15);
+            if (health <= 0){
+                destroy();
+            }
+
             ((CannonBall) info.a).kill();
         }
     }

@@ -44,4 +44,5 @@ jobs:
         with:
           branch: gh-pages 
           folder: tests/build/reports/tests/test
-          target-folder: docs
+          commit-message: 'Deployed from RUNID-${{github.run_id}}'
+          target-folder: docs/report

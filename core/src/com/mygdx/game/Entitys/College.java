@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class College extends Entity {
     private static ArrayList<String> buildingNames;
-    private final ArrayList<Building> buildings;
+    public final ArrayList<Building> buildings;
 
     public College() {
         super();
