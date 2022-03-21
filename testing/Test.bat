@@ -1,0 +1,1 @@
+java -cp gdx.jar Test.java
