@@ -58,7 +58,7 @@ public class College extends Entity {
         posList.add(new Vector2(0, 0));
 
         for (int i = 0; i < collegeSettings.getInt("numBuildings"); i++) {
-            Vector2 pos = Utilities.randomPos(-radius, radius);
+            Vector2 pos = new Vector2(0, -1);
             pos = Utilities.floor(pos);
 
             if (!posList.contains(pos)) {
