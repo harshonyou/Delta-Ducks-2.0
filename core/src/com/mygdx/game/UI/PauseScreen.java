@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Managers.SaveManager;
 import com.mygdx.game.PirateGame;
 
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
@@ -50,7 +51,8 @@ public class PauseScreen extends Page {
         save.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.game);
+                SaveManager.save();
+                System.out.println("Saved!");
             }
         });
         t.add(save).top().size(100, 25).spaceBottom(space);
