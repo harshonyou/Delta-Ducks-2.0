@@ -1,11 +1,13 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
@@ -102,8 +104,10 @@ public class Building extends Entity implements CollisionCallBack {
                     getComponent(Pirate.class).getFaction().getName())) {
                 return;
             }*/
-            destroy();
-            ((CannonBall) info.a).kill();
+            if((((CannonBall) info.a).getShooter().getFaction() == GameManager.getPlayer().getFaction())) {
+                destroy();
+                ((CannonBall) info.a).kill();
+            }
         }
     }
 

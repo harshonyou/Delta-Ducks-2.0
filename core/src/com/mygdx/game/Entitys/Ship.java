@@ -7,6 +7,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -79,6 +80,10 @@ public class Ship extends Entity implements CollisionCallBack {
     public void setFaction(int factionId) {
         getComponent(Pirate.class).setFactionId(factionId);
         setShipDirection("-up");
+    }
+
+    public Faction getFaction () {
+        return getComponent(Pirate.class).getFaction();
     }
 
     /**
@@ -172,6 +177,12 @@ public class Ship extends Entity implements CollisionCallBack {
     public void EnterTrigger(CollisionInfo info) {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
+        }
+        if (info.a instanceof CannonBall) {
+            if (((CannonBall) info.a).getShooter().getFaction() != getFaction()) {
+                getComponent(Pirate.class).takeDamage(10f);
+                ((CannonBall) info.a).kill();
+            }
         }
     }
 

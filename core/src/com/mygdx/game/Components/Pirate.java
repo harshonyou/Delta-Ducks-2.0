@@ -90,6 +90,10 @@ public class Pirate extends Component {
         return health;
     }
 
+    public void setHealth(int h) {
+        health = h;
+    }
+
     /**
      * if dst to target is less than attack range
      * target will be null if not in agro range
@@ -103,6 +107,13 @@ public class Pirate extends Component {
             return dst < Ship.getAttackRange();
         }
         return false;
+    }
+
+    public Vector2 targetPos() {
+        Ship p = (Ship) parent;
+        Vector2 pos = p.getPosition();
+        Vector2 targetPos = targets.peek().getPosition();
+        return targetPos.sub(pos);
     }
 
     /**

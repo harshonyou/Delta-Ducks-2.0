@@ -1,5 +1,6 @@
 package com.mygdx.game.Components;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -119,4 +120,11 @@ public class Renderable extends Component {
         isVisible = !isVisible;
     }
 
+    public void setColor(Color c) {
+        sprite.setColor(c);
+    }
+
+    public void setSize(float width, float height) {
+        sprite.setSize(width, height);
+    }
 }
