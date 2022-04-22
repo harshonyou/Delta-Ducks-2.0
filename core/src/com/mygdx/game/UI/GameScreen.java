@@ -123,7 +123,7 @@ public class GameScreen extends Page {
         GameManager.update();
         // show end screen if esc is pressed
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            parent.setScreen(parent.end);
+            parent.setScreen(parent.pause);
         }
         super.render(delta);
     }

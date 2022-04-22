@@ -6,10 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Managers.ResourceManager;
-import com.mygdx.game.UI.EndScreen;
-import com.mygdx.game.UI.GameScreen;
-import com.mygdx.game.UI.LevelScreen;
-import com.mygdx.game.UI.MenuScreen;
+import com.mygdx.game.UI.*;
 
 import java.util.logging.Level;
 
@@ -20,6 +17,7 @@ public class PirateGame extends Game {
     public MenuScreen menu;
     public LevelScreen level;
     public GameScreen game;
+    public PauseScreen pause;
     public EndScreen end;
     public Stage stage;
     public Skin skin;
@@ -44,6 +42,7 @@ public class PirateGame extends Game {
         menu = new MenuScreen(this);
         level = new LevelScreen(this);
         game = new GameScreen(this, id_map);
+        pause = new PauseScreen(this);
         end = new EndScreen(this);
         setScreen(menu);
     }
