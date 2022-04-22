@@ -23,7 +23,6 @@ public class SaveManager {
             acc++;
             prefs.putFloat("Ship"+acc+"x", ship.getPosition().x);
             prefs.putFloat("Ship"+acc+"y", ship.getPosition().y);
-            prefs.putFloat("Ship"+acc+"f", ship.getFactonId());
             prefs.putInteger("Ship"+acc+"h", ship.getHealth());
             prefs.putInteger("Ship"+acc+"p", ship.getPlunder());
             prefs.putInteger("Ship"+acc+"a", ship.getAmmo());
