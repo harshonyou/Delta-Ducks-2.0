@@ -169,6 +169,10 @@ public class GameScreen extends Page {
         super.update();
         Player p = GameManager.getPlayer();
 
+        if (p.getHealth() <= 0) {
+            parent.setScreen(parent.end);
+        }
+
         healthLabel.setText(String.valueOf(p.getHealth()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));

@@ -1,5 +1,4 @@
 package com.mygdx.game.UI;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,8 +14,8 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 /**
  * Contains widgets defining the start-of-game menu screen.
  */
-public class MenuScreen extends Page {
-    public MenuScreen(PirateGame parent) {
+public class LevelScreen extends Page {
+    public LevelScreen(PirateGame parent) {
         super(parent);
     }
 
@@ -31,40 +30,39 @@ public class MenuScreen extends Page {
         float space = VIEWPORT_HEIGHT * 0.25f;
 
         t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
-        Label l = new Label("Pirates the movie the game", parent.skin);
+        Label l = new Label("Pick the level of hardness", parent.skin);
         l.setFontScale(2);
         t.add(l).top().spaceBottom(space * 0.5f);
         t.row();
 
-        TextButton play = new TextButton("Play", parent.skin);
-        play.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.level);
-            }
-        });
-        t.add(play).top().size(100, 25).spaceBottom(space);
-        t.row();
-
-        TextButton resume = new TextButton("Resume", parent.skin);
-        resume.addListener(new ChangeListener() {
+        TextButton easy = new TextButton("Easy", parent.skin);
+        easy.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.setScreen(parent.game);
             }
         });
-        t.add(resume).top().size(100, 25).spaceBottom(space);
+        t.add(easy).top().size(100, 25).spaceBottom(space);
         t.row();
 
-        TextButton quit = new TextButton("Quit", parent.skin);
-        quit.addListener(new ChangeListener() {
+        TextButton medium = new TextButton("Medium", parent.skin);
+        medium.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-                System.exit(0);
+                parent.setScreen(parent.game);
             }
         });
-        t.add(quit).size(100, 25).top().spaceBottom(space);
+        t.add(medium).top().size(100, 25).spaceBottom(space);
+        t.row();
+
+        TextButton hard = new TextButton("Hard", parent.skin);
+        hard.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.setScreen(parent.game);
+            }
+        });
+        t.add(hard).size(100, 25).top().spaceBottom(space);
 
         t.top();
 

@@ -8,13 +8,17 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.UI.EndScreen;
 import com.mygdx.game.UI.GameScreen;
+import com.mygdx.game.UI.LevelScreen;
 import com.mygdx.game.UI.MenuScreen;
+
+import java.util.logging.Level;
 
 /**
  * Contains class instances of game UI screens.
  */
 public class PirateGame extends Game {
     public MenuScreen menu;
+    public LevelScreen level;
     public GameScreen game;
     public EndScreen end;
     public Stage stage;
@@ -38,6 +42,7 @@ public class PirateGame extends Game {
         stage = new Stage(new ScreenViewport());
         createSkin();
         menu = new MenuScreen(this);
+        level = new LevelScreen(this);
         game = new GameScreen(this, id_map);
         end = new EndScreen(this);
         setScreen(menu);
