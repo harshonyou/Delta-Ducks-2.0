@@ -52,6 +52,7 @@ public class PauseScreen extends Page {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 SaveManager.save();
+//                SaveManager.test();
                 System.out.println("Saved!");
             }
         });

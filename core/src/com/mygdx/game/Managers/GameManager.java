@@ -75,6 +75,10 @@ public final class GameManager {
         return (Player) ships.get(0);
     }
 
+    public static ArrayList<Ship> getShips() {
+        return ships;
+    }
+
     /**
      * Creates the game with player maps, NPCs, colleges
      *
@@ -167,6 +171,9 @@ public final class GameManager {
     public static College getCollege(int factionId) {
         tryInit();
         return colleges.get(factionId - 1);
+    }
+    public static ArrayList<College> getColleges(){
+        return colleges;
     }
 
     /**

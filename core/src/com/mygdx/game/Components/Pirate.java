@@ -44,6 +44,10 @@ public class Pirate extends Component {
         return plunder;
     }
 
+    public void setPlunder(int p) {
+        plunder = p;
+    }
+
     public void addPlunder(int money) {
         plunder += money;
     }
@@ -88,6 +92,10 @@ public class Pirate extends Component {
 
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int h) {
+        health = h;
     }
 
     /**

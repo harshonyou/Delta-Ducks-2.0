@@ -7,6 +7,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -81,6 +82,10 @@ public class Ship extends Entity implements CollisionCallBack {
         setShipDirection("-up");
     }
 
+    public int getFactonId() {
+        return getComponent(Pirate.class).getFaction().id;
+    }
+
     /**
      * gets the string representation of the direction the ship is facing
      *
@@ -136,8 +141,26 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getHealth();
     }
 
+    public void setHealth(int h) {
+        getComponent(Pirate.class).setHealth(h);
+    }
+
+    public void destroy() {
+        setHealth(0);
+    }
+
     public int getPlunder() {
         return getComponent(Pirate.class).getPlunder();
+    }
+
+    public void setPlunder(int p) {
+        getComponent(Pirate.class).setPlunder(p);
+    }
+
+    public int getAmmo() { return getComponent(Pirate.class).getAmmo(); }
+
+    public void setAmmo(int a) {
+        getComponent(Pirate.class).setAmmo(a);
     }
 
     public void shoot(Vector2 dir) {
@@ -153,6 +176,10 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
+    }
+
+    public void setPosition(Vector2 pos) {
+        getComponent(Transform.class).setPosition(pos);
     }
 
     @Override
