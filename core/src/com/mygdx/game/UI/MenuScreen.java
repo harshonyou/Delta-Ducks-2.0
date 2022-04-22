@@ -37,6 +37,7 @@ public class MenuScreen extends Page {
         t.row();
 
         TextButton play = new TextButton("Play", parent.skin);
+
         play.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -44,6 +45,20 @@ public class MenuScreen extends Page {
             }
         });
         t.add(play).top().size(100, 25).spaceBottom(space);
+        t.row();
+
+        TextButton playEasy = new TextButton("Play - Easy Difficulty", parent.skin);
+        playEasy.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                String yourfilecontents;
+
+
+                parent.setScreen(parent.game);
+            }
+        });
+        t.add(playEasy).top().size(175, 25).spaceBottom(space);
         t.row();
 
         TextButton quit = new TextButton("Quit", parent.skin);
