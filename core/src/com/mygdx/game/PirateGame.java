@@ -35,6 +35,7 @@ public class PirateGame extends Game {
         int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
         ResourceManager.addTexture("menuBG.jpg");
         ResourceManager.addTexture("Chest.png");
+        ResourceManager.addTexture("blank.png");
         ResourceManager.loadAssets();
         // cant load any more resources after this point (just functionally I choose not to implement)
         stage = new Stage(new ScreenViewport());
@@ -59,7 +60,7 @@ public class PirateGame extends Game {
     }
 
     /**
-     * load ui skin from assets 
+     * load ui skin from assets
      */
     private void createSkin() {
         skin = new Skin(Gdx.files.internal("UISkin/skin.json"));

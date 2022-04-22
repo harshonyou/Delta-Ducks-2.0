@@ -113,6 +113,13 @@ public class Pirate extends Component {
         return false;
     }
 
+    public Vector2 targetPos() {
+        Ship p = (Ship) parent;
+        Vector2 pos = p.getPosition();
+        Vector2 targetPos = targets.peek().getPosition();
+        return targetPos.sub(pos);
+    }
+
     /**
      * if dst to target is >= attack range
      * target will be null if not in agro range

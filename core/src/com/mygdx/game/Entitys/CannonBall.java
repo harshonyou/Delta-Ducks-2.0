@@ -1,6 +1,7 @@
 package com.mygdx.game.Entitys;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
@@ -11,6 +12,8 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
+import java.util.Objects;
+
 import static com.mygdx.utils.Constants.TILE_SIZE;
 
 /**
@@ -19,8 +22,8 @@ import static com.mygdx.utils.Constants.TILE_SIZE;
 public class CannonBall extends Entity implements CollisionCallBack {
     private static float speed;
     private boolean toggleLife;
-    private static final int MAX_AGE = 5;
-    // private float age = 0;
+    private static final int MAX_AGE = 25;
+     private float age = 0;
     private Ship shooter;
 
     public CannonBall() {
@@ -60,13 +63,13 @@ public class CannonBall extends Entity implements CollisionCallBack {
             rb.setVelocity(0, 0);
             toggleLife = false;
         }
-        /*else{
+        else{
             age += EntityManager.getDeltaTime();
         }
         if(age > MAX_AGE) {
             age = 0;
             kill();
-        }*/
+        }
     }
 
     /**
@@ -95,7 +98,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * Marks cannonball for removal on next update.
      */
     public void kill() {
-        toggleLife = false;
+        toggleLife = true;
     }
 
     public Ship getShooter() {
@@ -104,7 +107,6 @@ public class CannonBall extends Entity implements CollisionCallBack {
 
     @Override
     public void BeginContact(CollisionInfo info) {
-
     }
 
     @Override

@@ -82,8 +82,8 @@ public class Ship extends Entity implements CollisionCallBack {
         setShipDirection("-up");
     }
 
-    public int getFactonId() {
-        return getComponent(Pirate.class).getFaction().id;
+    public Faction getFaction () {
+        return getComponent(Pirate.class).getFaction();
     }
 
     /**
@@ -199,6 +199,12 @@ public class Ship extends Entity implements CollisionCallBack {
     public void EnterTrigger(CollisionInfo info) {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
+        }
+        if (info.a instanceof CannonBall) {
+            if (((CannonBall) info.a).getShooter().getFaction() != getFaction()) {
+                getComponent(Pirate.class).takeDamage(10f);
+                ((CannonBall) info.a).kill();
+            }
         }
     }
 

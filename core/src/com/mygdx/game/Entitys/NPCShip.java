@@ -3,14 +3,14 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.AI.EnemyState;
-import com.mygdx.game.Components.AINavigation;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
 import com.mygdx.game.Managers.GameManager;
+import com.mygdx.game.Managers.RenderLayer;
+import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.utils.QueueFIFO;
@@ -25,6 +25,9 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public StateMachine<NPCShip, EnemyState> stateMachine;
     private static JsonValue AISettings;
     private final QueueFIFO<Vector2> path;
+    private long shootTime;
+
+    private Renderable healthBar;
 
     /**
      * Creates an initial state machine
@@ -32,6 +35,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public NPCShip() {
         super();
         path = new QueueFIFO<>();
+        shootTime = 0;
 
         if (AISettings == null) {
             AISettings = GameManager.getSettings().get("AI");
@@ -43,7 +47,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         AINavigation nav = new AINavigation();
 
         addComponent(nav);
-
+        healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
 
         RigidBody rb = getComponent(RigidBody.class);
         // rb.setCallback(this);
@@ -53,6 +57,8 @@ public class NPCShip extends Ship implements CollisionCallBack {
         // agro trigger
         rb.addTrigger(Utilities.tilesToDistance(starting.getFloat("argoRange_tiles")), "agro");
 
+        addComponents(healthBar);
+        healthBar.show();
     }
 
     /**
@@ -70,8 +76,26 @@ public class NPCShip extends Ship implements CollisionCallBack {
     @Override
     public void update() {
         super.update();
-        stateMachine.update();
 
+        if (getHealth() <= 0) {
+            removeOnDeath();
+            healthBar.hide();
+        } else {
+            if (getHealth() > 60f)
+                healthBar.setColor(Color.GREEN);
+            else if (getHealth() > 40f)
+                healthBar.setColor(Color.ORANGE);
+            else
+                healthBar.setColor(Color.RED);
+            healthBar.setSize(1, 3*(getHealth()/10));
+        }
+        if (getComponent(Pirate.class).canAttack()) {
+            if (System.nanoTime() - shootTime > 1000000000) {
+                super.shoot(getComponent(Pirate.class).targetPos());
+                shootTime = System.nanoTime();
+            }
+        }
+        stateMachine.update();
         // System.out.println(getComponent(Pirate.class).targetCount());
     }
 
@@ -136,17 +160,22 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (!(info.a instanceof Ship)) {
-            return;
+        if (info.a instanceof Ship) {
+            Ship other = (Ship) info.a;
+            if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
+                // is the same faction
+                return;
+            }
+            // add the new collision as a new target
+            Pirate pirate = getComponent(Pirate.class);
+            pirate.addTarget(other);
         }
-        Ship other = (Ship) info.a;
-        if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
-            // is the same faction
-            return;
+        if (info.a instanceof CannonBall) {
+            if (((CannonBall) info.a).getShooter().getFaction() != super.getFaction()) {
+                getComponent(Pirate.class).takeDamage(20f);
+                ((CannonBall) info.a).kill();
+            }
         }
-        // add the new collision as a new target
-        Pirate pirate = getComponent(Pirate.class);
-        pirate.addTarget(other);
     }
 
     /**
@@ -168,5 +197,12 @@ public class NPCShip extends Ship implements CollisionCallBack {
                 break;
             }
         }
+    }
+
+    private void removeOnDeath() {
+        stopMovement();
+        getComponent(Renderable.class).hide();
+        Transform t = getComponent(Transform.class);
+        t.setPosition(-50, -50);
     }
 }
