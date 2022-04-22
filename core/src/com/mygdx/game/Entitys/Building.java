@@ -11,6 +11,7 @@ import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
+import com.mygdx.game.UI.MenuScreen;
 
 import static com.mygdx.utils.Constants.BUILDING_SCALE;
 
@@ -21,6 +22,7 @@ public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
     private static int atlas_id;
     private boolean isFlag;
+    private double healthMult;
     public float health;
     public int ypos;
     public int xpos;
@@ -28,6 +30,7 @@ public class Building extends Entity implements CollisionCallBack {
         super();
         isFlag = false;
         health = 1;
+        healthMult = 1;
         Transform t = new Transform();
         t.setScale(BUILDING_SCALE, BUILDING_SCALE);
         Pirate p = new Pirate();
@@ -106,7 +109,14 @@ public class Building extends Entity implements CollisionCallBack {
                     getComponent(Pirate.class).getFaction().getName())) {
                 return;
             }*/
-            health = (float) (health - 0.15);
+            if (MenuScreen.getDifficulty() == 1){
+                healthMult = 2;
+            }if (MenuScreen.getDifficulty() == 2){
+                healthMult = 1.2;
+            }if (MenuScreen.getDifficulty() == 3){
+                healthMult = 0.75;
+            }
+            health = (float) (health - 0.2*healthMult);
             if (health <= 0){
                 destroy();
             }
