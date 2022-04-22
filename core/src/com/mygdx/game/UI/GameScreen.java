@@ -94,7 +94,7 @@ public class GameScreen extends Page {
         table.add(new Label("Shoot in direction of ship", parent.skin)).left();
         table.add(new Image(parent.skin, "space"));
         table.row();
-        table.add(new Label("Quit", parent.skin)).left();
+        table.add(new Label("Pause", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
 
     }
@@ -121,8 +121,9 @@ public class GameScreen extends Page {
         }
 
         GameManager.update();
-        // show end screen if esc is pressed
+        // show pause screen if esc is pressed
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            parent.pause();
             parent.setScreen(parent.pause);
         }
         super.render(delta);
