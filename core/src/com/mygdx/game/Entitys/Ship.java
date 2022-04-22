@@ -141,8 +141,26 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getHealth();
     }
 
+    public void setHealth(int h) {
+        getComponent(Pirate.class).setHealth(h);
+    }
+
+    public void destroy() {
+        setHealth(0);
+    }
+
     public int getPlunder() {
         return getComponent(Pirate.class).getPlunder();
+    }
+
+    public void setPlunder(int p) {
+        getComponent(Pirate.class).setPlunder(p);
+    }
+
+    public int getAmmo() { return getComponent(Pirate.class).getAmmo(); }
+
+    public void setAmmo(int a) {
+        getComponent(Pirate.class).setAmmo(a);
     }
 
     public void shoot(Vector2 dir) {
@@ -158,6 +176,10 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
+    }
+
+    public void setPosition(Vector2 pos) {
+        getComponent(Transform.class).setPosition(pos);
     }
 
     @Override

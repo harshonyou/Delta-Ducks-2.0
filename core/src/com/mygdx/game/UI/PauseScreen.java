@@ -16,8 +16,8 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 /**
  * Contains widgets defining the start-of-game menu screen.
  */
-public class MenuScreen extends Page {
-    public MenuScreen(PirateGame parent) {
+public class PauseScreen extends Page {
+    public PauseScreen(PirateGame parent) {
         super(parent);
     }
 
@@ -32,31 +32,31 @@ public class MenuScreen extends Page {
         float space = VIEWPORT_HEIGHT * 0.25f;
 
         t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
-        Label l = new Label("Pirates the movie the game", parent.skin);
+        Label l = new Label("Pause Screen", parent.skin);
         l.setFontScale(2);
         t.add(l).top().spaceBottom(space * 0.5f);
-        t.row();
-
-        TextButton play = new TextButton("Play", parent.skin);
-        play.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.level);
-            }
-        });
-        t.add(play).top().size(100, 25).spaceBottom(space);
         t.row();
 
         TextButton resume = new TextButton("Resume", parent.skin);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                parent.setScreen(parent.game);
-                SaveManager.load();
                 parent.setScreen(parent.game);
             }
         });
         t.add(resume).top().size(100, 25).spaceBottom(space);
+        t.row();
+
+        TextButton save = new TextButton("Save", parent.skin);
+        save.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                SaveManager.save();
+//                SaveManager.test();
+                System.out.println("Saved!");
+            }
+        });
+        t.add(save).top().size(100, 25).spaceBottom(space);
         t.row();
 
         TextButton quit = new TextButton("Quit", parent.skin);

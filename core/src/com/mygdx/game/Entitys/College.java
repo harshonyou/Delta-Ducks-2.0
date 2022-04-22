@@ -17,6 +17,7 @@ public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
 
+    public Faction f;
     public College() {
         super();
         buildings = new ArrayList<>();
@@ -36,7 +37,7 @@ public class College extends Entity {
      */
     public College(int factionId) {
         this();
-        Faction f = GameManager.getFaction(factionId);
+        f = GameManager.getFaction(factionId);
         Transform t = getComponent(Transform.class);
         t.setPosition(f.getPosition());
         Pirate p = getComponent(Pirate.class);
@@ -94,6 +95,29 @@ public class College extends Entity {
         }
         if (!res) {
             getComponent(Pirate.class).kill();
+        }
+    }
+
+    public boolean aliveTest() {
+        boolean res = false;
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            Building b = buildings.get(i);
+            if (b.isAlive()) {
+                res = true;
+            }
+        }
+        if (!res) {
+            return false;
+        }
+        return true;
+    }
+
+    public void destroy() {
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            Building b = buildings.get(i);
+            if (b.isAlive()) {
+                b.destroy();
+            }
         }
     }
 
