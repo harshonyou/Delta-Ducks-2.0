@@ -32,6 +32,7 @@ public class Player extends Ship {
 
         addComponents(healthBar);
         healthBar.show();
+        healthBar.setDisplacement(0, -5);
     }
 
     @Override
@@ -41,20 +42,21 @@ public class Player extends Ship {
             healthBar.hide();
         } else {
             if (getHealth() > 80f)
-                healthBar.setColor(Color.valueOf("58BA49"));
+                healthBar.setColor(Color.valueOf("26ff05"));
             else if (getHealth() > 70f)
-                healthBar.setColor(Color.valueOf("92C83E"));
+                healthBar.setColor(Color.valueOf("8ee600"));
             else if (getHealth() > 60f)
-                healthBar.setColor(Color.valueOf("E9D93B"));
+                healthBar.setColor(Color.valueOf("dbc500"));
             else if (getHealth() > 50f)
-                healthBar.setColor(Color.valueOf("EF9D2F"));
+                healthBar.setColor(Color.valueOf("ffa024"));
             else if (getHealth() > 40f)
-                healthBar.setColor(Color.valueOf("F24824"));
+                healthBar.setColor(Color.valueOf("ff401a"));
             else if (getHealth() > 30f)
-                healthBar.setColor(Color.valueOf("D72531"));
+                healthBar.setColor(Color.valueOf("fa0011"));
             else
-                healthBar.setColor(Color.valueOf("7A1115"));
-            healthBar.setSize(3*(getHealth()/10), 1);
+                healthBar.setColor(Color.valueOf("cc0007"));
+            healthBar.setSize(3*(getHealth()/10), 2);
+            healthBar.setDisplacement(15 - (3*(getHealth()/10))/2, 35);
         }
     }
 

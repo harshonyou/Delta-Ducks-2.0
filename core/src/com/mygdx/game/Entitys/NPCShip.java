@@ -67,6 +67,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
         addComponents(healthBar);
         healthBar.show();
+        healthBar.setDisplacement(-3, 0);
 
         freezeTimer = 0;
 
@@ -95,13 +96,21 @@ public class NPCShip extends Ship implements CollisionCallBack {
             removeOnDeath();
             healthBar.hide();
         } else {
-            if (getHealth() > 60f)
-                healthBar.setColor(Color.GREEN);
+            if (getHealth() > 80f)
+                healthBar.setColor(Color.valueOf("26ff05"));
+            else if (getHealth() > 70f)
+                healthBar.setColor(Color.valueOf("8ee600"));
+            else if (getHealth() > 60f)
+                healthBar.setColor(Color.valueOf("dbc500"));
+            else if (getHealth() > 50f)
+                healthBar.setColor(Color.valueOf("ffa024"));
             else if (getHealth() > 40f)
-                healthBar.setColor(Color.ORANGE);
+                healthBar.setColor(Color.valueOf("ff401a"));
+            else if (getHealth() > 30f)
+                healthBar.setColor(Color.valueOf("fa0011"));
             else
-                healthBar.setColor(Color.RED);
-            healthBar.setSize(1, 3*(getHealth()/10));
+                healthBar.setColor(Color.valueOf("cc0007"));
+            healthBar.setSize(2, 3*(getHealth()/10));
         }
         if (getComponent(Pirate.class).canAttack()) {
             if (freezeTimer >= FREEZE_TIME) {

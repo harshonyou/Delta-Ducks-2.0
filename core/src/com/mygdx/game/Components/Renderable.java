@@ -14,6 +14,8 @@ import com.mygdx.game.Managers.ResourceManager;
 public class Renderable extends Component {
     protected Sprite sprite;
     private boolean isVisible;
+    private float displacementX;
+    private float displacementY;
 
     /**
      * Called in other constructors, loads no textures by itself.
@@ -24,6 +26,8 @@ public class Renderable extends Component {
         type = ComponentType.Renderable;
         sprite = new Sprite();
         RenderingManager.addItem(this, RenderLayer.Transparent);
+
+        displacementX = displacementY = 0f;
     }
 
     /**
@@ -67,7 +71,7 @@ public class Renderable extends Component {
         Vector2 p = c.getPosition();
         Vector2 s = c.getScale();
 
-        sprite.setPosition(p.x, p.y);
+        sprite.setPosition(p.x + displacementX, p.y + displacementY);
         sprite.setRotation(MathUtils.radiansToDegrees * c.getRotation());
         sprite.setScale(s.x, s.y);
     }
@@ -130,5 +134,10 @@ public class Renderable extends Component {
 
     public void setSize(float width, float height) {
         sprite.setSize(width, height);
+    }
+
+    public void setDisplacement(float x, float y) {
+        displacementX = x;
+        displacementY = y;
     }
 }
