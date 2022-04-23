@@ -1,5 +1,6 @@
 package com.mygdx.game.Components;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
@@ -18,7 +19,7 @@ import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
 public class PlayerController extends Component {
     private Player player;
     private float speed;
-    private static float FREEZE_TIME = .3f;
+    private static float FREEZE_TIME = GameManager.getSettings().get("starting").getFloat("cannonTimeout");
     private float freezeTimer;
 
     public PlayerController() {

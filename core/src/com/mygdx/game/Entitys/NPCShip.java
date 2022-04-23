@@ -30,7 +30,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     private Renderable healthBar;
 
-    private static float FREEZE_TIME = .5f;
+    private static float FREEZE_TIME = GameManager.getSettings().get("AI").getFloat("cannonTimeout");
     private float freezeTimer;
 
 

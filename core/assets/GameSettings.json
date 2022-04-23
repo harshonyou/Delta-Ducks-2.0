@@ -7,13 +7,15 @@
     "cannonSpeed": 10000.0,
     "argoRange_tiles": 9.0,
     "attackRange_tiles": 4.0,
-    "ammo": 50
+    "ammo": 50,
+    "cannonTimeout": 0.3
   },
   "AI": {
     "maxSpeed": 500.0,
     "accelerationTime": 0.01,
     "arrivalTolerance": 32.0,
-    "slowRadius": 64.0
+    "slowRadius": 64.0,
+    "cannonTimeout": 0.5
   },
   "factions": [
     {
