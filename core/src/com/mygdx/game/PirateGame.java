@@ -33,6 +33,7 @@ public class PirateGame extends Game {
         int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
         int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
         int enhancement_id = ResourceManager.addTextureAtlas("UISkin/enhancement.atlas");
+        int button_id = ResourceManager.addTextureAtlas("UISkin/buttons.atlas");
         int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
         ResourceManager.addTexture("menuBG.jpg");
         ResourceManager.addTexture("Chest.png");

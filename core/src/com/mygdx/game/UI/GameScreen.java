@@ -24,6 +24,7 @@ public class GameScreen extends Page {
     private final Label questDesc;
     private final Label questName;
     private int enhancement_id;
+    private int button_id;
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -52,11 +53,14 @@ public class GameScreen extends Page {
         GameManager.SpawnGame(id_map);
         //QuestManager.addQuest(new KillQuest(c));
         enhancement_id = ResourceManager.getId("UISkin/enhancement.atlas");
+        button_id = ResourceManager.getId("UISkin/buttons.atlas");
 
 
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 
         Window questWindow = new Window("Current Quest", parent.skin);
+
+        questWindow.getTitleLabel().setAlignment(3);
 
         Quest q = QuestManager.currentQuest();
         Table t = new Table();
@@ -81,6 +85,10 @@ public class GameScreen extends Page {
         actors.add(t1);
 
         Window tutWindow = new Window("Controls", parent.skin);
+
+        tutWindow.getTitleLabel().setAlignment(3);
+
+
         Table table = new Table();
         tutWindow.add(table);
         t1.add(tutWindow);
@@ -99,16 +107,47 @@ public class GameScreen extends Page {
         table.add(new Image(parent.skin, "space"));
         table.row();
         table.add(new Label("Pause", parent.skin)).left();
-        table.add(new Image(parent.skin, "key-esc"));
+        table.add(new Image(ResourceManager.getSprite(button_id, "keyboard_162.png")));
 
+        EnhancementManager.Initialise();
 
         Window enhWindow = new Window("Enhancements", parent.skin);
+
+        enhWindow.getTitleLabel().setAlignment(3);
+
         Table enhTable = new Table();
         enhWindow.add(enhTable);
 
-        enhTable.add(new Label("Move with", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_06.png")));
+//        enhTable.add(new Label("Press 1", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_1.png")));
+        enhTable.add(new Label("Health", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).padLeft(10f);
+        enhTable.row();
 
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_2.png")));
+        enhTable.add(new Label("Speed", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_10.png"))).padLeft(10f);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png")));
+        enhTable.add(new Label("Teleport", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).padLeft(10f);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_4.png")));
+        enhTable.add(new Label("Armor", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_40.png"))).padLeft(10f);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_5.png")));
+        enhTable.add(new Label("Immunity", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_30.png"))).padLeft(10f);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png")));
+        enhTable.add(new Label("Bullet Speed", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).padLeft(10f);
+        enhTable.row();
 
         Table t2 = new Table();
         t2.bottom().right();
@@ -219,6 +258,7 @@ public class GameScreen extends Page {
             showTimer = 0;
             questComplete.setText("");
         }*/
+        EnhancementManager.update();
     }
 
     /**
