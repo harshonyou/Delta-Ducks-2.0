@@ -16,6 +16,7 @@ public class Pirate extends Component {
     protected boolean isAlive;
     private int health;
     private int ammo;
+    private int armor;
     private final int attackDmg;
 
     /**
@@ -32,6 +33,7 @@ public class Pirate extends Component {
         isAlive = true;
         JsonValue starting = GameManager.getSettings().get("starting");
         health = starting.getInt("health");
+        armor = 0;
         attackDmg = starting.getInt("damage");
         ammo = starting.getInt("ammo");
     }
@@ -61,7 +63,16 @@ public class Pirate extends Component {
     }
 
     public void takeDamage(float dmg) {
-        health -= dmg;
+        if(armor<=0) {
+            health -= dmg;
+        } else {
+            if(armor-dmg*1.5 <= 0) {
+                health -= armor-dmg*1.5;
+                armor = 0;
+            } else {
+                armor -= dmg*1.5;
+            }
+        }
         if (health <= 0) {
             health = 0;
             isAlive = false;
@@ -96,6 +107,14 @@ public class Pirate extends Component {
 
     public void setHealth(int h) {
         health = h;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int a) {
+        armor = a;
     }
 
     /**

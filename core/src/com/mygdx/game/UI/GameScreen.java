@@ -19,6 +19,7 @@ import static com.mygdx.utils.Constants.*;
 
 public class GameScreen extends Page {
     private Label healthLabel;
+    private Label armorLabel;
     private Label dosh;
     private Label ammo;
     private final Label questDesc;
@@ -235,6 +236,7 @@ public class GameScreen extends Page {
         }
 
         healthLabel.setText(String.valueOf(p.getHealth()));
+        armorLabel.setText(String.valueOf(p.getArmor()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));
         if (!QuestManager.anyQuests()) {
@@ -272,20 +274,27 @@ public class GameScreen extends Page {
         table.setFillParent(true);
         actors.add(table);
 
-        table.add(new Image(parent.skin.getDrawable("heart"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("HeatFull.png")))).top().left().size(1.25f * TILE_SIZE);
         healthLabel = new Label("N/A", parent.skin);
         table.add(healthLabel).top().left().size(50);
 
         table.row();
+
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Shield.png")))).top().left().size(1.25f * TILE_SIZE);
+        armorLabel = new Label("N/A", parent.skin);
+        table.add(armorLabel).top().left().size(50);
+
+        table.row();
+
         table.setDebug(false);
 
-        table.add(new Image(parent.skin.getDrawable("coin"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).top().left().size(1.25f * TILE_SIZE);
         dosh = new Label("N/A", parent.skin);
         table.add(dosh).top().left().size(50);
 
         table.row();
 
-        table.add(new Image(parent.skin.getDrawable("ball"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Arrow.png")))).top().left().size(1.25f * TILE_SIZE);
         ammo = new Label("N/A", parent.skin);
         table.add(ammo).top().left().size(50);
 

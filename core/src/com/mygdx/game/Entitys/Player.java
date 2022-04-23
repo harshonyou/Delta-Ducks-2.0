@@ -14,6 +14,7 @@ import com.mygdx.game.Managers.ResourceManager;
 public class Player extends Ship {
 
     private Renderable healthBar;
+    private Renderable armorBar;
 
     /**
      * Adds ship with PlayerController component and sets its speed.
@@ -29,10 +30,17 @@ public class Player extends Ship {
         setName("Player");
 
         healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
+        armorBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
 
         addComponents(healthBar);
+        addComponents(armorBar);
+
         healthBar.show();
-        healthBar.setDisplacement(0, -5);
+        armorBar.show();
+
+        healthBar.setDisplacement(0, -15);
+        armorBar.setDisplacement(0, -5);
+        armorBar.setColor(Color.DARK_GRAY);
     }
 
     @Override
@@ -57,6 +65,9 @@ public class Player extends Ship {
                 healthBar.setColor(Color.valueOf("cc0007"));
             healthBar.setSize(3*(getHealth()/10), 2);
             healthBar.setDisplacement(15 - (3*(getHealth()/10))/2, 35);
+
+            armorBar.setSize(3*(getArmor()/10), 2);
+            armorBar.setDisplacement(15 - (3*(getArmor()/10))/2, 38);
         }
     }
 

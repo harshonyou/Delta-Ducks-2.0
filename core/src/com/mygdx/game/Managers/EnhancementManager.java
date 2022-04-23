@@ -20,7 +20,7 @@ public final class EnhancementManager {
 
     private static Vector2 teleport;
 
-    private int armor;
+    private static int armor;
 
     private static float immunityCounter;
     public static float IMMUNITY_MAX_TIMER = .5f;
@@ -36,6 +36,7 @@ public final class EnhancementManager {
 
         health = 0;
         speed = 0;
+        armor = 0;
         defaultSpeed = (int) GameManager.getPlayer().getPlayerSpeed();
         teleport = new Vector2(0, 0);
         immunityCounter = 0f;
@@ -103,10 +104,18 @@ public final class EnhancementManager {
         }
     }
 
+    public static void setArmor(int a) {
+        armor = a;
+    }
+
     public static void armorHandler() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
             System.out.println("Armor!");
-
+            if(GameManager.getPlayer().getArmor() + armor > 100) {
+                GameManager.getPlayer().setArmor(100);
+            } else {
+                GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() + armor);
+            }
         }
     }
 

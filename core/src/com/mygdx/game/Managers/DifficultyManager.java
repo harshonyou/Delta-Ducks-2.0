@@ -45,7 +45,7 @@ public class DifficultyManager {
 
         EnhancementManager.setHealth(30);
         EnhancementManager.setSpeed(80, 5000, 3f);
-
+        EnhancementManager.setArmor(30);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -68,6 +68,7 @@ public class DifficultyManager {
 
         EnhancementManager.setHealth(20);
         EnhancementManager.setSpeed(75, 3000, 2f);
+        EnhancementManager.setArmor(20);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -90,7 +91,7 @@ public class DifficultyManager {
 
         EnhancementManager.setHealth(10);
         EnhancementManager.setSpeed(60, 1000, 2f);
-
+        EnhancementManager.setArmor(10);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
