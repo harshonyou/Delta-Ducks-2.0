@@ -26,6 +26,10 @@ public class CannonBall extends Entity implements CollisionCallBack {
     private float age;
     private Ship shooter;
 
+    private static float playerSpeed;
+    private static float npcSpeed;
+
+
     public CannonBall() {
         super(3);
         setName("ball");
@@ -42,6 +46,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
         speed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
         r.hide();
         age = 0;
+        playerSpeed = npcSpeed = speed;
     }
 
     @Override
@@ -82,7 +87,12 @@ public class CannonBall extends Entity implements CollisionCallBack {
 
         RigidBody rb = getComponent(RigidBody.class);
         rb.setPosition(pos.add(15,15));
-        Vector2 v = dir.cpy().scl(speed * EntityManager.getDeltaTime());
+        Vector2 v;
+        if(sender.getFaction() == GameManager.getPlayer().getFaction()) {
+            v = dir.cpy().scl(sender.getBulletSpeed() * EntityManager.getDeltaTime());
+        } else {
+            v = dir.cpy().scl(npcSpeed * EntityManager.getDeltaTime());
+        }
 //        rb.setVelocity(v.sub(15,15).add(sender.getVelocity().scl(1, -1).scl(100)));
         rb.setVelocity(v.sub(15,15));
 

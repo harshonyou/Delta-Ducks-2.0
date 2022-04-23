@@ -33,6 +33,9 @@ public class NPCShip extends Ship implements CollisionCallBack {
     private static float FREEZE_TIME = GameManager.getSettings().get("AI").getFloat("cannonTimeout");
     private float freezeTimer;
 
+    private float damageDelt;
+
+//    private float bulletSpeed;
 
     /**
      * Creates an initial state machine
@@ -66,6 +69,9 @@ public class NPCShip extends Ship implements CollisionCallBack {
         healthBar.show();
 
         freezeTimer = 0;
+
+        damageDelt = 20f;
+//        bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
     }
 
     /**
@@ -151,6 +157,14 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     }
 
+    public void setDamageDelt(float dmgDlt) {
+        damageDelt = dmgDlt;
+    }
+
+//    public float getBulletSpeed() {
+//        return bulletSpeed;
+//    }
+
     @Override
     public void BeginContact(CollisionInfo info) {
 
@@ -180,7 +194,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         }
         if (info.a instanceof CannonBall) {
             if (((CannonBall) info.a).getShooter().getFaction() != super.getFaction()) {
-                getComponent(Pirate.class).takeDamage(20f);
+                getComponent(Pirate.class).takeDamage(damageDelt);
                 ((CannonBall) info.a).kill();
             }
         }

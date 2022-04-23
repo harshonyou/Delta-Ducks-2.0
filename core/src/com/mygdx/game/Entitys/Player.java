@@ -73,5 +73,9 @@ public class Player extends Ship {
     public int getAmmo() {
         return getComponent(Pirate.class).getAmmo();
     }
+
+    public void setPlayerSpeed(float s) {
+        getComponent(PlayerController.class).setPlayerSpeed(s);
+    }
     
 }

@@ -27,6 +27,10 @@ public class Ship extends Entity implements CollisionCallBack {
 
     private final Vector2 currentDir;
 
+    private float damageDelt;
+
+    private float bulletSpeed;
+
     /**
      * Creates a ship entity, containing Transform, Renderable, RigidBody, and Pirate components.
      */
@@ -58,6 +62,9 @@ public class Ship extends Entity implements CollisionCallBack {
         // rb.setCallback(this);
 
         addComponents(t, r, rb, p);
+
+        damageDelt = 10f;
+        bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
     }
 
     public boolean isAlive() {
@@ -163,6 +170,18 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).setAmmo(a);
     }
 
+    public void setDamageDelt(float dmgDlt) {
+        damageDelt = dmgDlt;
+    }
+
+    public float getBulletSpeed() {
+        return bulletSpeed;
+    }
+
+    public void setBulletSpeed(float bSpeed) {
+        bulletSpeed = bSpeed;
+    }
+
     public void shoot(Vector2 dir) {
         getComponent(Pirate.class).shoot(dir);
     }
@@ -206,7 +225,7 @@ public class Ship extends Entity implements CollisionCallBack {
         }
         if (info.a instanceof CannonBall) {
             if (((CannonBall) info.a).getShooter().getFaction() != getFaction()) {
-                getComponent(Pirate.class).takeDamage(10f);
+                getComponent(Pirate.class).takeDamage(damageDelt);
                 ((CannonBall) info.a).kill();
             }
         }

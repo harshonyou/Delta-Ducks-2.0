@@ -105,4 +105,8 @@ public class PlayerController extends Component {
         }
         return dir;
     }
+
+    public void setPlayerSpeed(float s) {
+        speed = s;
+    }
 }

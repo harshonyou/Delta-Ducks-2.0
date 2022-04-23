@@ -31,6 +31,9 @@ public class SaveManager {
 //        System.out.println(GameManager.getPlayer().getFactonId());
 
 //        prefs.putString("Ships", ships.toString());
+
+        prefs.putString("Difficulty", DifficultyManager.getCurrentDifficulty());
+
         prefs.flush();
     }
 
@@ -53,6 +56,17 @@ public class SaveManager {
             ship.setHealth(prefs.getInteger("Ship"+acc+"h"));
             ship.setPlunder(prefs.getInteger("Ship"+acc+"p"));
             ship.setAmmo(prefs.getInteger("Ship"+acc+"a"));
+        }
+
+        switch (prefs.getString("Difficulty")) {
+            case "easy":
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
+                break;
+            case "medium":
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
+                break;
+            default:
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         }
     }
 
