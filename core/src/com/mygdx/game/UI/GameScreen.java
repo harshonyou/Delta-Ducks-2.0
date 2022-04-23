@@ -3,6 +3,7 @@ package com.mygdx.game.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -22,6 +23,7 @@ public class GameScreen extends Page {
     private Label ammo;
     private final Label questDesc;
     private final Label questName;
+    private int enhancement_id;
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -49,6 +51,8 @@ public class GameScreen extends Page {
 
         GameManager.SpawnGame(id_map);
         //QuestManager.addQuest(new KillQuest(c));
+        enhancement_id = ResourceManager.getId("UISkin/enhancement.atlas");
+
 
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 
@@ -97,6 +101,21 @@ public class GameScreen extends Page {
         table.add(new Label("Pause", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
 
+
+        Window enhWindow = new Window("Enhancements", parent.skin);
+        Table enhTable = new Table();
+        enhWindow.add(enhTable);
+
+        enhTable.add(new Label("Move with", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_06.png")));
+
+
+        Table t2 = new Table();
+        t2.bottom().right();
+        t2.setFillParent(true);
+        actors.add(t2);
+
+        t2.add(enhWindow);
     }
 
     private float accumulator;
