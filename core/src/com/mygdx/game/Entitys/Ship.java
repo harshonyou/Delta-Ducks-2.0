@@ -152,6 +152,14 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).setHealth(h);
     }
 
+    public void setSpeed(float x, float y) {
+        getComponent(RigidBody.class).setVelocity(x, y);
+    }
+
+    public Vector2 getSpeed() {
+        return getComponent(RigidBody.class).getVelocity();
+    }
+
     public void destroy() {
         setHealth(0);
     }

@@ -11,8 +11,12 @@ import java.util.ArrayList;
 public final class EnhancementManager {
     public static boolean initialised = false;
 
-    private int health;
-    private int speed;
+    private static int health;
+
+    private static int speed;
+    private static int defaultSpeed;
+    private static float speedTimer;
+    public static float SPEED_MAX_TIMER;
 
     private static Vector2 teleport;
 
@@ -29,9 +33,14 @@ public final class EnhancementManager {
             return;
         }
         initialised = true;
+
+        health = 0;
+        speed = 0;
+        defaultSpeed = (int) GameManager.getPlayer().getPlayerSpeed();
         teleport = new Vector2(0, 0);
         immunityCounter = 0f;
         bulletspeedCounter = 0f;
+        SPEED_MAX_TIMER = 2.5f;
     }
 
     public static void update() {
@@ -48,20 +57,43 @@ public final class EnhancementManager {
     public static void deltaTimeHandler() {
         immunityCounter += EntityManager.getDeltaTime();
         bulletspeedCounter += EntityManager.getDeltaTime();
+        speedTimer += EntityManager.getDeltaTime();
+    }
+
+    public static void setHealth(int h) {
+        health = h;
     }
 
     public static void healthHandler() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
             System.out.println("Health!");
 
+            if(GameManager.getPlayer().getHealth() + health > 100) {
+                GameManager.getPlayer().setHealth(100);
+            } else {
+                GameManager.getPlayer().setHealth(GameManager.getPlayer().getHealth() + health);
+            }
         }
     }
 
-    public static void speedHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
-            System.out.println("Speed!");
+    public static void setSpeed(int d, int s, float t) {
+        defaultSpeed = d;
+        speed = s;
+        SPEED_MAX_TIMER = t;
+    }
 
+    public static void speedHandler() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            System.out.println("Speed!");
+            speedTimer = 0;
+            GameManager.getPlayer().setPlayerSpeed(speed);
         }
+
+        if(speedTimer >= SPEED_MAX_TIMER) {
+            speedTimer = 0;
+            GameManager.getPlayer().setPlayerSpeed(defaultSpeed);
+        }
+
     }
 
     public static void teleportHandler() {

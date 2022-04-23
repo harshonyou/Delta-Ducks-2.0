@@ -79,5 +79,9 @@ public class Player extends Ship {
     public void setPlayerSpeed(float s) {
         getComponent(PlayerController.class).setPlayerSpeed(s);
     }
+
+    public float getPlayerSpeed() {
+        return getComponent(PlayerController.class).getPlayerSpeed();
+    }
     
 }

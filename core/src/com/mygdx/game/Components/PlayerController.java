@@ -46,7 +46,7 @@ public class PlayerController extends Component {
     public void update() {
         freezeTimer += EntityManager.getDeltaTime();
         super.update();
-        final float s = speed;
+        float s = speed;
 
         Vector2 dir = getDirFromWASDInput();
         ((Ship) parent).setShipDirection(dir);
@@ -78,6 +78,7 @@ public class PlayerController extends Component {
             // unit dir to fire
             ((Ship) parent).shoot();
         }
+
     }
 
     /**
@@ -108,5 +109,9 @@ public class PlayerController extends Component {
 
     public void setPlayerSpeed(float s) {
         speed = s;
+    }
+
+    public float getPlayerSpeed() {
+        return speed;
     }
 }
