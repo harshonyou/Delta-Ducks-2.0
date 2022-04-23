@@ -19,10 +19,10 @@ public final class EnhancementManager {
     private int armor;
 
     private static float immunityCounter;
-    private static float IMMUNITY_MAX_TIMER = .5f;
+    public static float IMMUNITY_MAX_TIMER = .5f;
 
     private static float bulletspeedCounter;
-    private static float BULLET_SPEED_TIMER = .5f;
+    public static float BULLET_SPEED_TIMER = .5f;
 
     public static void Initialise() {
         if (initialised) {

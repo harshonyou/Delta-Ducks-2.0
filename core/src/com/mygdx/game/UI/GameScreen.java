@@ -155,6 +155,8 @@ public class GameScreen extends Page {
         actors.add(t2);
 
         t2.add(enhWindow);
+
+//        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
     }
 
     private float accumulator;

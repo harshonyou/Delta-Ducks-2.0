@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Managers.DifficultyManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PirateGame;
 
@@ -39,6 +40,7 @@ public class LevelScreen extends Page {
         easy.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
                 parent.setScreen(parent.game);
             }
         });
@@ -49,6 +51,7 @@ public class LevelScreen extends Page {
         medium.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
                 parent.setScreen(parent.game);
             }
         });
@@ -59,6 +62,7 @@ public class LevelScreen extends Page {
         hard.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
                 parent.setScreen(parent.game);
             }
         });
