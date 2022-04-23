@@ -182,6 +182,10 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Transform.class).setPosition(pos);
     }
 
+    public Vector2 getVelocity() {
+        return getComponent(Transform.class).getVelocity();
+    }
+
     @Override
     public void BeginContact(CollisionInfo info) {
 

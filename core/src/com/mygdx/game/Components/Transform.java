@@ -96,6 +96,11 @@ public class Transform extends Component implements Location<Vector2> {
         return position;
     }
 
+    public Vector2 getVelocity() {
+        RigidBody rb = parent.getComponent(RigidBody.class);
+        return rb.getVelocity();
+    }
+
     /**
      * returns the box2d position of the parent or the transform pos if no rigidbody found
      *

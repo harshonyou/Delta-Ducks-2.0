@@ -22,8 +22,8 @@ import static com.mygdx.utils.Constants.TILE_SIZE;
 public class CannonBall extends Entity implements CollisionCallBack {
     private static float speed;
     private boolean toggleLife;
-    private static final int MAX_AGE = 25;
-     private float age = 0;
+    private static final float MAX_AGE = 5f;
+    private float age;
     private Ship shooter;
 
     public CannonBall() {
@@ -41,10 +41,12 @@ public class CannonBall extends Entity implements CollisionCallBack {
 
         speed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
         r.hide();
+        age = 0;
     }
 
     @Override
     public void update() {
+        age += EntityManager.getDeltaTime();
         super.update();
         removeOnCollision();
     }
@@ -56,20 +58,17 @@ public class CannonBall extends Entity implements CollisionCallBack {
         if (toggleLife) {
             getComponent(Renderable.class).hide();
             Transform t = getComponent(Transform.class);
-            t.setPosition(10000, 10000);
+            t.setPosition(-50, -50);
 
             RigidBody rb = getComponent(RigidBody.class);
             rb.setPosition(t.getPosition());
             rb.setVelocity(0, 0);
             toggleLife = false;
         }
-        else{
-            age += EntityManager.getDeltaTime();
-        }
-        if(age > MAX_AGE) {
-            age = 0;
-            kill();
-        }
+//        if(age >= MAX_AGE) {
+//            age = 0;
+//            this.kill();
+//        }
     }
 
     /**
@@ -80,16 +79,14 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * @param sender ship entity firing it
      */
     public void fire(Vector2 pos, Vector2 dir, Ship sender) {
-        Transform t = getComponent(Transform.class);
-        t.setPosition(pos);
 
         RigidBody rb = getComponent(RigidBody.class);
-        Vector2 ta = dir.cpy().scl(speed * EntityManager.getDeltaTime());
-        Vector2 o = new Vector2(TILE_SIZE * t.getScale().x, TILE_SIZE * t.getScale().y);
-        Vector2 v = ta.cpy().sub(o);
+        rb.setPosition(pos.add(15,15));
+        Vector2 v = dir.cpy().scl(speed * EntityManager.getDeltaTime());
+//        rb.setVelocity(v.sub(15,15).add(sender.getVelocity().scl(1, -1).scl(100)));
+        rb.setVelocity(v.sub(15,15));
 
-        rb.setVelocity(v);
-
+//        System.out.println(sender.getVelocity());
         getComponent(Renderable.class).show();
         shooter = sender;
     }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.AI.EnemyState;
 import com.mygdx.game.Components.*;
+import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -28,6 +29,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
     private long shootTime;
 
     private Renderable healthBar;
+
+    private static float FREEZE_TIME = .5f;
+    private float freezeTimer;
+
 
     /**
      * Creates an initial state machine
@@ -59,6 +64,8 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
         addComponents(healthBar);
         healthBar.show();
+
+        freezeTimer = 0;
     }
 
     /**
@@ -75,6 +82,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void update() {
+        freezeTimer += EntityManager.getDeltaTime();
         super.update();
 
         if (getHealth() <= 0) {
@@ -90,9 +98,9 @@ public class NPCShip extends Ship implements CollisionCallBack {
             healthBar.setSize(1, 3*(getHealth()/10));
         }
         if (getComponent(Pirate.class).canAttack()) {
-            if (System.nanoTime() - shootTime > 1000000000) {
+            if (freezeTimer >= FREEZE_TIME) {
+                freezeTimer = 0;
                 super.shoot(getComponent(Pirate.class).targetPos());
-                shootTime = System.nanoTime();
             }
         }
         stateMachine.update();

@@ -116,6 +116,10 @@ public class Renderable extends Component {
         isVisible = false;
     }
 
+    public void dispose() {
+
+    }
+
     public void toggleVisibility() {
         isVisible = !isVisible;
     }
