@@ -49,7 +49,8 @@ public class PlayerController extends Component {
         float s = speed;
 
         Vector2 dir = getDirFromWASDInput();
-        ((Ship) parent).setShipDirection(dir);
+//        ((Ship) parent).setShipDirection(dir);
+        player.updatePlayerDirection(dir);
         dir.scl(s);
 
         RigidBody rb = parent.getComponent(RigidBody.class);

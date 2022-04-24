@@ -1,13 +1,17 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Faction;
+import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -30,6 +34,10 @@ public class Ship extends Entity implements CollisionCallBack {
     private float damageDelt;
 
     private float bulletSpeed;
+
+
+
+
 
     /**
      * Creates a ship entity, containing Transform, Renderable, RigidBody, and Pirate components.
@@ -65,6 +73,7 @@ public class Ship extends Entity implements CollisionCallBack {
 
         damageDelt = 10f;
         bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
+
     }
 
     public boolean isAlive() {
@@ -99,7 +108,7 @@ public class Ship extends Entity implements CollisionCallBack {
      * @param dir the vector dir the ship is facing
      * @return the string representation of the direction
      */
-    private String getShipDirection(Vector2 dir) {
+    public String getShipDirection(Vector2 dir) {
         if (!currentDir.equals(dir) && shipDirections.containsKey(dir)) {
             currentDir.set(dir);
             return shipDirections.get(dir);
@@ -135,8 +144,16 @@ public class Ship extends Entity implements CollisionCallBack {
             return;
         }
         Renderable r = getComponent(Renderable.class);
-        Sprite s = ResourceManager.getSprite(3, getColour() + direction);
 
+        Sprite s = ResourceManager.getSprite(3, getColour() + direction);
+//        if(getFaction().id == 1) {
+//            System.out.println("XD");
+//            s = ResourceManager.getSprite(3, getColour() + "-up");
+//            s = new Sprite(getFrame(EntityManager.getDeltaTime(), direction));
+//            s.scale(2f);
+//        } else {
+//            s = ResourceManager.getSprite(3, getColour() + direction);
+//        }
         try {
             r.setTexture(s);
         } catch (Exception ignored) {
@@ -256,4 +273,25 @@ public class Ship extends Entity implements CollisionCallBack {
             ((CollisionCallBack) info.b).ExitTrigger(info);
         }
     }
+
+//    private Animation<TextureRegion>[] rolls;
+//    private Animation<TextureRegion>[] idleRolls;
+//
+//    int roll;
+//    float rollVerticalTimer;
+//    float rollHorizontalTimer;
+//    float stateTime;
+//
+//    private Animation <TextureRegion> shipMove;
+//
+//    private final int PIXEL_SHIP_WIDTH = 1280;
+//    private final int PIXEL_SHIP_HEIGHT = 1280;
+//
+//    private final float SHIP_FRAME_DURATION = 0.5f;
+
+
+
+
+
+
 }
