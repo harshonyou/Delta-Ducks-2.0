@@ -37,10 +37,6 @@ public final class EnhancementManager {
     private static float immunityTax;
     private static float bulletspeedTax;
 
-    private static float timeCounter;
-    private static float maxTime;
-    public static String message;
-
     public static void Initialise() {
         if (initialised) {
             return;
@@ -65,10 +61,6 @@ public final class EnhancementManager {
         immunityCounter = 0f;
         bulletspeedCounter = 0f;
         SPEED_MAX_TIMER = 2.5f;
-
-        timeCounter = 0f;
-        maxTime = 2f;
-        message = "";
     }
 
     public static void update() {
@@ -82,15 +74,12 @@ public final class EnhancementManager {
             immunityHandler();
             bulletSpeedHandler();
         }
-        displayHandler();
     }
 
     public static void deltaTimeHandler() {
         immunityCounter += EntityManager.getDeltaTime();
         bulletspeedCounter += EntityManager.getDeltaTime();
         speedTimer += EntityManager.getDeltaTime();
-
-        timeCounter += EntityManager.getDeltaTime();
     }
 
     public static void setUnitPrice(float p) {
@@ -180,16 +169,16 @@ public final class EnhancementManager {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
             System.out.println("Health!");
             if (GameManager.getPlayer().getHealth() >= 100) {
-                EnhancementManager.setDisplay("You already have got full health.");
+                CaptionManager.setDisplay("You already have got full health.");
             } else if (!getValidation(enhancement.HEALTH)) {
-                EnhancementManager.setDisplay("You have not got sufficient plunder to buy health.");
+                CaptionManager.setDisplay("You have not got sufficient plunder to buy health.");
             } else if(GameManager.getPlayer().getHealth() + health > 100) {
                 taxation(getTaxation(enhancement.HEALTH));
-                EnhancementManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getHealth()) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
+                CaptionManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getHealth()) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
                 GameManager.getPlayer().setHealth(100);
             } else {
                 taxation(getTaxation(enhancement.HEALTH));
-                EnhancementManager.setDisplay("You have gained " + (health) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
+                CaptionManager.setDisplay("You have gained " + (health) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
                 GameManager.getPlayer().setHealth(GameManager.getPlayer().getHealth() + health);
             }
         }
@@ -270,25 +259,4 @@ public final class EnhancementManager {
         }
     }
 
-    public static void displayHandler() {
-        if(timeCounter > maxTime) {
-            timeCounter = 0;
-            message = "";
-        }
-//            private static float timeCounter;
-//        private static float maxTime;
-    }
-
-    public static void setMaxTime(float mT) {
-        maxTime = mT;
-    }
-
-    public static String getdisplay() {
-        return message;
-    }
-
-    public static void setDisplay(String s) {
-        message = s;
-        timeCounter = 0;
-    }
 }

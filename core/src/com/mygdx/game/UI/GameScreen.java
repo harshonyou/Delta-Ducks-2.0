@@ -226,6 +226,8 @@ public class GameScreen extends Page {
 
 //        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
 
+        CaptionManager.Initialise();
+
         caption = new Table();
         cc = new Label("", parent.skin);
 //        cc.setSize(50,50);
@@ -360,7 +362,7 @@ public class GameScreen extends Page {
             }
         }
 
-        cc.setText(EnhancementManager.getdisplay());
+        cc.setText(CaptionManager.getdisplay());
 //        cc.setText("Hey");
 
         minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
