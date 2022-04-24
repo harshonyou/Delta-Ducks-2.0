@@ -44,6 +44,7 @@ public class GameScreen extends Page {
     private Pixmap pixmap;
     private float ratio = .045f;
     private Window minimapWindow;
+    private Table minimapTable;
 
     /*private final Label questComplete;
     private float showTimer = 0;
@@ -104,7 +105,13 @@ public class GameScreen extends Page {
         minimapWindow = new Window("Minimap", parent.skin);
         minimapWindow.getTitleLabel().setAlignment(3);
 
-        actors.add(minimapWindow);
+        minimapTable = new Table();
+
+        minimapTable.setFillParent(true);
+        actors.add(minimapTable);
+        minimapTable.bottom().left();
+
+//        actors.add(minimapWindow);
 
         Table t1 = new Table();
         t1.top().right();
@@ -204,6 +211,10 @@ public class GameScreen extends Page {
         t2.bottom().right();
         t2.setFillParent(true);
         actors.add(t2);
+//        enhTable.bottom().right();
+//        enhTable.setFillParent(true);
+//        enhTable.setColor(new Color(0.1f, 0.1f, 0.1f, .5f));
+//        actors.add(enhTable);
 
 //        enhTable.debug();
 //        enhTable.scaleBy(.5f);
@@ -289,14 +300,14 @@ public class GameScreen extends Page {
             parent.setScreen(parent.end);
         }
 
-        minimapWindow.clear();
+        minimapTable.clear();
         int width = Math.round(100 * ratio * TILE_SIZE);
         int height = Math.round(100 * ratio * TILE_SIZE);
 
 
 //        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        pixmap.setColor(new Color(0.1f, 0.1f, 0.1f, 1f));
+        pixmap.setColor(new Color(0.1f, 0.1f, 0.1f, .6f));
         pixmap.fillRectangle(0, 0, width, height);
 
 
@@ -335,7 +346,7 @@ public class GameScreen extends Page {
         }
 
 
-        minimapWindow.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
+        minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
 
         healthLabel.setText(String.valueOf(p.getHealth()));
         armorLabel.setText(String.valueOf(p.getArmor()));

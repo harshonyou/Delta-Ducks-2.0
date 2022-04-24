@@ -96,11 +96,11 @@ public class Player extends Ship {
                 healthBar.setColor(Color.valueOf("fa0011"));
             else
                 healthBar.setColor(Color.valueOf("cc0007"));
-            healthBar.setSize(3*(getHealth()/10), 2);
-            healthBar.setDisplacement(15 - (3*(getHealth()/10))/2, 35);
+            healthBar.setSize(2, 2.3f*(getHealth()/10));
+            healthBar.setDisplacement(-25, -10);
 
-            armorBar.setSize(3*(getArmor()/10), 2);
-            armorBar.setDisplacement(15 - (3*(getArmor()/10))/2, 38);
+            armorBar.setSize(2, 2.3f*(getArmor()/10));
+            armorBar.setDisplacement(-30, -10);
         }
     }
 
