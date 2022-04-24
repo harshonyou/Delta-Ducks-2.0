@@ -1,9 +1,5 @@
 package com.mygdx.game.Managers;
 
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Components.AINavigation;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Entitys.NPCShip;
 import com.mygdx.game.Entitys.Ship;
 
 public class DifficultyManager {
@@ -44,16 +40,17 @@ public class DifficultyManager {
         GameManager.getPlayer().setAmmo(100);
         GameManager.getPlayer().setBulletSpeed(30000);
 
-        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 10f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 10f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 5f);
         EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 10f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 40f);
         EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 10f);
 
         EnhancementManager.setHealth(30);
         EnhancementManager.setSpeed(80, 5000, 3f);
         EnhancementManager.setArmor(30);
+        EnhancementManager.setAmmo(20);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -75,16 +72,17 @@ public class DifficultyManager {
         GameManager.getPlayer().setAmmo(60);
         GameManager.getPlayer().setBulletSpeed(10000);
 
-        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 25f);
         EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 30f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 30f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 20f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 30f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 15f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 40f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 15f);
 
         EnhancementManager.setHealth(20);
         EnhancementManager.setSpeed(75, 3000, 2f);
         EnhancementManager.setArmor(20);
+        EnhancementManager.setAmmo(10);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -106,16 +104,17 @@ public class DifficultyManager {
         GameManager.getPlayer().setAmmo(30);
         GameManager.getPlayer().setBulletSpeed(8000);
 
-        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 50f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 30f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 20f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 15f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 20f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 5f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 40f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 15f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 35f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 20f);
 
         EnhancementManager.setHealth(10);
         EnhancementManager.setSpeed(60, 1000, 2f);
         EnhancementManager.setArmor(10);
+        EnhancementManager.setAmmo(5);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {

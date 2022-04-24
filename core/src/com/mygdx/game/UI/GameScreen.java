@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -36,7 +35,7 @@ public class GameScreen extends Page {
 
     private Label healthTax;
     private Label speedTax;
-    private Label teleportTax;
+    private Label ammoTax;
     private Label armorTax;
     private Label immunityTax;
     private Label bulletspeedTax;
@@ -45,6 +44,9 @@ public class GameScreen extends Page {
     private float ratio = .045f;
     private Window minimapWindow;
     private Table minimapTable;
+
+    private Table caption;
+    private Label cc;
 
     /*private final Label questComplete;
     private float showTimer = 0;
@@ -61,7 +63,7 @@ public class GameScreen extends Page {
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
         INIT_CONSTANTS();
-        PhysicsManager.Initialise(true); // drawing debug mode
+        PhysicsManager.Initialise(false); // drawing debug mode
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
@@ -176,10 +178,10 @@ public class GameScreen extends Page {
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png"))).size(.6f*TILE_SIZE);;
-        enhTable.add(new Label("Teleport", parent.skin)).top().left();
+        enhTable.add(new Label("Ammo", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).size(.6f * TILE_SIZE).padLeft(10f);
-        teleportTax = new Label("N/A", parent.skin);
-        enhTable.add(teleportTax).right();
+        ammoTax = new Label("N/A", parent.skin);
+        enhTable.add(ammoTax).right();
         enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
@@ -223,6 +225,19 @@ public class GameScreen extends Page {
 //        t2.scaleBy(.5f);
 
 //        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
+
+        caption = new Table();
+        cc = new Label("", parent.skin);
+//        cc.setSize(50,50);
+        cc.setColor(Color.WHITE);
+
+        caption.add(cc);
+        caption.bottom();
+//        caption.bottom().center();
+        caption.setFillParent(true);
+//        caption.debug();
+        caption.padBottom(20f);
+        actors.add(caption);
     }
 
     private float accumulator;
@@ -345,8 +360,11 @@ public class GameScreen extends Page {
             }
         }
 
+        cc.setText(EnhancementManager.getdisplay());
+//        cc.setText("Hey");
 
         minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
+
 
         healthLabel.setText(String.valueOf(p.getHealth()));
         armorLabel.setText(String.valueOf(p.getArmor()));
@@ -355,7 +373,7 @@ public class GameScreen extends Page {
 
         healthTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.HEALTH)));
         speedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.SPEED)));
-        teleportTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.TELEPORT)));
+        ammoTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.AMMO)));
         armorTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.ARMOR)));
         immunityTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.IMMUNITY)));
         bulletspeedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.BULLETSPEED)));

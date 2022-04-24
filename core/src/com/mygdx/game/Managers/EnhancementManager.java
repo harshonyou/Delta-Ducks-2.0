@@ -1,17 +1,15 @@
 package com.mygdx.game.Managers;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.ArrayList;
 
 public final class EnhancementManager {
     public static boolean initialised = false;
 
     private static int health;
+    private static int ammo;
 
     private static int speed;
     private static int defaultSpeed;
@@ -30,14 +28,18 @@ public final class EnhancementManager {
 
     private static float unitPrice;
 
-    public enum enhancement {HEALTH, SPEED, TELEPORT, ARMOR, IMMUNITY, BULLETSPEED};
+    public enum enhancement {HEALTH, SPEED, AMMO, ARMOR, IMMUNITY, BULLETSPEED};
 
     private static float healthTax;
     private static float speedTax;
-    private static float teleportTax;
+    private static float ammoTax;
     private static float armorTax;
     private static float immunityTax;
     private static float bulletspeedTax;
+
+    private static float timeCounter;
+    private static float maxTime;
+    public static String message;
 
     public static void Initialise() {
         if (initialised) {
@@ -49,10 +51,11 @@ public final class EnhancementManager {
         speed = 0;
         armor = 0;
         unitPrice = 0;
+        ammo = 0;
 
         healthTax = 0;
         speedTax = 0;
-        teleportTax = 0;
+        ammoTax = 0;
         armorTax = 0;
         immunityTax = 0;
         bulletspeedTax = 0;
@@ -62,23 +65,32 @@ public final class EnhancementManager {
         immunityCounter = 0f;
         bulletspeedCounter = 0f;
         SPEED_MAX_TIMER = 2.5f;
+
+        timeCounter = 0f;
+        maxTime = 2f;
+        message = "";
     }
 
     public static void update() {
         deltaTimeHandler();
 
-        healthHandler();
-        speedHandler();
-        teleportHandler();
-        armorHandler();
-        immunityHandler();
-        bulletSpeedHandler();
+        if(GameManager.getPlayer().getPlunder() > 0){
+            healthHandler();
+            speedHandler();
+            ammoHandler();
+            armorHandler();
+            immunityHandler();
+            bulletSpeedHandler();
+        }
+        displayHandler();
     }
 
     public static void deltaTimeHandler() {
         immunityCounter += EntityManager.getDeltaTime();
         bulletspeedCounter += EntityManager.getDeltaTime();
         speedTimer += EntityManager.getDeltaTime();
+
+        timeCounter += EntityManager.getDeltaTime();
     }
 
     public static void setUnitPrice(float p) {
@@ -105,8 +117,8 @@ public final class EnhancementManager {
             case SPEED:
                 speedTax = tax;
                 break;
-            case TELEPORT:
-                teleportTax = tax;
+            case AMMO:
+                ammoTax = tax;
                 break;
             case ARMOR:
                 armorTax = tax;
@@ -128,8 +140,8 @@ public final class EnhancementManager {
                 return healthTax;
             case SPEED:
                 return speedTax;
-            case TELEPORT:
-                return teleportTax;
+            case AMMO:
+                return ammoTax;
             case ARMOR:
                 return armorTax;
             case IMMUNITY:
@@ -141,6 +153,25 @@ public final class EnhancementManager {
         }
     }
 
+    public static boolean getValidation(enhancement e) {
+        switch (e){
+            case HEALTH:
+                return GameManager.getPlayer().getPlunder() >= healthTax;
+            case SPEED:
+                return GameManager.getPlayer().getPlunder() >= speedTax;
+            case AMMO:
+                return GameManager.getPlayer().getPlunder() >= ammoTax;
+            case ARMOR:
+                return GameManager.getPlayer().getPlunder() >= armorTax;
+            case IMMUNITY:
+                return GameManager.getPlayer().getPlunder() >= immunityTax;
+            case BULLETSPEED:
+                return GameManager.getPlayer().getPlunder() >= bulletspeedTax;
+            default:
+                return false;
+        }
+    }
+
     public static void setHealth(int h) {
         health = h;
     }
@@ -148,10 +179,17 @@ public final class EnhancementManager {
     public static void healthHandler() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
             System.out.println("Health!");
-            if(GameManager.getPlayer().getHealth() + health > 100) {
+            if (GameManager.getPlayer().getHealth() >= 100) {
+                EnhancementManager.setDisplay("You already have got full health.");
+            } else if (!getValidation(enhancement.HEALTH)) {
+                EnhancementManager.setDisplay("You have not got sufficient plunder to buy health.");
+            } else if(GameManager.getPlayer().getHealth() + health > 100) {
+                taxation(getTaxation(enhancement.HEALTH));
+                EnhancementManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getHealth()) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
                 GameManager.getPlayer().setHealth(100);
             } else {
                 taxation(getTaxation(enhancement.HEALTH));
+                EnhancementManager.setDisplay("You have gained " + (health) + " health for " + getTaxation(enhancement.HEALTH) + " coins.");
                 GameManager.getPlayer().setHealth(GameManager.getPlayer().getHealth() + health);
             }
         }
@@ -167,9 +205,11 @@ public final class EnhancementManager {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
             System.out.println("Speed!");
             if(GameManager.getPlayer().getPlayerSpeed() == defaultSpeed) {
-                taxation(getTaxation(enhancement.SPEED));
-                speedTimer = 0;
-                GameManager.getPlayer().setPlayerSpeed(speed);
+                if (getValidation(enhancement.SPEED)) {
+                    taxation(getTaxation(enhancement.SPEED));
+                    speedTimer = 0;
+                    GameManager.getPlayer().setPlayerSpeed(speed);
+                }
             }
         }
 
@@ -180,10 +220,17 @@ public final class EnhancementManager {
 
     }
 
-    public static void teleportHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
-            System.out.println("Teleport!");
+    public static void setAmmo(int a) {
+        ammo = a;
+    }
 
+    public static void ammoHandler() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+            System.out.println("Bullets!");
+            if (getValidation(enhancement.AMMO)) {
+                taxation(getTaxation(enhancement.AMMO));
+                GameManager.getPlayer().setAmmo(GameManager.getPlayer().getAmmo() + ammo);
+            }
         }
     }
 
@@ -197,8 +244,10 @@ public final class EnhancementManager {
             if(GameManager.getPlayer().getArmor() + armor > 100) {
                 GameManager.getPlayer().setArmor(100);
             } else {
-                taxation(getTaxation(enhancement.ARMOR));
-                GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() + armor);
+                if (getValidation(enhancement.ARMOR)) {
+                    taxation(getTaxation(enhancement.ARMOR));
+                    GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() + armor);
+                }
             }
         }
     }
@@ -219,5 +268,27 @@ public final class EnhancementManager {
                 System.out.println("Bullet Speed!");
             }
         }
+    }
+
+    public static void displayHandler() {
+        if(timeCounter > maxTime) {
+            timeCounter = 0;
+            message = "";
+        }
+//            private static float timeCounter;
+//        private static float maxTime;
+    }
+
+    public static void setMaxTime(float mT) {
+        maxTime = mT;
+    }
+
+    public static String getdisplay() {
+        return message;
+    }
+
+    public static void setDisplay(String s) {
+        message = s;
+        timeCounter = 0;
     }
 }
