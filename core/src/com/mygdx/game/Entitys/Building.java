@@ -14,6 +14,8 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
+import java.util.Objects;
+
 import static com.mygdx.utils.Constants.BUILDING_SCALE;
 
 /**
@@ -100,13 +102,15 @@ public class Building extends Entity implements CollisionCallBack {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
             // the ball if from the same faction
-            /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
+            if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
                     getComponent(Pirate.class).getFaction().getName())) {
                 return;
-            }*/
+            }
             if((((CannonBall) info.a).getShooter().getFaction() == GameManager.getPlayer().getFaction())) {
                 destroy();
-                ((CannonBall) info.a).kill();
+                if(!isAlive()) {
+                    ((CannonBall) info.a).kill();
+                }
             }
         }
     }
