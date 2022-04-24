@@ -80,6 +80,7 @@ public class Building extends Entity implements CollisionCallBack {
         Renderable r = getComponent(Renderable.class);
         r.setTexture(s);
         getComponent(Pirate.class).kill();
+        GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + 5f));
     }
 
     public boolean isAlive() {

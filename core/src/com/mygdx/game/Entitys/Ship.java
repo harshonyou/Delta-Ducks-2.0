@@ -34,6 +34,7 @@ public class Ship extends Entity implements CollisionCallBack {
     private float damageDelt;
 
     private float bulletSpeed;
+    private float plunderBonus;
 
 
 
@@ -73,6 +74,7 @@ public class Ship extends Entity implements CollisionCallBack {
 
         damageDelt = 10f;
         bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
+        plunderBonus = 10f;
 
     }
 
@@ -195,6 +197,14 @@ public class Ship extends Entity implements CollisionCallBack {
 
     public void setPlunder(int p) {
         getComponent(Pirate.class).setPlunder(p);
+    }
+
+    public float getPlunderBonus() {
+        return plunderBonus;
+    }
+
+    public void setPlunderBonus(float plunder) {
+        plunderBonus = plunder;
     }
 
     public int getAmmo() { return getComponent(Pirate.class).getAmmo(); }

@@ -35,6 +35,8 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     private float damageDelt;
 
+    private boolean bonusGained = false;
+
 //    private float bulletSpeed;
 
     /**
@@ -72,6 +74,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         freezeTimer = 0;
 
         damageDelt = 20f;
+
 //        bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
     }
 
@@ -95,6 +98,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
         if (getHealth() <= 0) {
             removeOnDeath();
             healthBar.hide();
+            if(!bonusGained) {
+                GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + getPlunderBonus()));
+                bonusGained = true;
+            }
         } else {
             if (getHealth() > 80f)
                 healthBar.setColor(Color.valueOf("26ff05"));

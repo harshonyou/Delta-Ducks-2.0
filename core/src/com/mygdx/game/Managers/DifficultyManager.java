@@ -3,6 +3,7 @@ package com.mygdx.game.Managers;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.AINavigation;
 import com.mygdx.game.Components.Pirate;
+import com.mygdx.game.Entitys.NPCShip;
 import com.mygdx.game.Entitys.Ship;
 
 public class DifficultyManager {
@@ -60,6 +61,7 @@ public class DifficultyManager {
             } else {
                 ship.setDamageDelt(30f);
                 ship.setBulletSpeed(9000);
+                ship.setPlunderBonus(30f);
             }
         }
     }
@@ -90,6 +92,7 @@ public class DifficultyManager {
             } else {
                 ship.setDamageDelt(20f);
                 ship.setBulletSpeed(14000);
+                ship.setPlunderBonus(15f);
             }
         }
     }
@@ -120,6 +123,7 @@ public class DifficultyManager {
             } else {
                 ship.setDamageDelt(10f);
                 ship.setBulletSpeed(20000);
+                ship.setPlunderBonus(10f);
             }
         }
     }
