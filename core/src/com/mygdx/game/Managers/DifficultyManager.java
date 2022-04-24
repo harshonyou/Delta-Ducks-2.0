@@ -43,6 +43,13 @@ public class DifficultyManager {
         GameManager.getPlayer().setAmmo(100);
         GameManager.getPlayer().setBulletSpeed(30000);
 
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 10f);
+
         EnhancementManager.setHealth(30);
         EnhancementManager.setSpeed(80, 5000, 3f);
         EnhancementManager.setArmor(30);
@@ -66,6 +73,13 @@ public class DifficultyManager {
         GameManager.getPlayer().setAmmo(60);
         GameManager.getPlayer().setBulletSpeed(10000);
 
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 10f);
+
         EnhancementManager.setHealth(20);
         EnhancementManager.setSpeed(75, 3000, 2f);
         EnhancementManager.setArmor(20);
@@ -88,6 +102,13 @@ public class DifficultyManager {
         GameManager.getPlayer().setPlayerSpeed(70);
         GameManager.getPlayer().setAmmo(30);
         GameManager.getPlayer().setBulletSpeed(8000);
+
+        EnhancementManager.setTax(EnhancementManager.enhancement.HEALTH, 50f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.SPEED, 30f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.TELEPORT, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 15f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 5f);
 
         EnhancementManager.setHealth(10);
         EnhancementManager.setSpeed(60, 1000, 2f);

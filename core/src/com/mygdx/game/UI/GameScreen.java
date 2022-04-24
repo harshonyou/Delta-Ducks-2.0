@@ -26,6 +26,14 @@ public class GameScreen extends Page {
     private final Label questName;
     private int enhancement_id;
     private int button_id;
+
+    private Label healthTax;
+    private Label speedTax;
+    private Label teleportTax;
+    private Label armorTax;
+    private Label immunityTax;
+    private Label bulletspeedTax;
+
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -122,32 +130,50 @@ public class GameScreen extends Page {
 //        enhTable.add(new Label("Press 1", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_1.png")));
         enhTable.add(new Label("Health", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).padLeft(10f).padRight(10f);
+        healthTax = new Label("N/A", parent.skin);
+        enhTable.add(healthTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_2.png")));
         enhTable.add(new Label("Speed", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_10.png"))).padLeft(10f);
+        speedTax = new Label("N/A", parent.skin);
+        enhTable.add(speedTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png")));
         enhTable.add(new Label("Teleport", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).padLeft(10f);
+        teleportTax = new Label("N/A", parent.skin);
+        enhTable.add(teleportTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_4.png")));
         enhTable.add(new Label("Armor", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_40.png"))).padLeft(10f);
+        armorTax = new Label("N/A", parent.skin);
+        enhTable.add(armorTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_5.png")));
         enhTable.add(new Label("Immunity", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_30.png"))).padLeft(10f);
+        immunityTax = new Label("N/A", parent.skin);
+        enhTable.add(immunityTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png")));
         enhTable.add(new Label("Bullet Speed", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).padLeft(10f);
+        bulletspeedTax = new Label("N/A", parent.skin);
+        enhTable.add(bulletspeedTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
         enhTable.row();
 
         Table t2 = new Table();
@@ -155,6 +181,7 @@ public class GameScreen extends Page {
         t2.setFillParent(true);
         actors.add(t2);
 
+//        enhTable.debug();
         t2.add(enhWindow);
 
 //        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
@@ -239,6 +266,14 @@ public class GameScreen extends Page {
         armorLabel.setText(String.valueOf(p.getArmor()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));
+
+        healthTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.HEALTH)));
+        speedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.SPEED)));
+        teleportTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.TELEPORT)));
+        armorTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.ARMOR)));
+        immunityTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.IMMUNITY)));
+        bulletspeedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.BULLETSPEED)));
+
         if (!QuestManager.anyQuests()) {
             parent.end.win();
             parent.setScreen(parent.end);
