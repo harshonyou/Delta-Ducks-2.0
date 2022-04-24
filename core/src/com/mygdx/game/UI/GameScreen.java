@@ -38,7 +38,7 @@ public class GameScreen extends Page {
     private Label ammoTax;
     private Label armorTax;
     private Label immunityTax;
-    private Label bulletspeedTax;
+    private Label infiniteBulletTax;
 
     private Pixmap pixmap;
     private float ratio = .045f;
@@ -202,10 +202,10 @@ public class GameScreen extends Page {
         enhTable.row();
 
         enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png"))).size(.6f*TILE_SIZE);;
-        enhTable.add(new Label("Bullet Speed", parent.skin)).top().left();
+        enhTable.add(new Label("Infinite Bullets", parent.skin)).top().left();
         enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).size(.6f * TILE_SIZE).padLeft(10f);
-        bulletspeedTax = new Label("N/A", parent.skin);
-        enhTable.add(bulletspeedTax).right();
+        infiniteBulletTax = new Label("N/A", parent.skin);
+        enhTable.add(infiniteBulletTax).right();
         enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
@@ -378,7 +378,7 @@ public class GameScreen extends Page {
         ammoTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.AMMO)));
         armorTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.ARMOR)));
         immunityTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.IMMUNITY)));
-        bulletspeedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.BULLETSPEED)));
+        infiniteBulletTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.INFINITEAMMO)));
 
         if (!QuestManager.anyQuests()) {
             parent.end.win();
@@ -404,6 +404,7 @@ public class GameScreen extends Page {
             questComplete.setText("");
         }*/
         EnhancementManager.update();
+        CaptionManager.update();
     }
 
     /**

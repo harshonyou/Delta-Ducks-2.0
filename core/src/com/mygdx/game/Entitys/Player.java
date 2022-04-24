@@ -104,6 +104,14 @@ public class Player extends Ship {
         }
     }
 
+    public void hideArmor() {
+        armorBar.hide();
+    }
+
+    public void showArmor() {
+        armorBar.show();
+    }
+
     public void updatePlayerDirection(Vector2 dir) {
         getComponent(Renderable.class).setTexture(new Sprite(getFrame(EntityManager.getDeltaTime(), getShipDirection(dir))));
     }

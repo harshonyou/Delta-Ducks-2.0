@@ -17,6 +17,8 @@ public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
 
+    Building flag;
+
     public Faction f;
     public College() {
         super();
@@ -77,7 +79,7 @@ public class College extends Entity {
 
 
         }
-        Building flag = new Building(true);
+        flag = new Building(true);
         buildings.add(flag);
         flag.create(origin, colour, f);
     }
@@ -95,6 +97,8 @@ public class College extends Entity {
         }
         if (!res) {
             getComponent(Pirate.class).kill();
+            flag.setFaction();
+            flag.updateFlag();
         }
     }
 

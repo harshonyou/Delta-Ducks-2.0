@@ -34,6 +34,7 @@ public class DifficultyManager {
     private static void easyHandler() {
         System.out.println("Easy");
         GameManager.getPlayer().setHealth(100);
+        GameManager.getPlayer().setArmor(50);
         GameManager.getPlayer().setDamageDelt(10f);
         GameManager.getPlayer().setPlunder(100);
         GameManager.getPlayer().setPlayerSpeed(100);
@@ -45,12 +46,14 @@ public class DifficultyManager {
         EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 5f);
         EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 10f);
         EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 40f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 10f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.INFINITEAMMO, 10f);
 
         EnhancementManager.setHealth(30);
         EnhancementManager.setSpeed(80, 5000, 3f);
         EnhancementManager.setArmor(30);
         EnhancementManager.setAmmo(20);
+        EnhancementManager.setImmunity(10);
+        EnhancementManager.setInfiniteAmmo(10);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -66,6 +69,7 @@ public class DifficultyManager {
     private static void mediumHandler() {
         System.out.println("Medium");
         GameManager.getPlayer().setHealth(80);
+        GameManager.getPlayer().setArmor(35);
         GameManager.getPlayer().setDamageDelt(20f);
         GameManager.getPlayer().setPlunder(60);
         GameManager.getPlayer().setPlayerSpeed(85);
@@ -77,12 +81,14 @@ public class DifficultyManager {
         EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 10f);
         EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 15f);
         EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 40f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 15f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.INFINITEAMMO, 15f);
 
         EnhancementManager.setHealth(20);
         EnhancementManager.setSpeed(75, 3000, 2f);
         EnhancementManager.setArmor(20);
         EnhancementManager.setAmmo(10);
+        EnhancementManager.setImmunity(5);
+        EnhancementManager.setInfiniteAmmo(5);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -98,6 +104,7 @@ public class DifficultyManager {
     private static void hardHandler() {
         System.out.println("Hard");
         GameManager.getPlayer().setHealth(60);
+        GameManager.getPlayer().setArmor(20);
         GameManager.getPlayer().setDamageDelt(30f);
         GameManager.getPlayer().setPlunder(30);
         GameManager.getPlayer().setPlayerSpeed(70);
@@ -109,12 +116,14 @@ public class DifficultyManager {
         EnhancementManager.setTax(EnhancementManager.enhancement.AMMO, 15f);
         EnhancementManager.setTax(EnhancementManager.enhancement.ARMOR, 20f);
         EnhancementManager.setTax(EnhancementManager.enhancement.IMMUNITY, 35f);
-        EnhancementManager.setTax(EnhancementManager.enhancement.BULLETSPEED, 20f);
+        EnhancementManager.setTax(EnhancementManager.enhancement.INFINITEAMMO, 20f);
 
         EnhancementManager.setHealth(10);
         EnhancementManager.setSpeed(60, 1000, 2f);
         EnhancementManager.setArmor(10);
         EnhancementManager.setAmmo(5);
+        EnhancementManager.setImmunity(3);
+        EnhancementManager.setInfiniteAmmo(3);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {

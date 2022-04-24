@@ -95,6 +95,14 @@ public class Building extends Entity implements CollisionCallBack {
         return f;
     }
 
+    public void setFaction () {
+        f = GameManager.getPlayer().getFaction();
+    }
+
+    public void updateFlag() {
+        getComponent(Renderable.class).setTexture(ResourceManager.getSprite(atlas_id, f.getColour()));
+    }
+
     @Override
     public void BeginContact(CollisionInfo info) {
 
