@@ -2,15 +2,22 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Components.ComponentEvent;
+import com.mygdx.game.Entitys.Building;
+import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
+import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
 import com.mygdx.game.Quests.Quest;
@@ -33,6 +40,10 @@ public class GameScreen extends Page {
     private Label armorTax;
     private Label immunityTax;
     private Label bulletspeedTax;
+
+    private Pixmap pixmap;
+    private float ratio = .045f;
+    private Window minimapWindow;
 
     /*private final Label questComplete;
     private float showTimer = 0;
@@ -85,8 +96,15 @@ public class GameScreen extends Page {
         actors.add(questComplete);*/
 
         t.add(questDesc).left();
+
         questWindow.add(t);
-        actors.add(questWindow);
+//        actors.add(questWindow);
+
+
+        minimapWindow = new Window("Minimap", parent.skin);
+        minimapWindow.getTitleLabel().setAlignment(3);
+
+        actors.add(minimapWindow);
 
         Table t1 = new Table();
         t1.top().right();
@@ -128,52 +146,58 @@ public class GameScreen extends Page {
         enhWindow.add(enhTable);
 
 //        enhTable.add(new Label("Press 1", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_1.png")));
+        enhTable.add();
+        enhTable.add(new Label("Button", parent.skin)).center();
+        enhTable.add();
+        enhTable.add(new Label("Cost", parent.skin)).right();
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_1.png"))).size(.6f*TILE_SIZE);
         enhTable.add(new Label("Health", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).padLeft(10f).padRight(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         healthTax = new Label("N/A", parent.skin);
         enhTable.add(healthTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_2.png")));
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_2.png"))).size(.6f*TILE_SIZE);;
         enhTable.add(new Label("Speed", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_10.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_10.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         speedTax = new Label("N/A", parent.skin);
         enhTable.add(speedTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png")));
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png"))).size(.6f*TILE_SIZE);;
         enhTable.add(new Label("Teleport", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         teleportTax = new Label("N/A", parent.skin);
         enhTable.add(teleportTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_4.png")));
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_4.png"))).size(.6f*TILE_SIZE);;
         enhTable.add(new Label("Armor", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_40.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_40.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         armorTax = new Label("N/A", parent.skin);
         enhTable.add(armorTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_5.png")));
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_5.png"))).size(.6f*TILE_SIZE);;
         enhTable.add(new Label("Immunity", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_30.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_30.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         immunityTax = new Label("N/A", parent.skin);
         enhTable.add(immunityTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
-        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png")));
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png"))).size(.6f*TILE_SIZE);;
         enhTable.add(new Label("Bullet Speed", parent.skin)).top().left();
-        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).padLeft(10f);
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).size(.6f * TILE_SIZE).padLeft(10f);
         bulletspeedTax = new Label("N/A", parent.skin);
         enhTable.add(bulletspeedTax).right();
-        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(1.25f * TILE_SIZE);
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
         enhTable.row();
 
         Table t2 = new Table();
@@ -182,7 +206,10 @@ public class GameScreen extends Page {
         actors.add(t2);
 
 //        enhTable.debug();
+//        enhTable.scaleBy(.5f);
+
         t2.add(enhWindow);
+//        t2.scaleBy(.5f);
 
 //        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
     }
@@ -261,6 +288,54 @@ public class GameScreen extends Page {
         if (p.getHealth() <= 0) {
             parent.setScreen(parent.end);
         }
+
+        minimapWindow.clear();
+        int width = Math.round(100 * ratio * TILE_SIZE);
+        int height = Math.round(100 * ratio * TILE_SIZE);
+
+
+//        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap.setColor(new Color(0.1f, 0.1f, 0.1f, 1f));
+        pixmap.fillRectangle(0, 0, width, height);
+
+
+        for(Ship ship : GameManager.getShips()) {
+            int player_radius;
+            Color clr;
+            if(ship == GameManager.getPlayer()) {
+                player_radius = 4;
+                clr = new Color(.1f, 0.1f, 1f, .3f);
+            } else if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
+                player_radius = 1;
+                clr = new Color(.1f, 1f, .1f, .3f);
+            }
+            else {
+                player_radius = 2;
+                clr = new Color(1f, 0.1f, 0.1f, .3f);
+            }
+            int player_x = Math.round(ship.getPosition().x * ratio) + player_radius/2;
+            int player_y = height - Math.round(ship.getPosition().y * ratio) - player_radius/2;
+            pixmap.setColor(clr);
+            pixmap.fillCircle(player_x, player_y, player_radius);
+        }
+        for (College college : GameManager.getColleges()) {
+            for(Building building: college.getBuildings()) {
+                if(building.isAlive()) {
+                    int player_x = Math.round(building.getPosition().x * ratio) + 3/2;
+                    int player_y = height - Math.round(building.getPosition().y * ratio) - 3/2;
+                    if(building.getFaction() == GameManager.getPlayer().getFaction()) {
+                        pixmap.setColor(new Color(.1f, 1f, .1f, .3f));
+                    } else {
+                        pixmap.setColor(new Color(1f, 0.1f, 0.1f, .3f));
+                    }
+                    pixmap.fillCircle(player_x, player_y, 3);
+                }
+            }
+        }
+
+
+        minimapWindow.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
 
         healthLabel.setText(String.valueOf(p.getHealth()));
         armorLabel.setText(String.valueOf(p.getArmor()));

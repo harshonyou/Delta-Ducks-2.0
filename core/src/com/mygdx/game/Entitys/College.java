@@ -72,14 +72,14 @@ public class College extends Entity {
 
                 String b_name = Utilities.randomChoice(buildingNames, 0);
 
-                b.create(pos, b_name);
+                b.create(pos, b_name, f);
             }
 
 
         }
         Building flag = new Building(true);
         buildings.add(flag);
-        flag.create(origin, colour);
+        flag.create(origin, colour, f);
     }
 
     /**
@@ -96,6 +96,10 @@ public class College extends Entity {
         if (!res) {
             getComponent(Pirate.class).kill();
         }
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
     }
 
     public boolean aliveTest() {

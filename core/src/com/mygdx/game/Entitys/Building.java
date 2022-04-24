@@ -7,6 +7,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -25,6 +26,8 @@ public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
     private static int atlas_id;
     private boolean isFlag;
+
+    public Faction f;
 
     Building() {
         super();
@@ -53,7 +56,7 @@ public class Building extends Entity implements CollisionCallBack {
      * @param pos  2D position vector
      * @param name name of building
      */
-    public void create(Vector2 pos, String name) {
+    public void create(Vector2 pos, String name, Faction f) {
         Sprite s = ResourceManager.getSprite(atlas_id, name);
         Renderable r = getComponent(Renderable.class);
         r.setTexture(s);
@@ -63,6 +66,7 @@ public class Building extends Entity implements CollisionCallBack {
         RigidBody rb = new RigidBody(PhysicsBodyType.Static, r, getComponent(Transform.class));
         rb.setCallback(this);
         addComponent(rb);
+        this.f = f;
     }
 
     /**
@@ -80,6 +84,14 @@ public class Building extends Entity implements CollisionCallBack {
 
     public boolean isAlive() {
         return getComponent(Pirate.class).isAlive();
+    }
+
+    public Vector2 getPosition() {
+        return getComponent(Transform.class).getPosition();
+    }
+
+    public Faction getFaction() {
+        return f;
     }
 
     @Override
@@ -102,8 +114,11 @@ public class Building extends Entity implements CollisionCallBack {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
             // the ball if from the same faction
-            if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
-                    getComponent(Pirate.class).getFaction().getName())) {
+//            if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
+//                    getComponent(Pirate.class).getFaction().getName())) {
+//                return;
+//            }
+            if((((CannonBall) info.a).getShooter().getFaction() == getFaction())){
                 return;
             }
             if((((CannonBall) info.a).getShooter().getFaction() == GameManager.getPlayer().getFaction())) {
