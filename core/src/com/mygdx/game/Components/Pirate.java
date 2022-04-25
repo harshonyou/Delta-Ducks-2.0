@@ -67,7 +67,7 @@ public class Pirate extends Component {
             health -= dmg;
         } else {
             if(armor-dmg*1.5 <= 0) {
-                health -= armor-dmg*1.5;
+                health = (int) (health + armor - dmg*1.5);
                 armor = 0;
             } else {
                 armor -= dmg*1.5;
