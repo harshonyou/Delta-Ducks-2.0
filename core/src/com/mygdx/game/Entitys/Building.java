@@ -1,16 +1,19 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
-import com.mygdx.game.Managers.RenderLayer;
-import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Faction;
+import com.mygdx.game.Managers.*;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
+
+import java.util.Objects;
 
 import static com.mygdx.utils.Constants.BUILDING_SCALE;
 
@@ -22,6 +25,10 @@ public class Building extends Entity implements CollisionCallBack {
     private static int atlas_id;
     private boolean isFlag;
 
+    private boolean activeQuestToggle;
+
+    public Faction f;
+
     Building() {
         super();
         isFlag = false;
@@ -31,6 +38,7 @@ public class Building extends Entity implements CollisionCallBack {
         atlas_id = ResourceManager.getId("Buildings.txt");
         Renderable r = new Renderable(atlas_id, "big", RenderLayer.Transparent);
         addComponents(t, p, r);
+        activeQuestToggle = false;
     }
 
     /**
@@ -49,7 +57,7 @@ public class Building extends Entity implements CollisionCallBack {
      * @param pos  2D position vector
      * @param name name of building
      */
-    public void create(Vector2 pos, String name) {
+    public void create(Vector2 pos, String name, Faction f) {
         Sprite s = ResourceManager.getSprite(atlas_id, name);
         Renderable r = getComponent(Renderable.class);
         r.setTexture(s);
@@ -59,12 +67,13 @@ public class Building extends Entity implements CollisionCallBack {
         RigidBody rb = new RigidBody(PhysicsBodyType.Static, r, getComponent(Transform.class));
         rb.setCallback(this);
         addComponent(rb);
+        this.f = f;
     }
 
     /**
      * Replace the building with ruins and mark as broken.
      */
-    private void destroy() {
+    public void destroy() {
         if (isFlag) {
             return;
         }
@@ -72,10 +81,61 @@ public class Building extends Entity implements CollisionCallBack {
         Renderable r = getComponent(Renderable.class);
         r.setTexture(s);
         getComponent(Pirate.class).kill();
+        GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + 5f));
+    }
+
+    public void destroyFlag() {
+        Sprite s = ResourceManager.getSprite(atlas_id, "white");
+        Renderable r = getComponent(Renderable.class);
+        r.setTexture(s);
+        getComponent(Pirate.class).kill();
+
+        int acc = 0;
+        for(Ship ship : GameManager.getShips()) {
+            if(ship.getFaction() == f) {
+//                ship.setFaction(GameManager.getPlayer().getFaction().id);
+                ship.destroy();
+                acc++;
+            }
+        }
+        CaptureManager.destroyHandler(f.getName(), acc);
+    }
+
+    public boolean isActiveQuest() {
+        return activeQuestToggle;
+    }
+
+    public void setActiveQuest() {
+        activeQuestToggle = true;
+    }
+
+    public void setInactiveQuest() {
+        activeQuestToggle = false;
     }
 
     public boolean isAlive() {
         return getComponent(Pirate.class).isAlive();
+    }
+
+    public Vector2 getPosition() {
+        return getComponent(Transform.class).getPosition();
+    }
+
+    public Faction getFaction() {
+        return f;
+    }
+
+    public void setFaction() {
+        f = GameManager.getPlayer().getFaction();
+    }
+
+    public void setFactionCustom(Faction f) {
+        this.f = f;
+    }
+
+    public void updateFlag() {
+        getComponent(Renderable.class).setTexture(ResourceManager.getSprite(atlas_id, f.getColour()));
+        CaptureManager.captureHandler(f.getName());
     }
 
     @Override
@@ -98,12 +158,19 @@ public class Building extends Entity implements CollisionCallBack {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
             // the ball if from the same faction
-            /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
-                    getComponent(Pirate.class).getFaction().getName())) {
+//            if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
+//                    getComponent(Pirate.class).getFaction().getName())) {
+//                return;
+//            }
+            if((((CannonBall) info.a).getShooter().getFaction() == getFaction())){
                 return;
-            }*/
-            destroy();
-            ((CannonBall) info.a).kill();
+            }
+            if((((CannonBall) info.a).getShooter().getFaction() == GameManager.getPlayer().getFaction())) {
+                destroy();
+                if(!isAlive()) {
+                    ((CannonBall) info.a).kill();
+                }
+            }
         }
     }
 

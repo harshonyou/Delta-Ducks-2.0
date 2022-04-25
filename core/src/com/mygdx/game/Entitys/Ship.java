@@ -1,12 +1,17 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
+import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -25,6 +30,15 @@ public class Ship extends Entity implements CollisionCallBack {
     public static ObjectMap<Vector2, String> shipDirections;
 
     private final Vector2 currentDir;
+
+    private float damageDelt;
+
+    private float bulletSpeed;
+    private float plunderBonus;
+
+
+
+
 
     /**
      * Creates a ship entity, containing Transform, Renderable, RigidBody, and Pirate components.
@@ -57,6 +71,11 @@ public class Ship extends Entity implements CollisionCallBack {
         // rb.setCallback(this);
 
         addComponents(t, r, rb, p);
+
+        damageDelt = 10f;
+        bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
+        plunderBonus = 10f;
+
     }
 
     public boolean isAlive() {
@@ -81,13 +100,17 @@ public class Ship extends Entity implements CollisionCallBack {
         setShipDirection("-up");
     }
 
+    public Faction getFaction () {
+        return getComponent(Pirate.class).getFaction();
+    }
+
     /**
      * gets the string representation of the direction the ship is facing
      *
      * @param dir the vector dir the ship is facing
      * @return the string representation of the direction
      */
-    private String getShipDirection(Vector2 dir) {
+    public String getShipDirection(Vector2 dir) {
         if (!currentDir.equals(dir) && shipDirections.containsKey(dir)) {
             currentDir.set(dir);
             return shipDirections.get(dir);
@@ -123,8 +146,16 @@ public class Ship extends Entity implements CollisionCallBack {
             return;
         }
         Renderable r = getComponent(Renderable.class);
-        Sprite s = ResourceManager.getSprite(3, getColour() + direction);
 
+        Sprite s = ResourceManager.getSprite(3, getColour() + direction);
+//        if(getFaction().id == 1) {
+//            System.out.println("XD");
+//            s = ResourceManager.getSprite(3, getColour() + "-up");
+//            s = new Sprite(getFrame(EntityManager.getDeltaTime(), direction));
+//            s.scale(2f);
+//        } else {
+//            s = ResourceManager.getSprite(3, getColour() + direction);
+//        }
         try {
             r.setTexture(s);
         } catch (Exception ignored) {
@@ -136,8 +167,62 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getHealth();
     }
 
+    public void setHealth(int h) {
+        getComponent(Pirate.class).setHealth(h);
+    }
+
+    public int getArmor() {
+        return getComponent(Pirate.class).getArmor();
+    }
+
+    public void setArmor(int a) {
+        getComponent(Pirate.class).setArmor(a);
+    }
+
+    public void setSpeed(float x, float y) {
+        getComponent(RigidBody.class).setVelocity(x, y);
+    }
+
+    public Vector2 getSpeed() {
+        return getComponent(RigidBody.class).getVelocity();
+    }
+
+    public void destroy() {
+        setHealth(0);
+    }
+
     public int getPlunder() {
         return getComponent(Pirate.class).getPlunder();
+    }
+
+    public void setPlunder(int p) {
+        getComponent(Pirate.class).setPlunder(p);
+    }
+
+    public float getPlunderBonus() {
+        return plunderBonus;
+    }
+
+    public void setPlunderBonus(float plunder) {
+        plunderBonus = plunder;
+    }
+
+    public int getAmmo() { return getComponent(Pirate.class).getAmmo(); }
+
+    public void setAmmo(int a) {
+        getComponent(Pirate.class).setAmmo(a);
+    }
+
+    public void setDamageDelt(float dmgDlt) {
+        damageDelt = dmgDlt;
+    }
+
+    public float getBulletSpeed() {
+        return bulletSpeed;
+    }
+
+    public void setBulletSpeed(float bSpeed) {
+        bulletSpeed = bSpeed;
     }
 
     public void shoot(Vector2 dir) {
@@ -153,6 +238,14 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
+    }
+
+    public void setPosition(Vector2 pos) {
+        getComponent(Transform.class).setPosition(pos);
+    }
+
+    public Vector2 getVelocity() {
+        return getComponent(Transform.class).getVelocity();
     }
 
     @Override
@@ -173,6 +266,12 @@ public class Ship extends Entity implements CollisionCallBack {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
         }
+        if (info.a instanceof CannonBall) {
+            if (((CannonBall) info.a).getShooter().getFaction() != getFaction()) {
+                getComponent(Pirate.class).takeDamage(damageDelt);
+                ((CannonBall) info.a).kill();
+            }
+        }
     }
 
     /**
@@ -184,4 +283,25 @@ public class Ship extends Entity implements CollisionCallBack {
             ((CollisionCallBack) info.b).ExitTrigger(info);
         }
     }
+
+//    private Animation<TextureRegion>[] rolls;
+//    private Animation<TextureRegion>[] idleRolls;
+//
+//    int roll;
+//    float rollVerticalTimer;
+//    float rollHorizontalTimer;
+//    float stateTime;
+//
+//    private Animation <TextureRegion> shipMove;
+//
+//    private final int PIXEL_SHIP_WIDTH = 1280;
+//    private final int PIXEL_SHIP_HEIGHT = 1280;
+//
+//    private final float SHIP_FRAME_DURATION = 0.5f;
+
+
+
+
+
+
 }

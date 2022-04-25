@@ -1,0 +1,1511 @@
+
+buttons.png
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+keyboard_1.png
+  rotate: false
+  xy: 1662, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_10.png
+  rotate: false
+  xy: 944, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_100.png
+  rotate: false
+  xy: 270, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_101.png
+  rotate: false
+  xy: 682, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_102.png
+  rotate: false
+  xy: 676, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_103.png
+  rotate: false
+  xy: 374, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_104.png
+  rotate: false
+  xy: 808, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_105.png
+  rotate: false
+  xy: 1390, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_106.png
+  rotate: false
+  xy: 510, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_107.png
+  rotate: false
+  xy: 1522, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_108.png
+  rotate: false
+  xy: 104, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_109.png
+  rotate: false
+  xy: 646, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_11.png
+  rotate: false
+  xy: 1526, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_110.png
+  rotate: false
+  xy: 682, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_111.png
+  rotate: false
+  xy: 846, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_112.png
+  rotate: false
+  xy: 440, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_113.png
+  rotate: false
+  xy: 978, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_114.png
+  rotate: false
+  xy: 1560, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_115.png
+  rotate: false
+  xy: 478, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_116.png
+  rotate: false
+  xy: 1658, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_117.png
+  rotate: false
+  xy: 138, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_118.png
+  rotate: false
+  xy: 680, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_119.png
+  rotate: false
+  xy: 404, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_12.png
+  rotate: false
+  xy: 576, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_120.png
+  rotate: false
+  xy: 982, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_121.png
+  rotate: false
+  xy: 376, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_122.png
+  rotate: false
+  xy: 1114, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_123.png
+  rotate: false
+  xy: 1696, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_124.png
+  rotate: false
+  xy: 444, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_125.png
+  rotate: false
+  xy: 1794, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_126.png
+  rotate: false
+  xy: 170, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_127.png
+  rotate: false
+  xy: 648, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_128.png
+  rotate: false
+  xy: 540, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_129.png
+  rotate: false
+  xy: 340, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_13.png
+  rotate: false
+  xy: 1692, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_130.png
+  rotate: false
+  xy: 376, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_131.png
+  rotate: false
+  xy: 1250, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_132.png
+  rotate: false
+  xy: 1866, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_133.png
+  rotate: false
+  xy: 512, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_134.png
+  rotate: false
+  xy: 1930, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_135.png
+  rotate: false
+  xy: 172, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_136.png
+  rotate: false
+  xy: 648, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_137.png
+  rotate: false
+  xy: 642, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_138.png
+  rotate: false
+  xy: 406, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_139.png
+  rotate: false
+  xy: 774, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_14.png
+  rotate: false
+  xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_140.png
+  rotate: false
+  xy: 1386, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_141.png
+  rotate: false
+  xy: 36, 4
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_142.png
+  rotate: false
+  xy: 512, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_143.png
+  rotate: false
+  xy: 102, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_144.png
+  rotate: false
+  xy: 304, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_145.png
+  rotate: false
+  xy: 716, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_146.png
+  rotate: false
+  xy: 812, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_147.png
+  rotate: false
+  xy: 342, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_148.png
+  rotate: false
+  xy: 910, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_149.png
+  rotate: false
+  xy: 1492, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_15.png
+  rotate: false
+  xy: 712, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_150.png
+  rotate: false
+  xy: 104, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_151.png
+  rotate: false
+  xy: 678, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_152.png
+  rotate: false
+  xy: 268, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_153.png
+  rotate: false
+  xy: 240, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_154.png
+  rotate: false
+  xy: 366, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_155.png
+  rotate: false
+  xy: 948, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_156.png
+  rotate: false
+  xy: 342, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_157.png
+  rotate: false
+  xy: 1080, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_158.png
+  rotate: false
+  xy: 1628, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_159.png
+  rotate: false
+  xy: 544, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_16.png
+  rotate: false
+  xy: 370, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_160.png
+  rotate: false
+  xy: 614, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_161.png
+  rotate: false
+  xy: 336, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_162.png
+  rotate: false
+  xy: 206, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_163.png
+  rotate: false
+  xy: 502, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_164.png
+  rotate: false
+  xy: 1084, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_165.png
+  rotate: false
+  xy: 342, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_166.png
+  rotate: false
+  xy: 1216, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_167.png
+  rotate: false
+  xy: 1832, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_168.png
+  rotate: false
+  xy: 578, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_169.png
+  rotate: false
+  xy: 1862, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_17.png
+  rotate: false
+  xy: 240, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_170.png
+  rotate: false
+  xy: 472, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_171.png
+  rotate: false
+  xy: 372, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_172.png
+  rotate: false
+  xy: 638, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_173.png
+  rotate: false
+  xy: 1220, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_174.png
+  rotate: false
+  xy: 508, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_175.png
+  rotate: false
+  xy: 1318, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_176.png
+  rotate: false
+  xy: 1934, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_177.png
+  rotate: false
+  xy: 612, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_178.png
+  rotate: false
+  xy: 134, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_179.png
+  rotate: false
+  xy: 206, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_18.png
+  rotate: false
+  xy: 536, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_180.png
+  rotate: false
+  xy: 308, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_181.png
+  rotate: false
+  xy: 740, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_182.png
+  rotate: false
+  xy: 1356, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_183.png
+  rotate: false
+  xy: 410, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_184.png
+  rotate: false
+  xy: 1420, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_185.png
+  rotate: false
+  xy: 136, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_186.png
+  rotate: false
+  xy: 580, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_187.png
+  rotate: false
+  xy: 234, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_188.png
+  rotate: false
+  xy: 206, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_189.png
+  rotate: false
+  xy: 332, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_19.png
+  rotate: false
+  xy: 1152, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_190.png
+  rotate: false
+  xy: 876, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_191.png
+  rotate: false
+  xy: 1458, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_192.png
+  rotate: false
+  xy: 410, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_193.png
+  rotate: false
+  xy: 1590, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_194.png
+  rotate: false
+  xy: 104, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_195.png
+  rotate: false
+  xy: 580, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_196.png
+  rotate: false
+  xy: 302, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_197.png
+  rotate: false
+  xy: 306, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_198.png
+  rotate: false
+  xy: 468, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_199.png
+  rotate: false
+  xy: 1050, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_2.png
+  rotate: false
+  xy: 478, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_20.png
+  rotate: false
+  xy: 1730, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_200.png
+  rotate: false
+  xy: 238, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_201.png
+  rotate: false
+  xy: 780, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_202.png
+  rotate: false
+  xy: 710, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_203.png
+  rotate: false
+  xy: 2, 206
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+keyboard_205.png
+  rotate: false
+  xy: 2, 72
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+keyboard_206.png
+  rotate: false
+  xy: 2, 6
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+keyboard_207.png
+  rotate: false
+  xy: 2, 138
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_208.png
+  rotate: false
+  xy: 200, 206
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_209.png
+  rotate: false
+  xy: 266, 206
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_21.png
+  rotate: false
+  xy: 512, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_210.png
+  rotate: false
+  xy: 36, 38
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+keyboard_211.png
+  rotate: false
+  xy: 166, 174
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+keyboard_212.png
+  rotate: false
+  xy: 2, 172
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+keyboard_213.png
+  rotate: false
+  xy: 100, 206
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_214.png
+  rotate: false
+  xy: 68, 138
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_215.png
+  rotate: false
+  xy: 36, 104
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_216.png
+  rotate: false
+  xy: 100, 172
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+keyboard_22.png
+  rotate: false
+  xy: 1760, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_23.png
+  rotate: false
+  xy: 168, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_24.png
+  rotate: false
+  xy: 614, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_25.png
+  rotate: false
+  xy: 506, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_26.png
+  rotate: false
+  xy: 240, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_27.png
+  rotate: false
+  xy: 672, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_28.png
+  rotate: false
+  xy: 1288, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_29.png
+  rotate: false
+  xy: 376, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_3.png
+  rotate: false
+  xy: 1828, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_30.png
+  rotate: false
+  xy: 478, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_31.png
+  rotate: false
+  xy: 1896, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_32.png
+  rotate: false
+  xy: 204, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_33.png
+  rotate: false
+  xy: 614, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_34.png
+  rotate: false
+  xy: 744, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_35.png
+  rotate: false
+  xy: 274, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_36.png
+  rotate: false
+  xy: 842, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_37.png
+  rotate: false
+  xy: 1424, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_38.png
+  rotate: false
+  xy: 542, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_39.png
+  rotate: false
+  xy: 1488, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_4.png
+  rotate: false
+  xy: 202, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_40.png
+  rotate: false
+  xy: 70, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_41.png
+  rotate: false
+  xy: 272, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_42.png
+  rotate: false
+  xy: 648, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_43.png
+  rotate: false
+  xy: 880, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_44.png
+  rotate: false
+  xy: 408, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_45.png
+  rotate: false
+  xy: 1012, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_46.png
+  rotate: false
+  xy: 1594, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_47.png
+  rotate: false
+  xy: 444, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_48.png
+  rotate: false
+  xy: 1624, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_49.png
+  rotate: false
+  xy: 138, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_5.png
+  rotate: false
+  xy: 746, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_50.png
+  rotate: false
+  xy: 338, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_51.png
+  rotate: false
+  xy: 400, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_52.png
+  rotate: false
+  xy: 1016, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_53.png
+  rotate: false
+  xy: 474, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_54.png
+  rotate: false
+  xy: 1148, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_55.png
+  rotate: false
+  xy: 1764, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_56.png
+  rotate: false
+  xy: 610, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_57.png
+  rotate: false
+  xy: 1726, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_58.png
+  rotate: false
+  xy: 2002, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_59.png
+  rotate: false
+  xy: 580, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_6.png
+  rotate: false
+  xy: 574, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_60.png
+  rotate: false
+  xy: 570, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_61.png
+  rotate: false
+  xy: 1118, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_62.png
+  rotate: false
+  xy: 410, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_63.png
+  rotate: false
+  xy: 1284, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_64.png
+  rotate: false
+  xy: 1900, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_65.png
+  rotate: false
+  xy: 546, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_66.png
+  rotate: false
+  xy: 1964, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_67.png
+  rotate: false
+  xy: 236, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_68.png
+  rotate: false
+  xy: 714, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_69.png
+  rotate: false
+  xy: 608, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_7.png
+  rotate: false
+  xy: 274, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_70.png
+  rotate: false
+  xy: 1254, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_71.png
+  rotate: false
+  xy: 476, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_72.png
+  rotate: false
+  xy: 1352, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_73.png
+  rotate: false
+  xy: 1968, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_74.png
+  rotate: false
+  xy: 644, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_75.png
+  rotate: false
+  xy: 1998, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_76.png
+  rotate: false
+  xy: 172, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_77.png
+  rotate: false
+  xy: 748, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_78.png
+  rotate: false
+  xy: 778, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_79.png
+  rotate: false
+  xy: 308, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_8.png
+  rotate: false
+  xy: 706, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_80.png
+  rotate: false
+  xy: 444, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_81.png
+  rotate: false
+  xy: 1454, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_82.png
+  rotate: false
+  xy: 70, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_83.png
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_84.png
+  rotate: false
+  xy: 200, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_85.png
+  rotate: false
+  xy: 172, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_86.png
+  rotate: false
+  xy: 434, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_87.png
+  rotate: false
+  xy: 914, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_88.png
+  rotate: false
+  xy: 308, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_89.png
+  rotate: false
+  xy: 1046, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_9.png
+  rotate: false
+  xy: 1322, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_90.png
+  rotate: false
+  xy: 1556, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_91.png
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_92.png
+  rotate: false
+  xy: 546, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_93.png
+  rotate: false
+  xy: 438, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_94.png
+  rotate: false
+  xy: 274, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_95.png
+  rotate: false
+  xy: 604, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_96.png
+  rotate: false
+  xy: 1186, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_97.png
+  rotate: false
+  xy: 442, 104
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_98.png
+  rotate: false
+  xy: 1182, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+keyboard_99.png
+  rotate: false
+  xy: 1798, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

@@ -1,11 +1,14 @@
 package com.mygdx.game.Components;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.Ship;
+import com.mygdx.game.Managers.EntityManager;
+import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderingManager;
 
 import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
@@ -16,11 +19,14 @@ import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
 public class PlayerController extends Component {
     private Player player;
     private float speed;
+    private static float FREEZE_TIME = GameManager.getSettings().get("starting").getFloat("cannonTimeout");
+    private float freezeTimer;
 
     public PlayerController() {
         super();
         type = ComponentType.PlayerController;
         setRequirements(ComponentType.RigidBody);
+        freezeTimer = 0;
     }
 
     /**
@@ -38,11 +44,13 @@ public class PlayerController extends Component {
      */
     @Override
     public void update() {
+        freezeTimer += EntityManager.getDeltaTime();
         super.update();
-        final float s = speed;
+        float s = speed;
 
         Vector2 dir = getDirFromWASDInput();
-        ((Ship) parent).setShipDirection(dir);
+//        ((Ship) parent).setShipDirection(dir);
+        player.updatePlayerDirection(dir);
         dir.scl(s);
 
         RigidBody rb = parent.getComponent(RigidBody.class);
@@ -52,22 +60,26 @@ public class PlayerController extends Component {
         RenderingManager.getCamera().update();
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            int x = Gdx.input.getX();
-            int y = Gdx.input.getY();
+            if(freezeTimer >= FREEZE_TIME) {
+                freezeTimer = 0;
+                int x = Gdx.input.getX();
+                int y = Gdx.input.getY();
 
-            // in range 0 to VIEWPORT 0, 0 bottom left
-            Vector2 delta = new Vector2(x, y);
-            delta.sub(HALF_DIMENSIONS); // center 0, 0
-            delta.nor();
-            delta.y *= -1;
-            // unit dir to fire
-            ((Ship) parent).shoot(delta);
+                // in range 0 to VIEWPORT 0, 0 bottom left
+                Vector2 delta = new Vector2(x, y);
+                delta.sub(HALF_DIMENSIONS); // center 0, 0
+                delta.nor();
+                delta.y *= -1;
+                // unit dir to fire
+                ((Ship) parent).shoot(delta);
+            }
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             // unit dir to fire
             ((Ship) parent).shoot();
         }
+
     }
 
     /**
@@ -94,5 +106,13 @@ public class PlayerController extends Component {
             dir.x += 1;
         }
         return dir;
+    }
+
+    public void setPlayerSpeed(float s) {
+        speed = s;
+    }
+
+    public float getPlayerSpeed() {
+        return speed;
     }
 }

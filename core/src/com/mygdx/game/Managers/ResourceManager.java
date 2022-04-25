@@ -25,6 +25,9 @@ public final class ResourceManager {
     private static HashMap<String, FreeTypeFontGenerator> fontGenerators;
     private static HashMap<String, BitmapFont> fonts;
 
+    private static FreeTypeFontGenerator fontGenerator;
+    private static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+
     /**
      * The equivalent to a constructor
      */
@@ -82,6 +85,16 @@ public final class ResourceManager {
         tileMaps.add(map);
         ids.add("|TM|" + tileMaps.size() + fPath);
         return ids.size();
+    }
+
+    public static void initFont(String fontPath) {
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
+    }
+
+    public static BitmapFont genFont(int size) {
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = size;
+        return fontGenerator.generateFont(fontParameter);
     }
 
     /**

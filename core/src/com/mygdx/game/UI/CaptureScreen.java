@@ -1,7 +1,6 @@
 package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,38 +12,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.game.Entitys.Player;
-import com.mygdx.game.Managers.GameManager;
+import com.mygdx.game.Entitys.Building;
+import com.mygdx.game.Managers.CaptureManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Managers.SaveManager;
 import com.mygdx.game.PirateGame;
 
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
-
 /**
- * Contains widgets defining the game end screen.
+ * Contains widgets defining the start-of-game menu screen.
  */
-public class EndScreen extends Page {
-    Label wonText;
-    Label playerStats;
-
+public class CaptureScreen extends Page {
     private BitmapFont font;
     private Skin skinButton;
     private TextureAtlas buttonAtlas;
     private TextButton.TextButtonStyle textButtonStyle;
 
-    public EndScreen(PirateGame game) {
-        super(game);
+    private Building tempFlag;
+
+    public CaptureScreen(PirateGame parent) {
+        super(parent);
     }
 
     /**
-     * Set game end screen status to report a win.
-     */
-    public void win() {
-        wonText.setText("Congrats You Have Won");
-    }
-
-    /**
-     * Create game end screen widgets, initialised to game loss status.
+     * Create menu widgets such as start button, labels, etc.
      */
     @Override
     protected void CreateActors() {
@@ -61,53 +52,61 @@ public class EndScreen extends Page {
         textButtonStyle.over = skinButton.getDrawable("button");
 
         Table t = new Table();
-//        t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
-
-        float space = VIEWPORT_HEIGHT * 0.15f;
         t.setFillParent(true);
-        actors.add(t);
-        wonText = new Label("You have lost, try again!", new Label.LabelStyle(font, Color.BLACK));
-        wonText.setFontScale(.5f);
-        t.top();
-        t.add(wonText).spaceBottom(space);
+
+        float space = VIEWPORT_HEIGHT * 0.05f;
+
+//        t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
+        Label l = new Label("Would you like to either\ncapture or destroy the college?", new Label.LabelStyle(font, Color.BLACK));
+        l.setFontScale(.5f);
+        l.setAlignment(3);
+        t.add(l).top().spaceBottom(space * 0.5f);
         t.row();
-        playerStats = new Label("Player Stats:\n", new Label.LabelStyle(font, Color.BLACK));
-        playerStats.setFontScale(.4f);
-        t.add(playerStats).spaceBottom(space);
-        t.row();
-        TextButton b = new TextButton("Exit", textButtonStyle);
-        b.addListener(new ChangeListener() {
+
+        TextButton capture = new TextButton("Capture", textButtonStyle);
+        capture.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-                System.exit(0);
+//                CaptureManager;
+                tempFlag.setFaction();
+                tempFlag.updateFlag();
+                parent.setScreen(parent.game);
             }
         });
-        b.getLabel().setFontScale(.3f);
-        t.add(b).size(150, 100);
+        capture.getLabel().setFontScale(.3f);
+        t.add(capture).top().size(150, 100).spaceBottom(space);
+        t.row();
+
+        TextButton destroy = new TextButton("Destroy", textButtonStyle);
+        destroy.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                tempFlag.destroyFlag();
+                parent.setScreen(parent.game);
+            }
+        });
+        destroy.getLabel().setFontScale(.3f);
+        t.add(destroy).top().size(150, 100).spaceBottom(space);
+        t.row();
 
         t.center();
+
+        actors.add(t);
     }
 
-    @Override
-    protected void update() {
-        super.update();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-            System.exit(0);
-        }
+    public void updateFlag(Building flag) {
+        tempFlag = flag;
     }
 
-    /**
-     * Get player stats such as plunder etc. and display game end screen.
-     */
     @Override
     public void show() {
         super.show();
-        Player p = GameManager.getPlayer();
-        String stats = String.format("Health: %s\nAmmo: %s\nPlunder: %s", p.getHealth(), p.getAmmo(), p.getPlunder());
-        playerStats.setText(stats);
+    }
+
+
+    @Override
+    public void hide() {
+        super.hide();
     }
 
     @Override

@@ -13,6 +13,8 @@ import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
 
+import static com.mygdx.utils.Constants.TILE_SIZE;
+
 /**
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
  */
@@ -73,6 +75,10 @@ public final class GameManager {
      */
     public static Player getPlayer() {
         return (Player) ships.get(0);
+    }
+
+    public static ArrayList<Ship> getShips() {
+        return ships;
     }
 
     /**
@@ -168,6 +174,9 @@ public final class GameManager {
         tryInit();
         return colleges.get(factionId - 1);
     }
+    public static ArrayList<College> getColleges(){
+        return colleges;
+    }
 
     /**
      * Utilises the cached cannonballs to fire one
@@ -177,7 +186,7 @@ public final class GameManager {
      */
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
-        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+//        pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
         ballCache.get(currentElement++).fire(pos, dir, p);
         currentElement %= cacheSize;
     }

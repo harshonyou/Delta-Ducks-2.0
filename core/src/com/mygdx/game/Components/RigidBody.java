@@ -137,6 +137,25 @@ public class RigidBody extends Component {
         b.setTransform(position, 0);
     }
 
+    public void setRadius(float s) {
+        Body b = PhysicsManager.getBody(bodyId);
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(s);
+
+        FixtureDef f = new FixtureDef();
+        f.isSensor = false;
+        f.shape = shape;
+        f.density = 1.0f;
+        f.restitution = 0; // prevents bouncing
+        f.friction = 0;
+
+//        f = b.getFixtureList().first().def;
+
+        b.destroyFixture(b.getFixtureList().first());
+        b.createFixture(f).setUserData("player");
+    }
+
     public Body getBody() {
         return PhysicsManager.getBody(bodyId);
     }

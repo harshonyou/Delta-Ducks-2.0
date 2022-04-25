@@ -1,6 +1,7 @@
 package com.mygdx.game.Managers;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.Chest;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
@@ -50,6 +51,10 @@ public class QuestManager {
             return 0;
         }
         addQuest(new KillQuest(enemy));
+
+//        for(Building building : enemy.getBuildings()) {
+//            building.setActiveQuest();
+//        }
         return id;
     }
 
@@ -149,11 +154,19 @@ public class QuestManager {
      */
     public static Quest currentQuest() {
         tryInit();
+        ArrayList<Quest> questsTemp = new ArrayList<>();
         for (Quest q : allQuests) {
             if (!q.isCompleted()) {
+                if(q instanceof KillQuest)
+                    ((KillQuest) q).setColor();
                 return q;
+            } else {
+                questsTemp.add(q);
+                if(q instanceof KillQuest)
+                    ((KillQuest) q).removeColor();
             }
         }
+        allQuests.remove(questsTemp);
         return null;
     }
 
