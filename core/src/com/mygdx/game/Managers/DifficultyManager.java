@@ -55,6 +55,9 @@ public class DifficultyManager {
         EnhancementManager.setImmunity(10);
         EnhancementManager.setInfiniteAmmo(10);
 
+        CaptureManager.setCaptureBonus(60);
+        CaptureManager.setDestroyBonus(100);
+
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
 
@@ -90,6 +93,9 @@ public class DifficultyManager {
         EnhancementManager.setImmunity(5);
         EnhancementManager.setInfiniteAmmo(5);
 
+        CaptureManager.setCaptureBonus(30);
+        CaptureManager.setDestroyBonus(50);
+
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
 
@@ -124,6 +130,9 @@ public class DifficultyManager {
         EnhancementManager.setAmmo(5);
         EnhancementManager.setImmunity(3);
         EnhancementManager.setInfiniteAmmo(3);
+
+        CaptureManager.setCaptureBonus(20);
+        CaptureManager.setDestroyBonus(30);
 
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {

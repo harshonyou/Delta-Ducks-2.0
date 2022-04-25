@@ -8,9 +8,7 @@ import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Faction;
-import com.mygdx.game.Managers.GameManager;
-import com.mygdx.game.Managers.RenderLayer;
-import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Managers.*;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
@@ -27,6 +25,8 @@ public class Building extends Entity implements CollisionCallBack {
     private static int atlas_id;
     private boolean isFlag;
 
+    private boolean activeQuestToggle;
+
     public Faction f;
 
     Building() {
@@ -38,6 +38,7 @@ public class Building extends Entity implements CollisionCallBack {
         atlas_id = ResourceManager.getId("Buildings.txt");
         Renderable r = new Renderable(atlas_id, "big", RenderLayer.Transparent);
         addComponents(t, p, r);
+        activeQuestToggle = false;
     }
 
     /**
@@ -83,6 +84,35 @@ public class Building extends Entity implements CollisionCallBack {
         GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + 5f));
     }
 
+    public void destroyFlag() {
+        Sprite s = ResourceManager.getSprite(atlas_id, "white");
+        Renderable r = getComponent(Renderable.class);
+        r.setTexture(s);
+        getComponent(Pirate.class).kill();
+
+        int acc = 0;
+        for(Ship ship : GameManager.getShips()) {
+            if(ship.getFaction() == f) {
+//                ship.setFaction(GameManager.getPlayer().getFaction().id);
+                ship.destroy();
+                acc++;
+            }
+        }
+        CaptureManager.destroyHandler(f.getName(), acc);
+    }
+
+    public boolean isActiveQuest() {
+        return activeQuestToggle;
+    }
+
+    public void setActiveQuest() {
+        activeQuestToggle = true;
+    }
+
+    public void setInactiveQuest() {
+        activeQuestToggle = false;
+    }
+
     public boolean isAlive() {
         return getComponent(Pirate.class).isAlive();
     }
@@ -95,12 +125,17 @@ public class Building extends Entity implements CollisionCallBack {
         return f;
     }
 
-    public void setFaction () {
+    public void setFaction() {
         f = GameManager.getPlayer().getFaction();
+    }
+
+    public void setFactionCustom(Faction f) {
+        this.f = f;
     }
 
     public void updateFlag() {
         getComponent(Renderable.class).setTexture(ResourceManager.getSprite(atlas_id, f.getColour()));
+        CaptureManager.captureHandler(f.getName());
     }
 
     @Override

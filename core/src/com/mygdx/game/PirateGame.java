@@ -21,6 +21,7 @@ public class PirateGame extends Game {
     public EndScreen end;
     public Stage stage;
     public Skin skin;
+    public CaptureScreen capture;
 
     /**
      * Create instances of game stage and UI screens.
@@ -61,9 +62,11 @@ public class PirateGame extends Game {
         menu = new MenuScreen(this);
         level = new LevelScreen(this);
         game = new GameScreen(this, id_map);
+        capture = new CaptureScreen(this);
         pause = new PauseScreen(this);
         end = new EndScreen(this);
         setScreen(menu);
+//        setScreen(capture);
     }
 
     /**

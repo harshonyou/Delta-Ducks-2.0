@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Faction;
+import com.mygdx.game.Managers.CaptureManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.utils.Utilities;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
+
+    private boolean aliveToggle;
 
     Building flag;
 
@@ -30,6 +33,7 @@ public class College extends Entity {
         Transform t = new Transform();
         Pirate p = new Pirate();
         addComponents(t, p);
+        aliveToggle = true;
     }
 
     /**
@@ -95,10 +99,15 @@ public class College extends Entity {
                 res = true;
             }
         }
-        if (!res) {
+        if (!res && aliveToggle) {
+            aliveToggle = false;
             getComponent(Pirate.class).kill();
-            flag.setFaction();
-            flag.updateFlag();
+            CaptureManager.handler(flag);
+
+//            flag.setFaction();
+//            flag.updateFlag();
+//            CaptureManager.pause();
+//            CaptureManager.changeScreen();
         }
     }
 

@@ -19,6 +19,7 @@ import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
+import com.mygdx.game.Quests.LocateQuest;
 import com.mygdx.game.Quests.Quest;
 
 import static com.mygdx.utils.Constants.*;
@@ -87,21 +88,33 @@ public class GameScreen extends Page {
 
         Quest q = QuestManager.currentQuest();
         Table t = new Table();
+
         questName = new Label("NAME", parent.skin);
+        questName.setAlignment(3);
+        questName.setFontScale(.9f);
         t.add(questName);
         t.row();
         questDesc = new Label("DESCRIPTION", parent.skin);
+        questDesc.setAlignment(3);
+        questDesc.setFontScale(.9f);
         if (q != null) {
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
         }
         /*questComplete = new Label("", parent.skin);
         actors.add(questComplete);*/
+        t.add(questDesc);
 
-        t.add(questDesc).left();
+//        t.bottom().left();
+//        t.setFillParent(true);
+//        t.padBottom(100 * ratio * TILE_SIZE);
 
         questWindow.add(t);
-//        actors.add(questWindow);
+        questWindow.setSize(100 * ratio * TILE_SIZE, 100);
+        questWindow.setPosition(questWindow.getX(), questWindow.getY() + 100 * ratio * TILE_SIZE);
+//        actors.add(t);
+        actors.add(questWindow);
+
 
 
         minimapWindow = new Window("Minimap", parent.skin);
@@ -143,7 +156,7 @@ public class GameScreen extends Page {
         table.add(new Image(parent.skin, "space"));
         table.row();
         table.add(new Label("Pause", parent.skin)).left();
-        table.add(new Image(ResourceManager.getSprite(button_id, "keyboard_162.png")));
+        table.add(new Image(parent.skin, "key-esc"));
 
         EnhancementManager.Initialise();
 
@@ -232,6 +245,7 @@ public class GameScreen extends Page {
         cc = new Label("", parent.skin);
 //        cc.setSize(50,50);
         cc.setColor(Color.WHITE);
+        cc.setAlignment(3);
 
         caption.add(cc);
         caption.bottom();
@@ -240,6 +254,8 @@ public class GameScreen extends Page {
 //        caption.debug();
         caption.padBottom(20f);
         actors.add(caption);
+
+        CaptureManager.Initialise(parent);
     }
 
     private float accumulator;
@@ -354,7 +370,10 @@ public class GameScreen extends Page {
                     int player_y = height - Math.round(building.getPosition().y * ratio) - 3/2;
                     if(building.getFaction() == GameManager.getPlayer().getFaction()) {
                         pixmap.setColor(new Color(.1f, 1f, .1f, .3f));
-                    } else {
+                    } else if (building.isActiveQuest()) {
+                        pixmap.setColor(new Color(1f, 0.8431f, 0f, .3f));
+                    }
+                    else {
                         pixmap.setColor(new Color(1f, 0.1f, 0.1f, .3f));
                     }
                     pixmap.fillCircle(player_x, player_y, 3);
@@ -365,7 +384,6 @@ public class GameScreen extends Page {
         cc.setText(CaptionManager.getdisplay());
 //        cc.setText("Hey");
 
-        minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
 
 
         healthLabel.setText(String.valueOf(p.getHealth()));
@@ -395,6 +413,13 @@ public class GameScreen extends Page {
             }*/
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
+            if(q instanceof LocateQuest) {
+                int player_x = Math.round(((LocateQuest) q).getLocation().x * ratio) + 3/2;
+                int player_y = height - Math.round(((LocateQuest) q).getLocation().y * ratio) - 3/2;
+                pixmap.setColor(new Color(1f, 0.8431f, 0f, .3f));
+                pixmap.fillCircle(player_x, player_y, 3);
+            }
+
         }
         /*if(!questComplete.getText().equals("")) {
             showTimer += EntityManager.getDeltaTime();
@@ -403,6 +428,7 @@ public class GameScreen extends Page {
             showTimer = 0;
             questComplete.setText("");
         }*/
+        minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
         EnhancementManager.update();
         CaptionManager.update();
     }

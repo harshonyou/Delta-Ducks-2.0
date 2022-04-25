@@ -1,5 +1,7 @@
 package com.mygdx.game.Quests;
 
+import com.mygdx.game.Entitys.Building;
+import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
 
 /**
@@ -10,6 +12,7 @@ public abstract class Quest {
     protected String description;
     protected int reward;
     protected boolean isCompleted;
+
 
     public Quest() {
         name = "";
@@ -31,6 +34,11 @@ public abstract class Quest {
     }
 
     public boolean isCompleted() {
+//        if(!changedColor) {
+//            for(Building building : college.getBuildings()) {
+//                building.setActiveQuest();
+//            }
+//        }
         return isCompleted;
     }
 
@@ -42,4 +50,6 @@ public abstract class Quest {
     public String getDescription() {
         return description;
     }
+
+
 }

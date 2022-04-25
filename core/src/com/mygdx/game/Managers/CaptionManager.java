@@ -6,6 +6,7 @@ public class CaptionManager {
     public static boolean initialised = false;
 
     private static float timeCounter;
+    private static float defaultMaxTime;
     private static float maxTime;
     public static String message;
 
@@ -16,7 +17,7 @@ public class CaptionManager {
         initialised = true;
 
         timeCounter = 0f;
-        maxTime = 2f;
+        defaultMaxTime = maxTime = 2f;
         message = "";
     }
 
@@ -31,6 +32,7 @@ public class CaptionManager {
 
     public static void displayHandler() {
         if(timeCounter > maxTime) {
+            maxTime = defaultMaxTime;
             timeCounter = 0;
             message = "";
         }
