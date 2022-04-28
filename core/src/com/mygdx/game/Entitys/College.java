@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Faction;
+import com.mygdx.game.Managers.CaptureManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.utils.Utilities;
 
@@ -17,6 +18,11 @@ public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
 
+    private boolean aliveToggle;
+
+    Building flag;
+
+    public Faction f;
     public College() {
         super();
         buildings = new ArrayList<>();
@@ -27,6 +33,7 @@ public class College extends Entity {
         Transform t = new Transform();
         Pirate p = new Pirate();
         addComponents(t, p);
+        aliveToggle = true;
     }
 
     /**
@@ -36,7 +43,7 @@ public class College extends Entity {
      */
     public College(int factionId) {
         this();
-        Faction f = GameManager.getFaction(factionId);
+        f = GameManager.getFaction(factionId);
         Transform t = getComponent(Transform.class);
         t.setPosition(f.getPosition());
         Pirate p = getComponent(Pirate.class);
@@ -71,14 +78,14 @@ public class College extends Entity {
 
                 String b_name = Utilities.randomChoice(buildingNames, 0);
 
-                b.create(pos, b_name);
+                b.create(pos, b_name, f);
             }
 
 
         }
-        Building flag = new Building(true);
+        flag = new Building(true);
         buildings.add(flag);
-        flag.create(origin, colour);
+        flag.create(origin, colour, f);
     }
 
     /**
@@ -92,8 +99,42 @@ public class College extends Entity {
                 res = true;
             }
         }
-        if (!res) {
+        if (!res && aliveToggle) {
+            aliveToggle = false;
             getComponent(Pirate.class).kill();
+            CaptureManager.handler(flag);
+
+//            flag.setFaction();
+//            flag.updateFlag();
+//            CaptureManager.pause();
+//            CaptureManager.changeScreen();
+        }
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public boolean aliveTest() {
+        boolean res = false;
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            Building b = buildings.get(i);
+            if (b.isAlive()) {
+                res = true;
+            }
+        }
+        if (!res) {
+            return false;
+        }
+        return true;
+    }
+
+    public void destroy() {
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            Building b = buildings.get(i);
+            if (b.isAlive()) {
+                b.destroy();
+            }
         }
     }
 

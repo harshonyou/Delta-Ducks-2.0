@@ -13,9 +13,11 @@ import com.mygdx.utils.QueueFIFO;
 public class Pirate extends Component {
     private int factionId;
     private int plunder;
+    private int xp;
     protected boolean isAlive;
     private int health;
     private int ammo;
+    private int armor;
     private final int attackDmg;
 
     /**
@@ -28,10 +30,12 @@ public class Pirate extends Component {
         targets = new QueueFIFO<>();
         type = ComponentType.Pirate;
         plunder = GameManager.getSettings().get("starting").getInt("plunder");
+        xp = 0;
         factionId = 1;
         isAlive = true;
         JsonValue starting = GameManager.getSettings().get("starting");
         health = starting.getInt("health");
+        armor = 0;
         attackDmg = starting.getInt("damage");
         ammo = starting.getInt("ammo");
     }
@@ -44,9 +48,26 @@ public class Pirate extends Component {
         return plunder;
     }
 
+    public void setPlunder(int p) {
+        plunder = p;
+    }
+
     public void addPlunder(int money) {
         plunder += money;
     }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public void addXp(int xp) {
+        this.xp += xp;
+    }
+
 
     public Faction getFaction() {
         return GameManager.getFaction(factionId);
@@ -57,7 +78,16 @@ public class Pirate extends Component {
     }
 
     public void takeDamage(float dmg) {
-        health -= dmg;
+        if(armor<=0) {
+            health -= dmg;
+        } else {
+            if(armor-dmg*1.5 <= 0) {
+                health = (int) (health + armor - dmg*1.5);
+                armor = 0;
+            } else {
+                armor -= dmg*1.5;
+            }
+        }
         if (health <= 0) {
             health = 0;
             isAlive = false;
@@ -90,6 +120,18 @@ public class Pirate extends Component {
         return health;
     }
 
+    public void setHealth(int h) {
+        health = h;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int a) {
+        armor = a;
+    }
+
     /**
      * if dst to target is less than attack range
      * target will be null if not in agro range
@@ -103,6 +145,13 @@ public class Pirate extends Component {
             return dst < Ship.getAttackRange();
         }
         return false;
+    }
+
+    public Vector2 targetPos() {
+        Ship p = (Ship) parent;
+        Vector2 pos = p.getPosition();
+        Vector2 targetPos = targets.peek().getPosition();
+        return targetPos.sub(pos);
     }
 
     /**

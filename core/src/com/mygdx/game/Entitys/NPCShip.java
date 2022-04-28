@@ -3,14 +3,15 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.AI.EnemyState;
-import com.mygdx.game.Components.AINavigation;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
+import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
+import com.mygdx.game.Managers.RenderLayer;
+import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.utils.QueueFIFO;
@@ -25,6 +26,18 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public StateMachine<NPCShip, EnemyState> stateMachine;
     private static JsonValue AISettings;
     private final QueueFIFO<Vector2> path;
+    private long shootTime;
+
+    private Renderable healthBar;
+
+    private static float FREEZE_TIME = GameManager.getSettings().get("AI").getFloat("cannonTimeout");
+    private float freezeTimer;
+
+    private float damageDelt;
+
+    private boolean bonusGained = false;
+
+//    private float bulletSpeed;
 
     /**
      * Creates an initial state machine
@@ -32,6 +45,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public NPCShip() {
         super();
         path = new QueueFIFO<>();
+        shootTime = 0;
 
         if (AISettings == null) {
             AISettings = GameManager.getSettings().get("AI");
@@ -43,7 +57,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         AINavigation nav = new AINavigation();
 
         addComponent(nav);
-
+        healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
 
         RigidBody rb = getComponent(RigidBody.class);
         // rb.setCallback(this);
@@ -53,6 +67,15 @@ public class NPCShip extends Ship implements CollisionCallBack {
         // agro trigger
         rb.addTrigger(Utilities.tilesToDistance(starting.getFloat("argoRange_tiles")), "agro");
 
+        addComponents(healthBar);
+        healthBar.show();
+        healthBar.setDisplacement(-3, 0);
+
+        freezeTimer = 0;
+
+        damageDelt = 20f;
+
+//        bulletSpeed = GameManager.getSettings().get("starting").getFloat("cannonSpeed");
     }
 
     /**
@@ -69,9 +92,41 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void update() {
+        freezeTimer += EntityManager.getDeltaTime();
         super.update();
-        stateMachine.update();
 
+        if (getHealth() <= 0) {
+            removeOnDeath();
+            healthBar.hide();
+            if(!bonusGained) {
+                GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + getPlunderBonus()));
+                GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + getXpBonus()));
+                bonusGained = true;
+            }
+        } else {
+            if (getHealth() > 80f)
+                healthBar.setColor(Color.valueOf("26ff05"));
+            else if (getHealth() > 70f)
+                healthBar.setColor(Color.valueOf("8ee600"));
+            else if (getHealth() > 60f)
+                healthBar.setColor(Color.valueOf("dbc500"));
+            else if (getHealth() > 50f)
+                healthBar.setColor(Color.valueOf("ffa024"));
+            else if (getHealth() > 40f)
+                healthBar.setColor(Color.valueOf("ff401a"));
+            else if (getHealth() > 30f)
+                healthBar.setColor(Color.valueOf("fa0011"));
+            else
+                healthBar.setColor(Color.valueOf("cc0007"));
+            healthBar.setSize(2, 3*(getHealth()/10));
+        }
+        if (getComponent(Pirate.class).canAttack()) {
+            if (freezeTimer >= FREEZE_TIME) {
+                freezeTimer = 0;
+                super.shoot(getComponent(Pirate.class).targetPos());
+            }
+        }
+        stateMachine.update();
         // System.out.println(getComponent(Pirate.class).targetCount());
     }
 
@@ -119,6 +174,14 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     }
 
+    public void setDamageDelt(float dmgDlt) {
+        damageDelt = dmgDlt;
+    }
+
+//    public float getBulletSpeed() {
+//        return bulletSpeed;
+//    }
+
     @Override
     public void BeginContact(CollisionInfo info) {
 
@@ -136,17 +199,22 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (!(info.a instanceof Ship)) {
-            return;
+        if (info.a instanceof Ship) {
+            Ship other = (Ship) info.a;
+            if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
+                // is the same faction
+                return;
+            }
+            // add the new collision as a new target
+            Pirate pirate = getComponent(Pirate.class);
+            pirate.addTarget(other);
         }
-        Ship other = (Ship) info.a;
-        if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
-            // is the same faction
-            return;
+        if (info.a instanceof CannonBall) {
+            if (((CannonBall) info.a).getShooter().getFaction() != super.getFaction()) {
+                getComponent(Pirate.class).takeDamage(damageDelt);
+                ((CannonBall) info.a).kill();
+            }
         }
-        // add the new collision as a new target
-        Pirate pirate = getComponent(Pirate.class);
-        pirate.addTarget(other);
     }
 
     /**
@@ -168,5 +236,12 @@ public class NPCShip extends Ship implements CollisionCallBack {
                 break;
             }
         }
+    }
+
+    private void removeOnDeath() {
+        stopMovement();
+        getComponent(Renderable.class).hide();
+        Transform t = getComponent(Transform.class);
+        t.setPosition(-50, -50);
     }
 }

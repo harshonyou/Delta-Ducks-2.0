@@ -17,7 +17,7 @@ import java.util.HashMap;
  * Manages all assets and disposes of them when appropriate
  */
 public final class ResourceManager {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
     private static boolean loaded;
     private static AssetManager manager;
     private static ArrayList<String> ids;
@@ -25,14 +25,17 @@ public final class ResourceManager {
     private static HashMap<String, FreeTypeFontGenerator> fontGenerators;
     private static HashMap<String, BitmapFont> fonts;
 
+    private static FreeTypeFontGenerator fontGenerator;
+    private static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+
     /**
      * The equivalent to a constructor
      */
-    public static void Initialize() {
-        if (initialized) {
+    public static void Initialise() {
+        if (initialised) {
             return;
         }
-        initialized = true;
+        initialised = true;
         manager = new AssetManager();
         loaded = false;
         ids = new ArrayList<>();
@@ -82,6 +85,16 @@ public final class ResourceManager {
         tileMaps.add(map);
         ids.add("|TM|" + tileMaps.size() + fPath);
         return ids.size();
+    }
+
+    public static void initFont(String fontPath) {
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
+    }
+
+    public static BitmapFont genFont(int size) {
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = size;
+        return fontGenerator.generateFont(fontParameter);
     }
 
     /**
@@ -303,11 +316,11 @@ public final class ResourceManager {
     }
 
     /**
-     * Calls Initialize if not already done so
+     * Calls Initialise if not already done so
      */
     private static void tryInit() {
-        if (!initialized) {
-            Initialize();
+        if (!initialised) {
+            Initialise();
         }
     }
 }

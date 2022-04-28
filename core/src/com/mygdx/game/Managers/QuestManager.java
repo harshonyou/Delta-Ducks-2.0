@@ -1,6 +1,7 @@
 package com.mygdx.game.Managers;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.Chest;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
@@ -18,12 +19,12 @@ import static com.mygdx.utils.Constants.TILE_SIZE;
  * Creates the quests and manages their completion and order
  */
 public class QuestManager {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
     private static ArrayList<Quest> allQuests;
     private static Chest chest;
 
-    public static void Initialize() {
-        initialized = true;
+    public static void Initialise() {
+        initialised = true;
         allQuests = new ArrayList<>();
         chest = new Chest();
 
@@ -50,6 +51,10 @@ public class QuestManager {
             return 0;
         }
         addQuest(new KillQuest(enemy));
+
+//        for(Building building : enemy.getBuildings()) {
+//            building.setActiveQuest();
+//        }
         return id;
     }
 
@@ -137,8 +142,8 @@ public class QuestManager {
     }
 
     private static void tryInit() {
-        if (!initialized) {
-            Initialize();
+        if (!initialised) {
+            Initialise();
         }
     }
 
@@ -149,11 +154,19 @@ public class QuestManager {
      */
     public static Quest currentQuest() {
         tryInit();
+        ArrayList<Quest> questsTemp = new ArrayList<>();
         for (Quest q : allQuests) {
             if (!q.isCompleted()) {
+                if(q instanceof KillQuest)
+                    ((KillQuest) q).setColor();
                 return q;
+            } else {
+                questsTemp.add(q);
+                if(q instanceof KillQuest)
+                    ((KillQuest) q).removeColor();
             }
         }
+        allQuests.remove(questsTemp);
         return null;
     }
 

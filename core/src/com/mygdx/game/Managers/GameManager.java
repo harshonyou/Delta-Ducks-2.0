@@ -13,11 +13,13 @@ import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
 
+import static com.mygdx.utils.Constants.TILE_SIZE;
+
 /**
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
  */
 public final class GameManager {
-    private static boolean initialized = false;
+    private static boolean initialised = false;
     private static ArrayList<Faction> factions;
     private static ArrayList<Ship> ships;
     private static ArrayList<College> colleges;
@@ -33,8 +35,8 @@ public final class GameManager {
     /**
      * facilitates creation of the game
      */
-    public static void Initialize() {
-        initialized = true;
+    public static void Initialise() {
+        initialised = true;
         currentElement = 0;
         settings = new JsonReader().
                 parse(Gdx.files.internal("GameSettings.json"));
@@ -75,6 +77,10 @@ public final class GameManager {
         return (Player) ships.get(0);
     }
 
+    public static ArrayList<Ship> getShips() {
+        return ships;
+    }
+
     /**
      * Creates the game with player maps, NPCs, colleges
      *
@@ -95,6 +101,39 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
+        CreateBoulders();
+        CreateMonsters();
+        createEnhancements();
+    }
+
+    public static void createEnhancements() {
+        tryInit();
+        for(int i=0; i<20; i++) {
+            Enhancement e = new Enhancement();
+            e.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Enhancement e = new Enhancement();
+        e.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
+    }
+
+    public static void CreateMonsters() {
+        tryInit();
+        for(int i=0; i<10; i++) {
+            Monster m = new Monster();
+            m.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Monster m = new Monster();
+        m.getComponent(Transform.class).setPosition(1696, 770);
+    }
+
+    public static void CreateBoulders() {
+        tryInit();
+        for(int i=0; i<20; i++) {
+            Boulder b = new Boulder();
+            b.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Boulder b = new Boulder();
+        b.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
     }
 
     /**
@@ -144,8 +183,8 @@ public final class GameManager {
     }
 
     private static void tryInit() {
-        if (!initialized) {
-            Initialize();
+        if (!initialised) {
+            Initialise();
         }
     }
 
@@ -168,6 +207,9 @@ public final class GameManager {
         tryInit();
         return colleges.get(factionId - 1);
     }
+    public static ArrayList<College> getColleges(){
+        return colleges;
+    }
 
     /**
      * Utilises the cached cannonballs to fire one
@@ -177,7 +219,7 @@ public final class GameManager {
      */
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
-        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+//        pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
         ballCache.get(currentElement++).fire(pos, dir, p);
         currentElement %= cacheSize;
     }

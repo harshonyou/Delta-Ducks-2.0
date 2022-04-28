@@ -6,19 +6,23 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Managers.ResourceManager;
-import com.mygdx.game.UI.EndScreen;
-import com.mygdx.game.UI.GameScreen;
-import com.mygdx.game.UI.MenuScreen;
+import com.mygdx.game.UI.*;
+
+import java.util.logging.Level;
 
 /**
  * Contains class instances of game UI screens.
  */
 public class PirateGame extends Game {
     public MenuScreen menu;
+    public LevelScreen level;
     public GameScreen game;
+    public PauseScreen pause;
     public EndScreen end;
     public Stage stage;
     public Skin skin;
+    public CaptureScreen capture;
+    private int id_map;
 
     /**
      * Create instances of game stage and UI screens.
@@ -27,20 +31,48 @@ public class PirateGame extends Game {
     public void create() {
         // load resources
         int id_ship = ResourceManager.addTexture("ship.png");
-        int id_map = ResourceManager.addTileMap("Map.tmx");
+        id_map = ResourceManager.addTileMap("Map.tmx");
         int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
         int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
+        int enhancement_id = ResourceManager.addTextureAtlas("UISkin/enhancement.atlas");
+        int button_id = ResourceManager.addTextureAtlas("UISkin/buttons.atlas");
         int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
         ResourceManager.addTexture("menuBG.jpg");
         ResourceManager.addTexture("Chest.png");
+
+        ResourceManager.addTexture("blank.png");
+        ResourceManager.addTexture("Arrow.png");
+        ResourceManager.addTexture("Coin.png");
+        ResourceManager.addTexture("HeatFull.png");
+        ResourceManager.addTexture("Shield.png");
+
+        ResourceManager.initFont("font/boy.ttf");
+        ResourceManager.addTexture("darealthang.png");
+        ResourceManager.addTexture("luffy.jpg");
+        ResourceManager.addTexture("datshipdoe.png");
+
+        ResourceManager.addTexture("Tome.png");
+        ResourceManager.addTexture("ShieldT2.png");
+
+        ResourceManager.addTexture("custom/ALL DUCK BOAT FINAL.png");
+
+        ResourceManager.addTexture("Idle.png");
+
+        //datshipdoe.png ALL DUCK BOAT FINAL.png
+
+
         ResourceManager.loadAssets();
         // cant load any more resources after this point (just functionally I choose not to implement)
         stage = new Stage(new ScreenViewport());
         createSkin();
         menu = new MenuScreen(this);
+        level = new LevelScreen(this);
         game = new GameScreen(this, id_map);
+        capture = new CaptureScreen(this);
+        pause = new PauseScreen(this);
         end = new EndScreen(this);
         setScreen(menu);
+//        setScreen(capture);
     }
 
     /**
@@ -55,7 +87,7 @@ public class PirateGame extends Game {
     }
 
     /**
-     * load ui skin from assets 
+     * load ui skin from assets
      */
     private void createSkin() {
         skin = new Skin(Gdx.files.internal("UISkin/skin.json"));

@@ -1,5 +1,6 @@
 package com.mygdx.game.Components;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +14,8 @@ import com.mygdx.game.Managers.ResourceManager;
 public class Renderable extends Component {
     protected Sprite sprite;
     private boolean isVisible;
+    private float displacementX;
+    private float displacementY;
 
     /**
      * Called in other constructors, loads no textures by itself.
@@ -23,6 +26,8 @@ public class Renderable extends Component {
         type = ComponentType.Renderable;
         sprite = new Sprite();
         RenderingManager.addItem(this, RenderLayer.Transparent);
+
+        displacementX = displacementY = 0f;
     }
 
     /**
@@ -50,6 +55,7 @@ public class Renderable extends Component {
         RenderingManager.addItem(this, layer);
     }
 
+
     /**
      * Locates the sprite at the position of the parent's Transform component.
      */
@@ -66,7 +72,7 @@ public class Renderable extends Component {
         Vector2 p = c.getPosition();
         Vector2 s = c.getScale();
 
-        sprite.setPosition(p.x, p.y);
+        sprite.setPosition(p.x + displacementX, p.y + displacementY);
         sprite.setRotation(MathUtils.radiansToDegrees * c.getRotation());
         sprite.setScale(s.x, s.y);
     }
@@ -115,8 +121,24 @@ public class Renderable extends Component {
         isVisible = false;
     }
 
+    public void dispose() {
+
+    }
+
     public void toggleVisibility() {
         isVisible = !isVisible;
     }
 
+    public void setColor(Color c) {
+        sprite.setColor(c);
+    }
+
+    public void setSize(float width, float height) {
+        sprite.setSize(width, height);
+    }
+
+    public void setDisplacement(float x, float y) {
+        displacementX = x;
+        displacementY = y;
+    }
 }

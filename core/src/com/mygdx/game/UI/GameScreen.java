@@ -2,26 +2,54 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Components.ComponentEvent;
+import com.mygdx.game.Entitys.Building;
+import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
+import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
+import com.mygdx.game.Quests.LocateQuest;
 import com.mygdx.game.Quests.Quest;
 
 import static com.mygdx.utils.Constants.*;
 
 public class GameScreen extends Page {
     private Label healthLabel;
+    private Label armorLabel;
     private Label dosh;
     private Label ammo;
+    private Label xp;
     private final Label questDesc;
     private final Label questName;
+    private int enhancement_id;
+    private int button_id;
+
+    private Label healthTax;
+    private Label speedTax;
+    private Label ammoTax;
+    private Label armorTax;
+    private Label immunityTax;
+    private Label infiniteBulletTax;
+
+    private Pixmap pixmap;
+    private float ratio = .045f;
+    private Window minimapWindow;
+    private Table minimapTable;
+
+    private Table caption;
+    private Label cc;
+
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -37,7 +65,7 @@ public class GameScreen extends Page {
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
         INIT_CONSTANTS();
-        PhysicsManager.Initialize(false);
+        PhysicsManager.Initialise(true); // drawing debug mode
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
@@ -49,27 +77,58 @@ public class GameScreen extends Page {
 
         GameManager.SpawnGame(id_map);
         //QuestManager.addQuest(new KillQuest(c));
+        enhancement_id = ResourceManager.getId("UISkin/enhancement.atlas");
+        button_id = ResourceManager.getId("UISkin/buttons.atlas");
+
+//        System.out.println("enhancement_id " + enhancement_id);
 
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 
         Window questWindow = new Window("Current Quest", parent.skin);
 
+        questWindow.getTitleLabel().setAlignment(3);
+
         Quest q = QuestManager.currentQuest();
         Table t = new Table();
+
         questName = new Label("NAME", parent.skin);
+        questName.setAlignment(3);
+        questName.setFontScale(.9f);
         t.add(questName);
         t.row();
         questDesc = new Label("DESCRIPTION", parent.skin);
+        questDesc.setAlignment(3);
+        questDesc.setFontScale(.9f);
         if (q != null) {
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
         }
         /*questComplete = new Label("", parent.skin);
         actors.add(questComplete);*/
+        t.add(questDesc);
 
-        t.add(questDesc).left();
+//        t.bottom().left();
+//        t.setFillParent(true);
+//        t.padBottom(100 * ratio * TILE_SIZE);
+
         questWindow.add(t);
+        questWindow.setSize(100 * ratio * TILE_SIZE, 100);
+        questWindow.setPosition(questWindow.getX(), questWindow.getY() + 100 * ratio * TILE_SIZE);
+//        actors.add(t);
         actors.add(questWindow);
+
+
+
+        minimapWindow = new Window("Minimap", parent.skin);
+        minimapWindow.getTitleLabel().setAlignment(3);
+
+        minimapTable = new Table();
+
+        minimapTable.setFillParent(true);
+        actors.add(minimapTable);
+        minimapTable.bottom().left();
+
+//        actors.add(minimapWindow);
 
         Table t1 = new Table();
         t1.top().right();
@@ -77,6 +136,10 @@ public class GameScreen extends Page {
         actors.add(t1);
 
         Window tutWindow = new Window("Controls", parent.skin);
+
+        tutWindow.getTitleLabel().setAlignment(3);
+
+
         Table table = new Table();
         tutWindow.add(table);
         t1.add(tutWindow);
@@ -94,9 +157,107 @@ public class GameScreen extends Page {
         table.add(new Label("Shoot in direction of ship", parent.skin)).left();
         table.add(new Image(parent.skin, "space"));
         table.row();
-        table.add(new Label("Quit", parent.skin)).left();
+        table.add(new Label("Pause", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
 
+        EnhancementManager.Initialise();
+
+        Window enhWindow = new Window("Enhancements", parent.skin);
+
+        enhWindow.getTitleLabel().setAlignment(3);
+
+        Table enhTable = new Table();
+        enhWindow.add(enhTable);
+
+//        enhTable.add(new Label("Press 1", parent.skin)).top().left();
+        enhTable.add();
+        enhTable.add(new Label("Button", parent.skin)).center();
+        enhTable.add();
+        enhTable.add(new Label("Cost", parent.skin)).right();
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_1.png"))).size(.6f*TILE_SIZE);
+        enhTable.add(new Label("Health", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_12.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        healthTax = new Label("N/A", parent.skin);
+        enhTable.add(healthTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_2.png"))).size(.6f*TILE_SIZE);;
+        enhTable.add(new Label("Speed", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_10.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        speedTax = new Label("N/A", parent.skin);
+        enhTable.add(speedTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_3.png"))).size(.6f*TILE_SIZE);;
+        enhTable.add(new Label("Ammo", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_29.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        ammoTax = new Label("N/A", parent.skin);
+        enhTable.add(ammoTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_4.png"))).size(.6f*TILE_SIZE);;
+        enhTable.add(new Label("Armor", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_40.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        armorTax = new Label("N/A", parent.skin);
+        enhTable.add(armorTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_5.png"))).size(.6f*TILE_SIZE);;
+        enhTable.add(new Label("Immunity", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_30.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        immunityTax = new Label("N/A", parent.skin);
+        enhTable.add(immunityTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        enhTable.add(new Image(ResourceManager.getSprite(button_id, "keyboard_6.png"))).size(.6f*TILE_SIZE);;
+        enhTable.add(new Label("Infinite Bullets", parent.skin)).top().left();
+        enhTable.add(new Image(ResourceManager.getSprite(enhancement_id, "Icons_22.png"))).size(.6f * TILE_SIZE).padLeft(10f);
+        infiniteBulletTax = new Label("N/A", parent.skin);
+        enhTable.add(infiniteBulletTax).right();
+        enhTable.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).size(.6f * TILE_SIZE);
+        enhTable.row();
+
+        Table t2 = new Table();
+        t2.bottom().right();
+        t2.setFillParent(true);
+        actors.add(t2);
+//        enhTable.bottom().right();
+//        enhTable.setFillParent(true);
+//        enhTable.setColor(new Color(0.1f, 0.1f, 0.1f, .5f));
+//        actors.add(enhTable);
+
+//        enhTable.debug();
+//        enhTable.scaleBy(.5f);
+
+        t2.add(enhWindow);
+//        t2.scaleBy(.5f);
+
+//        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
+
+        CaptionManager.Initialise();
+
+        caption = new Table();
+        cc = new Label("", parent.skin);
+//        cc.setSize(50,50);
+        cc.setColor(Color.WHITE);
+        cc.setAlignment(3);
+
+        caption.add(cc);
+        caption.bottom();
+//        caption.bottom().center();
+        caption.setFillParent(true);
+//        caption.debug();
+        caption.padBottom(20f);
+        actors.add(caption);
+
+        CaptureManager.Initialise(parent);
     }
 
     private float accumulator;
@@ -121,9 +282,10 @@ public class GameScreen extends Page {
         }
 
         GameManager.update();
-        // show end screen if esc is pressed
+        // show pause screen if esc is pressed
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            parent.setScreen(parent.end);
+            parent.pause();
+            parent.setScreen(parent.pause);
         }
         super.render(delta);
     }
@@ -169,9 +331,76 @@ public class GameScreen extends Page {
         super.update();
         Player p = GameManager.getPlayer();
 
+        if (p.getHealth() <= 0) {
+            parent.setScreen(parent.end);
+        }
+
+        minimapTable.clear();
+        int width = Math.round(100 * ratio * TILE_SIZE);
+        int height = Math.round(100 * ratio * TILE_SIZE);
+
+
+//        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap.setColor(new Color(0.1f, 0.1f, 0.1f, .6f));
+        pixmap.fillRectangle(0, 0, width, height);
+
+
+        for(Ship ship : GameManager.getShips()) {
+            int player_radius;
+            Color clr;
+            if(ship == GameManager.getPlayer()) {
+                player_radius = 4;
+                clr = new Color(.1f, 0.1f, 1f, .3f);
+            } else if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
+                player_radius = 1;
+                clr = new Color(.1f, 1f, .1f, .3f);
+            }
+            else {
+                player_radius = 2;
+                clr = new Color(1f, 0.1f, 0.1f, .3f);
+            }
+            int player_x = Math.round(ship.getPosition().x * ratio) + player_radius/2;
+            int player_y = height - Math.round(ship.getPosition().y * ratio) - player_radius/2;
+            pixmap.setColor(clr);
+            pixmap.fillCircle(player_x, player_y, player_radius);
+        }
+        for (College college : GameManager.getColleges()) {
+            for(Building building: college.getBuildings()) {
+                if(building.isAlive()) {
+                    int player_x = Math.round(building.getPosition().x * ratio) + 3/2;
+                    int player_y = height - Math.round(building.getPosition().y * ratio) - 3/2;
+                    if(building.getFaction() == GameManager.getPlayer().getFaction()) {
+                        pixmap.setColor(new Color(.1f, 1f, .1f, .3f));
+                    } else if (building.isActiveQuest()) {
+                        pixmap.setColor(new Color(1f, 0.8431f, 0f, .3f));
+                    }
+                    else {
+                        pixmap.setColor(new Color(1f, 0.1f, 0.1f, .3f));
+                    }
+                    pixmap.fillCircle(player_x, player_y, 3);
+                }
+            }
+        }
+
+        cc.setText(CaptionManager.getdisplay());
+//        cc.setText("Hey");
+
+
+
         healthLabel.setText(String.valueOf(p.getHealth()));
+        xp.setText(String.valueOf(p.getXp()));
+        armorLabel.setText(String.valueOf(p.getArmor()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));
+
+        healthTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.HEALTH)));
+        speedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.SPEED)));
+        ammoTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.AMMO)));
+        armorTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.ARMOR)));
+        immunityTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.IMMUNITY)));
+        infiniteBulletTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.INFINITEAMMO)));
+
         if (!QuestManager.anyQuests()) {
             parent.end.win();
             parent.setScreen(parent.end);
@@ -187,6 +416,13 @@ public class GameScreen extends Page {
             }*/
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
+            if(q instanceof LocateQuest) {
+                int player_x = Math.round(((LocateQuest) q).getLocation().x * ratio) + 3/2;
+                int player_y = height - Math.round(((LocateQuest) q).getLocation().y * ratio) - 3/2;
+                pixmap.setColor(new Color(1f, 0.8431f, 0f, .3f));
+                pixmap.fillCircle(player_x, player_y, 3);
+            }
+
         }
         /*if(!questComplete.getText().equals("")) {
             showTimer += EntityManager.getDeltaTime();
@@ -195,6 +431,9 @@ public class GameScreen extends Page {
             showTimer = 0;
             questComplete.setText("");
         }*/
+        minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
+        EnhancementManager.update();
+        CaptionManager.update();
     }
 
     /**
@@ -206,23 +445,37 @@ public class GameScreen extends Page {
         table.setFillParent(true);
         actors.add(table);
 
-        table.add(new Image(parent.skin.getDrawable("heart"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("HeatFull.png")))).top().left().size(1.25f * TILE_SIZE);
         healthLabel = new Label("N/A", parent.skin);
         table.add(healthLabel).top().left().size(50);
 
         table.row();
-        table.setDebug(false);
 
-        table.add(new Image(parent.skin.getDrawable("coin"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Tome.png")))).top().left().size(1.25f * TILE_SIZE);
+        xp = new Label("N/A", parent.skin);
+        table.add(xp).top().left().size(50);
+
+        table.row();
+
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).top().left().size(1.25f * TILE_SIZE);
         dosh = new Label("N/A", parent.skin);
         table.add(dosh).top().left().size(50);
 
         table.row();
 
-        table.add(new Image(parent.skin.getDrawable("ball"))).top().left().size(1.25f * TILE_SIZE);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("ShieldT2.png")))).top().left().size(1.25f * TILE_SIZE);
+        armorLabel = new Label("N/A", parent.skin);
+        table.add(armorLabel).top().left().size(50);
+
+        table.row();
+
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Arrow.png")))).top().left().size(1.25f * TILE_SIZE);
         ammo = new Label("N/A", parent.skin);
         table.add(ammo).top().left().size(50);
 
         table.top().left();
+
+        table.setDebug(false);
+
     }
 }

@@ -78,6 +78,45 @@ public class RigidBody extends Component {
         shape.dispose();
     }
 
+    public RigidBody(PhysicsBodyType type, Renderable r, Transform t, boolean isTrigger, boolean circle) {
+        this();
+        BodyDef def = new BodyDef();
+        switch (type) {
+            case Static:
+                def.type = BodyDef.BodyType.StaticBody;
+                break;
+            case Dynamic:
+                def.type = BodyDef.BodyType.DynamicBody;
+                break;
+            case Kinematic:
+                def.type = BodyDef.BodyType.KinematicBody;
+                break;
+        }
+        float h_x = r.sprite.getWidth() * 0.5f;
+        float h_y = r.sprite.getHeight() * 0.5f;
+        halfDim.set(h_x, h_y);
+
+        def.position.set(t.getPosition().x + h_x, t.getPosition().y + h_y);
+        h_x *= t.getScale().x;
+        h_y *= t.getScale().y;
+
+        def.angle = t.getRotation();
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(h_x);
+
+        FixtureDef f = new FixtureDef();
+        f.isSensor = isTrigger;
+        f.shape = shape;
+        f.density = type == PhysicsBodyType.Static ? 0.0f : 1.0f;
+        f.restitution = 0; // prevents bouncing
+        f.friction = 0;
+
+        bodyId = PhysicsManager.createBody(def, f, null);
+
+        shape.dispose();
+    }
+
     /**
      * Adds a new circular fixture to the body as a trigger
      */
@@ -137,6 +176,25 @@ public class RigidBody extends Component {
         b.setTransform(position, 0);
     }
 
+    public void setRadius(float s) {
+        Body b = PhysicsManager.getBody(bodyId);
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(s);
+
+        FixtureDef f = new FixtureDef();
+        f.isSensor = false;
+        f.shape = shape;
+        f.density = 1.0f;
+        f.restitution = 0; // prevents bouncing
+        f.friction = 0;
+
+//        f = b.getFixtureList().first().def;
+
+        b.destroyFixture(b.getFixtureList().first());
+        b.createFixture(f).setUserData("player");
+    }
+
     public Body getBody() {
         return PhysicsManager.getBody(bodyId);
     }
@@ -165,5 +223,9 @@ public class RigidBody extends Component {
 
     public void applyForce(Vector2 force) {
         getBody().applyForceToCenter(force, true);
+    }
+
+    public void erase() {
+        PhysicsManager.eraseBody(getBody());
     }
 }

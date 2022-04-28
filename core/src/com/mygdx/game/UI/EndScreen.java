@@ -2,8 +2,13 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -22,6 +27,11 @@ public class EndScreen extends Page {
     Label wonText;
     Label playerStats;
 
+    private BitmapFont font;
+    private Skin skinButton;
+    private TextureAtlas buttonAtlas;
+    private TextButton.TextButtonStyle textButtonStyle;
+
     public EndScreen(PirateGame game) {
         super(game);
     }
@@ -38,21 +48,34 @@ public class EndScreen extends Page {
      */
     @Override
     protected void CreateActors() {
-        Table t = new Table();
-        t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
+        font = ResourceManager.genFont(50);
+        skinButton = new Skin();
+        buttonAtlas = new TextureAtlas("button/buttonmap.atlas");
+        skinButton = new Skin(buttonAtlas);
 
-        float space = VIEWPORT_HEIGHT * 0.25f;
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.fontColor = Color.BLACK;
+        textButtonStyle.up = skinButton.getDrawable("buttonpress");
+        textButtonStyle.down = skinButton.getDrawable("buttonpress");
+        textButtonStyle.over = skinButton.getDrawable("button");
+
+        Table t = new Table();
+//        t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg")));
+
+        float space = VIEWPORT_HEIGHT * 0.15f;
         t.setFillParent(true);
         actors.add(t);
-        wonText = new Label("You have lost", parent.skin);
-        wonText.setFontScale(2);
+        wonText = new Label("You have lost, try again!", new Label.LabelStyle(font, Color.BLACK));
+        wonText.setFontScale(.5f);
         t.top();
-        t.add(wonText).top().spaceBottom(space);
+        t.add(wonText).spaceBottom(space);
         t.row();
-        playerStats = new Label("Player Stats:\n", parent.skin);
+        playerStats = new Label("Player Stats:\n", new Label.LabelStyle(font, Color.BLACK));
+        playerStats.setFontScale(.4f);
         t.add(playerStats).spaceBottom(space);
         t.row();
-        TextButton b = new TextButton("Exit", parent.skin);
+        TextButton b = new TextButton("Exit", textButtonStyle);
         b.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -60,7 +83,10 @@ public class EndScreen extends Page {
                 System.exit(0);
             }
         });
-        t.add(b);
+        b.getLabel().setFontScale(.3f);
+        t.add(b).size(150, 100);
+
+        t.center();
     }
 
     @Override
@@ -88,6 +114,13 @@ public class EndScreen extends Page {
     public void resize(int width, int height) {
         super.resize(width, height);
         Table t = (Table) actors.get(0);
-        t.setBackground(new TextureRegionDrawable(ResourceManager.getTexture("menuBG.jpg"))); // prevent the bg being stretched
+        TextureRegion luffy = new TextureRegion(
+                ResourceManager.getTexture("darealthang.png"),
+                ResourceManager.getTexture("darealthang.png").getWidth()/2 - width/2,
+                ResourceManager.getTexture("darealthang.png").getHeight()/2 - height/2,
+                width,
+                height
+        );
+        t.setBackground(new TextureRegionDrawable(luffy)); // prevent the bg being stretched
     }
 }
