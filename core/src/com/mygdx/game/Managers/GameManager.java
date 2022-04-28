@@ -102,6 +102,17 @@ public final class GameManager {
             }
         }
         CreateBoulders();
+        CreateMonsters();
+    }
+
+    public static void CreateMonsters() {
+        tryInit();
+        for(int i=0; i<10; i++) {
+            Monster m = new Monster();
+            m.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Monster m = new Monster();
+        m.getComponent(Transform.class).setPosition(1696, 770);
     }
 
     public static void CreateBoulders() {
@@ -111,7 +122,7 @@ public final class GameManager {
             b.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
         }
         Boulder b = new Boulder();
-        b.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100), (float) (getPlayer().getPosition().y - Math.random()*100));
+        b.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
     }
 
     /**

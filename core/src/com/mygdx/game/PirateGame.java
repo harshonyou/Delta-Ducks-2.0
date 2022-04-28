@@ -56,6 +56,8 @@ public class PirateGame extends Game {
 
         ResourceManager.addTexture("custom/ALL DUCK BOAT FINAL.png");
 
+        ResourceManager.addTexture("Idle.png");
+
         //datshipdoe.png ALL DUCK BOAT FINAL.png
 
 
