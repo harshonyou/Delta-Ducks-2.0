@@ -100,6 +100,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
             healthBar.hide();
             if(!bonusGained) {
                 GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + getPlunderBonus()));
+                GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + getXpBonus()));
                 bonusGained = true;
             }
         } else {

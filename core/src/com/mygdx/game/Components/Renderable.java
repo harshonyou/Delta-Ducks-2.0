@@ -55,6 +55,7 @@ public class Renderable extends Component {
         RenderingManager.addItem(this, layer);
     }
 
+
     /**
      * Locates the sprite at the position of the parent's Transform component.
      */

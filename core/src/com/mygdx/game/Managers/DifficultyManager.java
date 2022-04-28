@@ -58,6 +58,9 @@ public class DifficultyManager {
         CaptureManager.setCaptureBonus(60);
         CaptureManager.setDestroyBonus(100);
 
+        CaptureManager.setCaptureXpBonus(70);
+        CaptureManager.setDestroyXpBonus(100);
+
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
 
@@ -65,6 +68,7 @@ public class DifficultyManager {
                 ship.setDamageDelt(30f);
                 ship.setBulletSpeed(9000);
                 ship.setPlunderBonus(30f);
+                ship.setXpBonus(10f);
             }
         }
     }
@@ -96,6 +100,9 @@ public class DifficultyManager {
         CaptureManager.setCaptureBonus(30);
         CaptureManager.setDestroyBonus(50);
 
+        CaptureManager.setCaptureXpBonus(100);
+        CaptureManager.setDestroyXpBonus(120);
+
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
 
@@ -103,6 +110,7 @@ public class DifficultyManager {
                 ship.setDamageDelt(20f);
                 ship.setBulletSpeed(14000);
                 ship.setPlunderBonus(15f);
+                ship.setXpBonus(20f);
             }
         }
     }
@@ -134,6 +142,9 @@ public class DifficultyManager {
         CaptureManager.setCaptureBonus(20);
         CaptureManager.setDestroyBonus(30);
 
+        CaptureManager.setCaptureXpBonus(120);
+        CaptureManager.setDestroyXpBonus(150);
+
         for(Ship ship : GameManager.getShips()) {
             if(ship.getFaction() == GameManager.getPlayer().getFaction()) {
 
@@ -141,6 +152,7 @@ public class DifficultyManager {
                 ship.setDamageDelt(10f);
                 ship.setBulletSpeed(20000);
                 ship.setPlunderBonus(10f);
+                ship.setXpBonus(30f);
             }
         }
     }

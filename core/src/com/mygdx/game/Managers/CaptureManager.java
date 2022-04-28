@@ -15,6 +15,9 @@ public final class CaptureManager {
     private static float captureBonus;
     private static float destroyBonus;
 
+    private static float captureXpBonus;
+    private static float destroyXpBonus;
+
     public static void Initialise(PirateGame r) {
         if (initialised) {
             return;
@@ -23,6 +26,8 @@ public final class CaptureManager {
         reference = r;
         captureBonus = 0;
         destroyBonus = 0;
+        captureXpBonus = 0;
+        destroyXpBonus = 0;
     }
 
     public static void pause() {
@@ -63,15 +68,25 @@ public final class CaptureManager {
         destroyBonus = b;
     }
 
+    public static void setCaptureXpBonus(float b) {
+        captureXpBonus = b;
+    }
+
+    public static void setDestroyXpBonus(float b) {
+        destroyXpBonus = b;
+    }
+
     public static void captureHandler(String name) {
         CaptionManager.setMaxTime(5f);
         CaptionManager.setDisplay("You have captured " + name +" college\nbut you will still need to fight it's ships.\n(Gold Gained : " +captureBonus+ ")");
         GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + captureBonus));
+        GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + captureXpBonus));
     }
 
     public static void destroyHandler(String name, int num) {
         CaptionManager.setMaxTime(5f);
         CaptionManager.setDisplay("You have destroyed " + name +" college\nand "+ num +" of it's ships.\n(Gold Gained : " +destroyBonus+ ")");
         GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + destroyBonus));
+        GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + destroyXpBonus));
     }
 }

@@ -80,6 +80,7 @@ public class PlayerController extends Component {
             ((Ship) parent).shoot();
         }
 
+//        System.out.println(player.getPosition());
     }
 
     /**

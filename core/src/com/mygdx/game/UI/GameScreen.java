@@ -29,6 +29,7 @@ public class GameScreen extends Page {
     private Label armorLabel;
     private Label dosh;
     private Label ammo;
+    private Label xp;
     private final Label questDesc;
     private final Label questName;
     private int enhancement_id;
@@ -64,7 +65,7 @@ public class GameScreen extends Page {
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
         INIT_CONSTANTS();
-        PhysicsManager.Initialise(false); // drawing debug mode
+        PhysicsManager.Initialise(true); // drawing debug mode
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
@@ -79,6 +80,7 @@ public class GameScreen extends Page {
         enhancement_id = ResourceManager.getId("UISkin/enhancement.atlas");
         button_id = ResourceManager.getId("UISkin/buttons.atlas");
 
+//        System.out.println("enhancement_id " + enhancement_id);
 
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 
@@ -387,6 +389,7 @@ public class GameScreen extends Page {
 
 
         healthLabel.setText(String.valueOf(p.getHealth()));
+        xp.setText(String.valueOf(p.getXp()));
         armorLabel.setText(String.valueOf(p.getArmor()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));
@@ -448,17 +451,21 @@ public class GameScreen extends Page {
 
         table.row();
 
-        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Shield.png")))).top().left().size(1.25f * TILE_SIZE);
-        armorLabel = new Label("N/A", parent.skin);
-        table.add(armorLabel).top().left().size(50);
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Tome.png")))).top().left().size(1.25f * TILE_SIZE);
+        xp = new Label("N/A", parent.skin);
+        table.add(xp).top().left().size(50);
 
         table.row();
-
-        table.setDebug(false);
 
         table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Coin.png")))).top().left().size(1.25f * TILE_SIZE);
         dosh = new Label("N/A", parent.skin);
         table.add(dosh).top().left().size(50);
+
+        table.row();
+
+        table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("ShieldT2.png")))).top().left().size(1.25f * TILE_SIZE);
+        armorLabel = new Label("N/A", parent.skin);
+        table.add(armorLabel).top().left().size(50);
 
         table.row();
 
@@ -467,5 +474,8 @@ public class GameScreen extends Page {
         table.add(ammo).top().left().size(50);
 
         table.top().left();
+
+        table.setDebug(false);
+
     }
 }

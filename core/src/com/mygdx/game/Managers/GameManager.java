@@ -101,6 +101,39 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
+        CreateBoulders();
+        CreateMonsters();
+        createEnhancements();
+    }
+
+    public static void createEnhancements() {
+        tryInit();
+        for(int i=0; i<20; i++) {
+            Enhancement e = new Enhancement();
+            e.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Enhancement e = new Enhancement();
+        e.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
+    }
+
+    public static void CreateMonsters() {
+        tryInit();
+        for(int i=0; i<10; i++) {
+            Monster m = new Monster();
+            m.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Monster m = new Monster();
+        m.getComponent(Transform.class).setPosition(1696, 770);
+    }
+
+    public static void CreateBoulders() {
+        tryInit();
+        for(int i=0; i<20; i++) {
+            Boulder b = new Boulder();
+            b.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Boulder b = new Boulder();
+        b.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
     }
 
     /**

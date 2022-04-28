@@ -132,4 +132,8 @@ public final class PhysicsManager {
             debug.dispose();
         }
     }
+
+    public static void eraseBody(Body b) {
+        box2DWorld.destroyBody(b);
+    }
 }
