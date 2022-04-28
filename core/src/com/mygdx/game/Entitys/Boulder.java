@@ -7,17 +7,17 @@ import com.mygdx.game.Components.Obstacles;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
-import com.mygdx.game.Managers.CaptionManager;
-import com.mygdx.game.Managers.CaptureManager;
-import com.mygdx.game.Managers.GameManager;
-import com.mygdx.game.Managers.RenderLayer;
+import com.mygdx.game.Managers.*;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
 public class Boulder extends Entity implements CollisionCallBack {
     private static int boulderCount = 0;
-    private static int counter;
+    private static float timeoutCounter;
+    private static float TIMEOUT = 15f;
+
+    private static boolean contact;
 
 
     public Boulder() {
@@ -36,23 +36,37 @@ public class Boulder extends Entity implements CollisionCallBack {
 
         addComponents(t, r, rb, o);
 
-        counter = 0;
+        timeoutCounter = 0;
+        contact = false;
+    }
+
+    public void initiateContact() {
+
+    }
+
+    public void stopContact() {
+
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        timeoutCounter += EntityManager.getDeltaTime();
+
+        if(contact) {
+            if (timeoutCounter > TIMEOUT) {
+                if(GameManager.getPlayer().getArmor() - 1 <= 0) {
+                    GameManager.getPlayer().setArmor(0);
+                } else {
+                    GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() - 1);
+                }
+                timeoutCounter = 0;
+            }
+        }
     }
 
     @Override
     public void BeginContact(CollisionInfo info) {
-        if(info.a instanceof Player) {
-            if(GameManager.getPlayer().getArmor() - 1 < 0) {
-                GameManager.getPlayer().setArmor(0);
-            } else {
-                if (counter >= 10) {
-                    GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() - 1);
-                    counter = 0;
-                } else {
-                    counter++;
-                }
-            }
-        }
     }
 
     @Override
@@ -63,12 +77,16 @@ public class Boulder extends Entity implements CollisionCallBack {
     @Override
     public void EnterTrigger(CollisionInfo info) {
         if(info.a instanceof Player) {
-            CaptionManager.setDisplay("Your armor will corrode if you hit the boulder.");
+            CaptionManager.setDisplay("Your armor will corrode if you stay near the boulder.");
+            contact = true;
         }
     }
 
     @Override
     public void ExitTrigger(CollisionInfo info) {
-
+        if(info.a instanceof Player) {
+            CaptionManager.setDisplay("");
+            contact = false;
+        }
     }
 }
