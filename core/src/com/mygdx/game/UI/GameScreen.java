@@ -65,7 +65,7 @@ public class GameScreen extends Page {
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
         INIT_CONSTANTS();
-        PhysicsManager.Initialise(false); // drawing debug mode
+        PhysicsManager.Initialise(true); // drawing debug mode
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
@@ -80,6 +80,7 @@ public class GameScreen extends Page {
         enhancement_id = ResourceManager.getId("UISkin/enhancement.atlas");
         button_id = ResourceManager.getId("UISkin/buttons.atlas");
 
+//        System.out.println("enhancement_id " + enhancement_id);
 
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 

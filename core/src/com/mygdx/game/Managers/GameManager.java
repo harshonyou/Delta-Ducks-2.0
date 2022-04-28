@@ -101,6 +101,17 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
+        CreateBoulders();
+    }
+
+    public static void CreateBoulders() {
+        tryInit();
+        for(int i=0; i<20; i++) {
+            Boulder b = new Boulder();
+            b.getComponent(Transform.class).setPosition((float) Math.random()*3200, (float) Math.random()*3200);
+        }
+        Boulder b = new Boulder();
+        b.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100), (float) (getPlayer().getPosition().y - Math.random()*100));
     }
 
     /**
