@@ -22,6 +22,7 @@ public class PirateGame extends Game {
     public Stage stage;
     public Skin skin;
     public CaptureScreen capture;
+    private int id_map;
 
     /**
      * Create instances of game stage and UI screens.
@@ -30,7 +31,7 @@ public class PirateGame extends Game {
     public void create() {
         // load resources
         int id_ship = ResourceManager.addTexture("ship.png");
-        int id_map = ResourceManager.addTileMap("Map.tmx");
+        id_map = ResourceManager.addTileMap("Map.tmx");
         int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
         int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
         int enhancement_id = ResourceManager.addTextureAtlas("UISkin/enhancement.atlas");
@@ -49,6 +50,9 @@ public class PirateGame extends Game {
         ResourceManager.addTexture("darealthang.png");
         ResourceManager.addTexture("luffy.jpg");
         ResourceManager.addTexture("datshipdoe.png");
+
+        ResourceManager.addTexture("Tome.png");
+        ResourceManager.addTexture("ShieldT2.png");
 
         ResourceManager.addTexture("custom/ALL DUCK BOAT FINAL.png");
 

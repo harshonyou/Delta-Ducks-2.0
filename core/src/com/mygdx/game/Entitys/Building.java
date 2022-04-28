@@ -82,6 +82,7 @@ public class Building extends Entity implements CollisionCallBack {
         r.setTexture(s);
         getComponent(Pirate.class).kill();
         GameManager.getPlayer().setPlunder((int) (GameManager.getPlayer().getPlunder() + 5f));
+        GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + 5f));
     }
 
     public void destroyFlag() {
