@@ -82,13 +82,29 @@ public final class EnhancementManager {
         deltaTimeHandler();
 
         if(GameManager.getPlayer().getPlunder() > 0){
-            healthHandler();
-            speedHandler();
-            ammoHandler();
-            armorHandler();
-            immunityHandler();
-            infiniteAmmoHandler();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+                healthHandler(false);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+                speedHandler(false);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+                ammoHandler(false);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+                armorHandler(false);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){
+                immunityHandler(false);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+                infiniteAmmoHandler(false);
+            }
         }
+
+        speedHandlerExtension();
+        immunityHandlerExtension();
+        infiniteAmmoHandlerExtension();
     }
 
     public static void deltaTimeHandler() {
@@ -187,8 +203,18 @@ public final class EnhancementManager {
         health = h;
     }
 
-    public static void healthHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+    public static void healthHandler(boolean free) {
+        if(free) {
+            if (GameManager.getPlayer().getHealth() >= 100) {
+                CaptionManager.setDisplay("You already have got full health.");
+            } else if(GameManager.getPlayer().getHealth() + health > 100) {
+                CaptionManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getHealth()) + " health.");
+                GameManager.getPlayer().setHealth(100);
+            } else {
+                CaptionManager.setDisplay("You have gained " + (health) + " health.");
+                GameManager.getPlayer().setHealth(GameManager.getPlayer().getHealth() + health);
+            }
+        } else {
             if (GameManager.getPlayer().getHealth() >= 100) {
                 CaptionManager.setDisplay("You already have got full health.");
             } else if (!getValidation(enhancement.HEALTH)) {
@@ -211,8 +237,16 @@ public final class EnhancementManager {
         SPEED_MAX_TIMER = t;
     }
 
-    public static void speedHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+    public static void speedHandler(boolean free) {
+        if(free) {
+            if(GameManager.getPlayer().getPlayerSpeed() == defaultSpeed) {
+                speedTimer = 0;
+                GameManager.getPlayer().setPlayerSpeed(speed);
+                CaptionManager.setDisplay("You have activated speed boost.");
+            } else {
+                CaptionManager.setDisplay("You already have got speed boost activated.");
+            }
+        } else {
             System.out.println("Speed!");
             if (!getValidation(enhancement.SPEED)) {
                 CaptionManager.setDisplay("You have not got sufficient plunder to buy speed boost.");
@@ -225,7 +259,9 @@ public final class EnhancementManager {
                 CaptionManager.setDisplay("You already have got speed boost activated.");
             }
         }
+    }
 
+    public static void speedHandlerExtension() {
         if(speedTimer >= SPEED_MAX_TIMER) {
             speedTimer = 0;
             GameManager.getPlayer().setPlayerSpeed(defaultSpeed);
@@ -236,15 +272,20 @@ public final class EnhancementManager {
         ammo = a;
     }
 
-    public static void ammoHandler() {
-        if (!getValidation(enhancement.AMMO)) {
-            CaptionManager.setDisplay("You have not got sufficient plunder to buy ammo.");
-        }
-        else if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
-            System.out.println("Bullets!");
-            taxation(getTaxation(enhancement.AMMO));
+    public static void ammoHandler(boolean free) {
+        if(free) {
             GameManager.getPlayer().setAmmo(GameManager.getPlayer().getAmmo() + ammo);
-            CaptionManager.setDisplay("You just purchased " + ammo + " ammo for " + getTaxation(enhancement.AMMO) + " coins.");
+            CaptionManager.setDisplay("You just purchased " + ammo + " ammo.");
+        } else {
+            if (!getValidation(enhancement.AMMO)) {
+                CaptionManager.setDisplay("You have not got sufficient plunder to buy ammo.");
+            }
+            else {
+                System.out.println("Bullets!");
+                taxation(getTaxation(enhancement.AMMO));
+                GameManager.getPlayer().setAmmo(GameManager.getPlayer().getAmmo() + ammo);
+                CaptionManager.setDisplay("You just purchased " + ammo + " ammo for " + getTaxation(enhancement.AMMO) + " coins.");
+            }
         }
     }
 
@@ -252,14 +293,24 @@ public final class EnhancementManager {
         armor = a;
     }
 
-    public static void armorHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+    public static void armorHandler(boolean free) {
+        if(free) {
+            if (GameManager.getPlayer().getArmor() >= 100) {
+                CaptionManager.setDisplay("You already have got full armor.");
+            } else if(GameManager.getPlayer().getArmor() + armor > 100) {
+                CaptionManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getArmor()) + " armor.");
+                GameManager.getPlayer().setArmor(100);
+            } else {
+                GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() + armor);
+                CaptionManager.setDisplay("You have gained " + (armor) + " armor.");
+            }
+        } else {
             System.out.println("Armor!");
             if (GameManager.getPlayer().getArmor() >= 100) {
                 CaptionManager.setDisplay("You already have got full armor.");
             } else if (!getValidation(enhancement.ARMOR)) {
                 CaptionManager.setDisplay("You have not got sufficient plunder to buy armor.");
-            } if(GameManager.getPlayer().getArmor() + armor > 100) {
+            } else if(GameManager.getPlayer().getArmor() + armor > 100) {
                 taxation(getTaxation(enhancement.ARMOR));
                 CaptionManager.setDisplay("You have gained " + (100 - GameManager.getPlayer().getArmor()) + " armor for " + getTaxation(enhancement.ARMOR) + " coins.");
                 GameManager.getPlayer().setArmor(100);
@@ -275,11 +326,18 @@ public final class EnhancementManager {
         IMMUNITY_MAX_TIMER = t;
     }
 
-    public static void immunityHandler() {
-         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-             if (!getValidation(enhancement.IMMUNITY)) {
-                 CaptionManager.setDisplay("You have not got sufficient plunder to buy immunity.");
-             } if(!immunityToggle) {
+    public static void immunityHandler(boolean free) {
+        if(free) {
+            immunityCounter = 0f;
+            defaultArmor = GameManager.getPlayer().getArmor();
+            GameManager.getPlayer().hideArmor();
+            GameManager.getPlayer().setArmor(999);
+            immunityToggle = true;
+            CaptionManager.setDisplay("You have gained 999 armor for " + IMMUNITY_MAX_TIMER + " seconds");
+        } else {
+            if (!getValidation(enhancement.IMMUNITY)) {
+                CaptionManager.setDisplay("You have not got sufficient plunder to buy immunity.");
+            } if(!immunityToggle) {
                 taxation(getTaxation(enhancement.IMMUNITY));
                 immunityCounter = 0f;
                 defaultArmor = GameManager.getPlayer().getArmor();
@@ -291,7 +349,9 @@ public final class EnhancementManager {
                 CaptionManager.setDisplay("You already have got immunity activated.");
             }
         }
+    }
 
+    public static void immunityHandlerExtension() {
         if(immunityCounter >= IMMUNITY_MAX_TIMER && immunityToggle) {
             immunityCounter = 0;
             immunityToggle = false;
@@ -304,8 +364,19 @@ public final class EnhancementManager {
         INFINITEAMMO_MAX_TIMER = t;
     }
 
-    public static void infiniteAmmoHandler() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+    public static void infiniteAmmoHandler(boolean free) {
+        if(free) {
+            if(!infiniteAmmoToggle) {
+                infiniteAmmoCounter = 0f;
+                System.out.println("Infinite Ammo!");
+                defaultAmmo = GameManager.getPlayer().getAmmo();
+                GameManager.getPlayer().setAmmo(999);
+                infiniteAmmoToggle = true;
+                CaptionManager.setDisplay("You have gained 999 ammo for " + INFINITEAMMO_MAX_TIMER + " seconds.");
+            } else {
+                CaptionManager.setDisplay("You already have got infinite ammo activated.");
+            }
+        } else {
             if (!getValidation(enhancement.INFINITEAMMO)) {
                 CaptionManager.setDisplay("You have not got sufficient plunder to buy infinite ammo.");
             } if(!infiniteAmmoToggle) {
@@ -320,7 +391,9 @@ public final class EnhancementManager {
                 CaptionManager.setDisplay("You already have got infinite ammo activated.");
             }
         }
+    }
 
+    public static void infiniteAmmoHandlerExtension() {
         if(infiniteAmmoCounter >= INFINITEAMMO_MAX_TIMER && infiniteAmmoToggle) {
             infiniteAmmoCounter = 0;
             infiniteAmmoToggle = false;

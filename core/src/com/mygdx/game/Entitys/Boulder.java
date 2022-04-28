@@ -14,10 +14,10 @@ import com.mygdx.game.Physics.PhysicsBodyType;
 
 public class Boulder extends Entity implements CollisionCallBack {
     private static int boulderCount = 0;
-    private static float timeoutCounter;
-    private static float TIMEOUT = 15f;
+    private float timeoutCounter;
+    private float TIMEOUT = 1f;
 
-    private static boolean contact;
+    private boolean contact;
 
 
     public Boulder() {

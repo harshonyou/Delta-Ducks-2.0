@@ -224,4 +224,8 @@ public class RigidBody extends Component {
     public void applyForce(Vector2 force) {
         getBody().applyForceToCenter(force, true);
     }
+
+    public void erase() {
+        PhysicsManager.eraseBody(getBody());
+    }
 }

@@ -23,10 +23,10 @@ public class Monster extends Entity implements CollisionCallBack {
 
     private float stateTime;
 
-    private static float timeoutCounter;
-    private static float TIMEOUT = 10f;
+    private float timeoutCounter;
+    private float TIMEOUT = 1f;
 
-    private static boolean contact;
+    private boolean contact;
 
     public Monster() {
         super(4);
