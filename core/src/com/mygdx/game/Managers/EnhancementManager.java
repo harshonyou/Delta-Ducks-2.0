@@ -43,6 +43,9 @@ public final class EnhancementManager {
     private static float immunityTax;
     private static float infiniteAmmoTax;
 
+    private static float xpTimerCounter;
+    private static float XP_TIMER = 1f;
+
     public static void Initialise() {
         if (initialised) {
             return;
@@ -71,6 +74,8 @@ public final class EnhancementManager {
         infiniteAmmoCounter = 0f;
         immunityToggle = false;
         infiniteAmmoToggle = false;
+
+        xpTimerCounter = 0;
     }
 
     public static void update() {
@@ -91,6 +96,12 @@ public final class EnhancementManager {
         bulletspeedCounter += EntityManager.getDeltaTime();
         speedTimer += EntityManager.getDeltaTime();
         infiniteAmmoCounter += EntityManager.getDeltaTime();
+
+        xpTimerCounter += EntityManager.getDeltaTime();
+        if(xpTimerCounter >= XP_TIMER) {
+            xpTimerCounter = 0;
+            GameManager.getPlayer().setXp(GameManager.getPlayer().getXp() + 1);
+        }
     }
 
     public static void setUnitPrice(float p) {
