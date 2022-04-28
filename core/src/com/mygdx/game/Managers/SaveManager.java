@@ -16,7 +16,11 @@ public class SaveManager {
         Preferences prefs = Gdx.app.getPreferences("saved_preference");
 
         for (College college : GameManager.getColleges()) {
-            prefs.putBoolean("College" + college.f.id, college.aliveTest());
+            int acc = 0;
+            for(Building building : college.getBuildings()) {
+                prefs.putBoolean("College" + college.f.id + "B" + acc++, building.isAlive());
+                System.out.println("OOF");
+            }
         }
 
         int acc = 0;
@@ -49,12 +53,20 @@ public class SaveManager {
         Preferences prefs = Gdx.app.getPreferences("saved_preference");
 
         for (College college : GameManager.getColleges()) {
-//            college.destroy();
-            if(!prefs.getBoolean("College" + college.f.id)){
-                System.out.println("Dead");
-                college.destroy();
+            int acc = 0;
+            for(Building building : college.getBuildings()) {
+                if(!prefs.getBoolean("College" + college.f.id + "B" + acc++)){
+                    building.destroy();
+                }
             }
         }
+
+//        for (College college : GameManager.getColleges()) {
+//            int acc = 0;
+//            for(Building building : college.getBuildings()) {
+//                prefs.putBoolean("College" + college.f.id + "B" + acc++, building.isAlive());
+//            }
+//        }
 
         int acc = 0;
         for (Ship ship : GameManager.getShips()) {
