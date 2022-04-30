@@ -78,6 +78,13 @@ public final class EnhancementManager {
         xpTimerCounter = 0;
     }
 
+    public static void reset() {
+        initialised = false;
+        IMMUNITY_MAX_TIMER = .5f;
+        INFINITEAMMO_MAX_TIMER = .5f;
+        BULLET_SPEED_TIMER = .5f;
+    }
+
     public static void update() {
         deltaTimeHandler();
 
