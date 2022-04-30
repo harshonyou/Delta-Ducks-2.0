@@ -8,6 +8,7 @@ import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.CaptureManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
+import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PirateGame;
 import com.mygdx.testing.GdxTestRunner;
 import org.junit.*;
@@ -31,7 +32,6 @@ public class PlayerTests {
 
     @BeforeClass
     public static void init(){
-        INIT_CONSTANTS();
         PirateGame.loadResources();
         PhysicsManager.Initialise();
         GameManager.Initialise();
@@ -39,7 +39,7 @@ public class PlayerTests {
 
     @AfterClass
     public static void dispose(){
-
+        ResourceManager.reset();
     }
 
     @Test

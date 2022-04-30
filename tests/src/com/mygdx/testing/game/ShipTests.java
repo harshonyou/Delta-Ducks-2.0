@@ -6,6 +6,7 @@ import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
+import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PirateGame;
 import com.mygdx.testing.GdxTestRunner;
 import com.mygdx.utils.Utilities;
@@ -30,20 +31,13 @@ public class ShipTests {
 
     @BeforeClass
     public static void init(){
-//        INIT_CONSTANTS();
-//        PirateGame pg = new PirateGame();
-//        PirateGame.loadResources();
-//        EntityManager.Initialise();
-//        PhysicsManager.Initialise(); // error
-//        GameManager.Initialise();
-//        GameManager.SpawnGame(1);
         PirateGame.loadResources();
         PhysicsManager.Initialise();
     }
 
     @AfterClass
     public static void dispose(){
-
+        ResourceManager.reset();
     }
 
     @Test

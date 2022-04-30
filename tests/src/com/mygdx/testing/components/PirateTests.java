@@ -5,6 +5,7 @@ import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.RenderingManager;
+import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PirateGame;
 import com.mygdx.testing.GdxTestRunner;
 import org.junit.*;
@@ -20,20 +21,13 @@ public class PirateTests {
 
     @BeforeClass
     public static void init() {
-//        INIT_CONSTANTS();
-////        PirateGame pg = new PirateGame();
-////        PirateGame.loadResources();
-////        EntityManager.Initialise();
-////        PhysicsManager.Initialise(); // error
-////        GameManager.Initialise();
-////        GameManager.SpawnGame(1);
         PirateGame.loadResources();
         PhysicsManager.Initialise();
-//        GameManager.Initialise();
     }
 
     @AfterClass
     public static void dispose() {
+        ResourceManager.reset();
     }
 
     @Test

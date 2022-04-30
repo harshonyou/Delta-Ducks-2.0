@@ -44,7 +44,7 @@ public final class GameManager {
         factions = new ArrayList<>();
         ships = new ArrayList<>();
         colleges = new ArrayList<>();
-
+        ballCache = new ArrayList<>(cacheSize);
 
         for (JsonValue v : settings.get("factions")) {
             String name = v.getString("name");
@@ -83,7 +83,6 @@ public final class GameManager {
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
-        ballCache = new ArrayList<>(cacheSize);
         for (int i = 0; i < cacheSize; i++) {
             ballCache.add(new CannonBall());
         }
@@ -237,5 +236,18 @@ public final class GameManager {
      */
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
+    }
+
+    public static void reset() {
+        if (initialised) {
+            initialised = false;
+            factions = null;
+            ships = null;
+            colleges = null;
+            ballCache = null;
+            currentElement = 0;
+            settings = null;
+            mapGraph = null;
+        }
     }
 }

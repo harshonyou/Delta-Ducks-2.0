@@ -21,11 +21,13 @@ public class DifficultyTests {
         PirateGame.loadResources();
         PhysicsManager.Initialise();
         GameManager.Initialise();
+
     }
 
     @AfterClass
     public static void dispose() {
-
+        GameManager.reset();
+        ResourceManager.reset();
     }
 
     @Test
@@ -33,6 +35,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
         assertAll("",
                 () -> assertTrue("True",
@@ -48,6 +51,7 @@ public class DifficultyTests {
                 () -> assertTrue("True",
                         GameManager.getPlayer().getBulletSpeed() == 30000)
         );
+
     }
 
     @Test
@@ -55,6 +59,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
         assertAll("",
                 () -> assertTrue("True",
@@ -77,6 +82,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         assertAll("",
                 () -> assertTrue("True",
@@ -99,6 +105,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
         assertAll("",
                 () -> assertTrue("True",
@@ -121,6 +128,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
         assertAll("",
                 () -> assertTrue("True",
@@ -143,6 +151,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         assertAll("",
                 () -> assertTrue("True",
@@ -165,6 +174,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
         assertAll("",
                 () -> assertTrue("True",
@@ -187,6 +197,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
         assertAll("",
                 () -> assertTrue("True",
@@ -209,6 +220,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         assertAll("",
                 () -> assertTrue("True",
@@ -231,6 +243,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
         assertAll("",
                 () -> assertTrue("True",
@@ -245,6 +258,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
         assertAll("",
                 () -> assertTrue("True",
@@ -259,6 +273,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         assertAll("",
                 () -> assertTrue("True",
@@ -273,6 +288,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
         assertAll("",
                 () -> assertTrue("True",
@@ -287,6 +303,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.MEDIUM);
         assertAll("",
                 () -> assertTrue("True",
@@ -301,6 +318,7 @@ public class DifficultyTests {
         GameManager.CreatePlayer();
         GameManager.createCollegeAndNPC();
 
+        DifficultyManager.reset();
         DifficultyManager.Initialise(DifficultyManager.Difficulty.HARD);
         assertAll("",
                 () -> assertTrue("True",
