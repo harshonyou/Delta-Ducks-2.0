@@ -1,7 +1,6 @@
 package com.mygdx.game.Entitys;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
@@ -12,9 +11,7 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
-import java.util.Objects;
 
-import static com.mygdx.utils.Constants.TILE_SIZE;
 
 /**
  * Cannonball entity and the methods to get it flying.

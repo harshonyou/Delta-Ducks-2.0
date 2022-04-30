@@ -89,4 +89,12 @@ public class Boulder extends Entity implements CollisionCallBack {
             contact = false;
         }
     }
+
+    public void hurt() {
+        if(GameManager.getPlayer().getArmor() - 1 <= 0) {
+            GameManager.getPlayer().setArmor(0);
+        } else {
+            GameManager.getPlayer().setArmor(GameManager.getPlayer().getArmor() - 1);
+        }
+    }
 }

@@ -12,11 +12,11 @@ public final class CaptureManager {
 
     private static PirateGame reference;
 
-    private static float captureBonus;
-    private static float destroyBonus;
+    private static float captureBonus = 10;
+    private static float destroyBonus = 10;
 
-    private static float captureXpBonus;
-    private static float destroyXpBonus;
+    private static float captureXpBonus = 10;
+    private static float destroyXpBonus = 10;
 
     public static void Initialise(PirateGame r) {
         if (initialised) {
@@ -64,16 +64,32 @@ public final class CaptureManager {
         captureBonus = b;
     }
 
+    public static float getCaptureBonus() {
+        return captureBonus;
+    }
+
     public static void setDestroyBonus(float b) {
         destroyBonus = b;
+    }
+
+    public static float getDestroyBonus() {
+        return destroyBonus;
     }
 
     public static void setCaptureXpBonus(float b) {
         captureXpBonus = b;
     }
 
+    public static float getCaptureXpBonus() {
+        return captureXpBonus;
+    }
+
     public static void setDestroyXpBonus(float b) {
         destroyXpBonus = b;
+    }
+
+    public static float getDestroyXpBonus() {
+        return destroyXpBonus;
     }
 
     public static void captureHandler(String name) {

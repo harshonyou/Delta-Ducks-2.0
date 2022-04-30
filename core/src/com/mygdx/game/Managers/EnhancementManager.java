@@ -203,6 +203,10 @@ public final class EnhancementManager {
         health = h;
     }
 
+    public static int getHealth() {
+         return health;
+    }
+
     public static void healthHandler(boolean free) {
         if(free) {
             if (GameManager.getPlayer().getHealth() >= 100) {
@@ -235,6 +239,10 @@ public final class EnhancementManager {
         defaultSpeed = d;
         speed = s;
         SPEED_MAX_TIMER = t;
+    }
+
+    public static int getSpeed() {
+        return speed;
     }
 
     public static void speedHandler(boolean free) {
@@ -272,6 +280,10 @@ public final class EnhancementManager {
         ammo = a;
     }
 
+    public static int getAmmo() {
+         return ammo;
+    }
+
     public static void ammoHandler(boolean free) {
         if(free) {
             GameManager.getPlayer().setAmmo(GameManager.getPlayer().getAmmo() + ammo);
@@ -291,6 +303,10 @@ public final class EnhancementManager {
 
     public static void setArmor(int a) {
         armor = a;
+    }
+
+    public static int getArmor() {
+        return armor;
     }
 
     public static void armorHandler(boolean free) {
@@ -324,6 +340,10 @@ public final class EnhancementManager {
 
     public static void setImmunity(float t) {
         IMMUNITY_MAX_TIMER = t;
+    }
+
+    public static float getImmunity() {
+        return IMMUNITY_MAX_TIMER;
     }
 
     public static void immunityHandler(boolean free) {
@@ -362,6 +382,10 @@ public final class EnhancementManager {
 
     public static void setInfiniteAmmo(float t) {
         INFINITEAMMO_MAX_TIMER = t;
+    }
+
+    public static float getInfiniteAmmo() {
+        return INFINITEAMMO_MAX_TIMER;
     }
 
     public static void infiniteAmmoHandler(boolean free) {

@@ -43,12 +43,8 @@ public final class GameManager {
 
         factions = new ArrayList<>();
         ships = new ArrayList<>();
-        ballCache = new ArrayList<>(cacheSize);
         colleges = new ArrayList<>();
 
-        for (int i = 0; i < cacheSize; i++) {
-            ballCache.add(new CannonBall());
-        }
 
         for (JsonValue v : settings.get("factions")) {
             String name = v.getString("name");
@@ -87,8 +83,19 @@ public final class GameManager {
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
+        ballCache = new ArrayList<>(cacheSize);
+        for (int i = 0; i < cacheSize; i++) {
+            ballCache.add(new CannonBall());
+        }
         CreateWorldMap(mapId);
         CreatePlayer();
+        createCollegeAndNPC();
+        CreateBoulders();
+        CreateMonsters();
+        createEnhancements();
+    }
+
+    public static void createCollegeAndNPC() {
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
@@ -101,9 +108,6 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
-        CreateBoulders();
-        CreateMonsters();
-        createEnhancements();
     }
 
     public static void createEnhancements() {

@@ -3,7 +3,6 @@ package com.mygdx.game.Managers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Components.Component;
-import com.mygdx.game.Entitys.Building;
 
 import java.util.ArrayList;
 
@@ -15,14 +14,23 @@ import static com.mygdx.utils.Constants.*;
  */
 public final class RenderingManager {
     private static boolean initialised = false;
-    private static ArrayList<Component> renderItems;
-    private static ArrayList<ArrayList<Integer>> layers;
+    private static boolean pred = false;
+    private static ArrayList<ArrayList<Component>> layers;
     private static OrthographicCamera camera;
     private static SpriteBatch batch;
 
+    public static void Pre() {
+        pred = true;
+
+        layers = new ArrayList<>(RenderLayer.values().length);
+        for (int i = 0; i < RenderLayer.values().length; i++) {
+            layers.add(new ArrayList<>());
+        }
+    }
+
     public static void Initialise() {
+        tryPre();
         initialised = true;
-        renderItems = new ArrayList<>();
 
         batch = new SpriteBatch();
         // batch.enableBlending();
@@ -31,14 +39,10 @@ public final class RenderingManager {
         camera.viewportWidth = VIEWPORT_WIDTH / ZOOM;
         camera.update();
 
-        layers = new ArrayList<>(RenderLayer.values().length);
-
-        for (int i = 0; i < RenderLayer.values().length; i++) {
-            layers.add(new ArrayList<>());
-        }
     }
 
     public static OrthographicCamera getCamera() {
+        tryInit();
         return camera;
     }
 
@@ -54,9 +58,14 @@ public final class RenderingManager {
      * @param layer the layer that it will be rendered in
      */
     public static void addItem(Component item, RenderLayer layer) {
-        tryInit();
-        renderItems.add(item);
-        layers.get(layer.ordinal()).add(renderItems.size() - 1);
+        tryPre();
+        layers.get(layer.ordinal()).add(item);
+    }
+
+    private static void tryPre() {
+        if (!pred) {
+            Pre();
+        }
     }
 
     private static void tryInit() {
@@ -74,13 +83,9 @@ public final class RenderingManager {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        for (ArrayList<Integer> layer : layers) {
-            for (Integer itemIndex : layer) {
-                Component item = renderItems.get(itemIndex);
-                if (item.getParent() instanceof Building) {
-                    int i = 0;
-                }
-                item.render();
+        for (ArrayList<Component> layer : layers) {
+            for (Component c : layer) {
+                c.render();
             }
         }
 
