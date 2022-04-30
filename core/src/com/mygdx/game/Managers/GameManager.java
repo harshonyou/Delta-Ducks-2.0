@@ -83,6 +83,7 @@ public final class GameManager {
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
+        ballCache = new ArrayList<>(cacheSize);
         for (int i = 0; i < cacheSize; i++) {
             ballCache.add(new CannonBall());
         }
