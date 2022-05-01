@@ -179,4 +179,8 @@ public class QuestManager {
         tryInit();
         return currentQuest() != null;
     }
+
+    public static void reset()  {
+        initialised = false;
+    }
 }
