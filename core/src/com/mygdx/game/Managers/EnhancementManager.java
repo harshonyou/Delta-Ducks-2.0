@@ -355,12 +355,16 @@ public final class EnhancementManager {
 
     public static void immunityHandler(boolean free) {
         if(free) {
-            immunityCounter = 0f;
-            defaultArmor = GameManager.getPlayer().getArmor();
-            GameManager.getPlayer().hideArmor();
-            GameManager.getPlayer().setArmor(999);
-            immunityToggle = true;
-            CaptionManager.setDisplay("You have gained 999 armor for " + IMMUNITY_MAX_TIMER + " seconds");
+            if(!immunityToggle) {
+                immunityCounter = 0f;
+                defaultArmor = GameManager.getPlayer().getArmor();
+                GameManager.getPlayer().hideArmor();
+                GameManager.getPlayer().setArmor(999);
+                immunityToggle = true;
+                CaptionManager.setDisplay("You have gained 999 armor for " + IMMUNITY_MAX_TIMER + " seconds");
+            } else {
+                CaptionManager.setDisplay("You already have got immunity activated.");
+            }
         } else {
             if (!getValidation(enhancement.IMMUNITY)) {
                 CaptionManager.setDisplay("You have not got sufficient plunder to buy immunity.");
