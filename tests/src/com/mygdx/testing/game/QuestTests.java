@@ -36,12 +36,14 @@ public class QuestTests {
     }
 
     @Test
-    public void KillCompleteTest (){
+    public void KillCompleteTest () {
         GameManager.CreatePlayer();
+        GameManager.createCollegeAndNPC();
         Player p = GameManager.getPlayer();
         int before = p.getPlunder();
+        QuestManager.reset();
         QuestManager.Initialise();
-        College c = new College(1);
+        College c = GameManager.getCollege(2);
         Quest q = new KillQuest(c);
         assertFalse(q.checkCompleted(p));
         QuestManager.addQuest(q);
@@ -53,19 +55,24 @@ public class QuestTests {
     }
 
     @Test
-    public void LocateCompleteTest (){
+    public void LocateCompleteTest () {
         GameManager.CreatePlayer();
+        GameManager.createCollegeAndNPC();
         Player p = GameManager.getPlayer();
+        p.setPlunder(10);
         int before = p.getPlunder();
+        QuestManager.reset();
         QuestManager.Initialise();
         Vector2 loc = new Vector2(p.getPosition());
-        Quest q = new LocateQuest(loc, 1);
+        Quest q = new LocateQuest(new Vector2(0, 0), 10);
         assertFalse(q.checkCompleted(p));
-        QuestManager.addQuest(q);
+        Quest r = new LocateQuest(loc, 10);
+        QuestManager.removeQuests();
+        QuestManager.addQuest(r);
         QuestManager.checkCompleted();
         int after = p.getPlunder();
         assertTrue(after > before);
-        assertTrue(q.checkCompleted(p));
+        assertTrue(r.checkCompleted(p));
     }
 
 }
