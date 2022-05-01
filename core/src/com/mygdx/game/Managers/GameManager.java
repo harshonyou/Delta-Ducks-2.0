@@ -24,7 +24,7 @@ public final class GameManager {
     private static ArrayList<Ship> ships;
     private static ArrayList<College> colleges;
 
-    private static final int cacheSize = 20;
+    private static final int cacheSize = 21;
     private static ArrayList<CannonBall> ballCache;
     private static int currentElement;
 
@@ -224,6 +224,9 @@ public final class GameManager {
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
 //        pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+        if(currentElement == cacheSize-1) {
+            currentElement=0;
+        }
         ballCache.get(currentElement++).fire(pos, dir, p);
         currentElement %= cacheSize;
     }
