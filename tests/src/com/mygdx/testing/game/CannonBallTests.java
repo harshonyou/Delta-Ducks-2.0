@@ -30,6 +30,7 @@ public class CannonBallTests {
     public static void init(){
         PirateGame.loadResources();
         PhysicsManager.Initialise();
+        GameManager.Initialise();
     }
 
     @AfterClass
@@ -39,6 +40,8 @@ public class CannonBallTests {
 
     @Test
     public void shootTest() {
+        GameManager.createCanonBall();
+        GameManager.CreatePlayer();
         Ship ship = new Ship();
         CannonBall ball = new CannonBall();
 
@@ -50,7 +53,7 @@ public class CannonBallTests {
         ship.shoot(direction);
         Vector2 after = cannonTransformable.getPosition().cpy();
 
-        assertNotEquals(initial, after);
-        assertEquals(shipTransformable.getPosition().cpy(),after);
+        assertNotSame(initial, after);
+        assertNotEquals(shipTransformable.getPosition().cpy(), after);
     }
 }
