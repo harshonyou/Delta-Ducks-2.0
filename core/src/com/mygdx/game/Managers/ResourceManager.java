@@ -323,4 +323,11 @@ public final class ResourceManager {
             Initialise();
         }
     }
+
+    public static void reset() {
+        cleanUp();
+        initialised = false;
+        loaded = false;
+        ids = new ArrayList<>();
+    }
 }

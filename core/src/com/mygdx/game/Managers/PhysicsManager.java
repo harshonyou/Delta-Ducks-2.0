@@ -25,6 +25,7 @@ public final class PhysicsManager {
     private static ArrayList<Body> box2DBodies;
     private static Box2DDebugRenderer debug;
 
+
     public static void Initialise() {
         Initialise(false);
     }
@@ -39,6 +40,7 @@ public final class PhysicsManager {
             return;
         }
         initialised = true;
+
         box2DWorld = new World(new Vector2(0, 0), true);
         box2DBodies = new ArrayList<>();
         box2DWorld.setContactListener(new CollisionManager());
@@ -46,6 +48,8 @@ public final class PhysicsManager {
             debug = new Box2DDebugRenderer(true, false, true, true, false, true);
         }
     }
+
+
 
     public static int createBody(BodyDef bDef, FixtureDef fDef, Object userData) {
         tryInit();
@@ -135,5 +139,14 @@ public final class PhysicsManager {
 
     public static void eraseBody(Body b) {
         box2DWorld.destroyBody(b);
+    }
+
+    public static void restart() {
+        if (initialised) {
+            initialised = false;
+            box2DWorld = null;
+            box2DBodies = null;
+            debug = null;
+        }
     }
 }

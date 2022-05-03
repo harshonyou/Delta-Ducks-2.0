@@ -136,6 +136,7 @@ public class College extends Entity {
                 b.destroy();
             }
         }
+        getComponent(Pirate.class).kill();
     }
 
     @Override

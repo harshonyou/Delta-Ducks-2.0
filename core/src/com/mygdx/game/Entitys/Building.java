@@ -51,6 +51,10 @@ public class Building extends Entity implements CollisionCallBack {
         this.isFlag = isFlag;
     }
 
+    public boolean isFlag() {
+        return isFlag;
+    }
+
     /**
      * Creates a building with the given name at the specified location.
      *

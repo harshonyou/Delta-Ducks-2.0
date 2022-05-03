@@ -51,12 +51,24 @@ public class Text extends Component {
         position.set(x, y);
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
     public void setFontColour(Vector3 col) {
-        fontColour.set(col);
+        fontColour = col;
+    }
+
+    public Vector3 getFontColour() {
+        return fontColour;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getText() {
+        return text;
     }
 
     @Override

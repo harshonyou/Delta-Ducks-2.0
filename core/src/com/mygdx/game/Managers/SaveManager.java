@@ -19,7 +19,6 @@ public class SaveManager {
             int acc = 0;
             for(Building building : college.getBuildings()) {
                 prefs.putBoolean("College" + college.f.id + "B" + acc++, building.isAlive());
-                System.out.println("OOF");
             }
         }
 
