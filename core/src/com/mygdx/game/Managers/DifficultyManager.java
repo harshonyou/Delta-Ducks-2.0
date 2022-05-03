@@ -17,6 +17,10 @@ public class DifficultyManager {
         difficultyHandler();
     }
 
+    public static void reset() {
+        initialised = false;
+    }
+
     private static void difficultyHandler() {
         switch (currentDifficulty) {
             case EASY:

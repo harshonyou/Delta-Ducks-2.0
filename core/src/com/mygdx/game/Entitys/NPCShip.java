@@ -244,4 +244,5 @@ public class NPCShip extends Ship implements CollisionCallBack {
         Transform t = getComponent(Transform.class);
         t.setPosition(-50, -50);
     }
+
 }

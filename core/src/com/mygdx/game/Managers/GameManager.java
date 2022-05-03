@@ -24,7 +24,7 @@ public final class GameManager {
     private static ArrayList<Ship> ships;
     private static ArrayList<College> colleges;
 
-    private static final int cacheSize = 20;
+    private static final int cacheSize = 21;
     private static ArrayList<CannonBall> ballCache;
     private static int currentElement;
 
@@ -43,12 +43,8 @@ public final class GameManager {
 
         factions = new ArrayList<>();
         ships = new ArrayList<>();
-        ballCache = new ArrayList<>(cacheSize);
         colleges = new ArrayList<>();
-
-        for (int i = 0; i < cacheSize; i++) {
-            ballCache.add(new CannonBall());
-        }
+        ballCache = new ArrayList<>(cacheSize);
 
         for (JsonValue v : settings.get("factions")) {
             String name = v.getString("name");
@@ -87,8 +83,23 @@ public final class GameManager {
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
+        createCanonBall();
         CreateWorldMap(mapId);
         CreatePlayer();
+        createCollegeAndNPC();
+        CreateBoulders();
+        CreateMonsters();
+        createEnhancements();
+    }
+
+    public static void createCanonBall() {
+        ballCache = new ArrayList<>(cacheSize);
+        for (int i = 0; i < cacheSize; i++) {
+            ballCache.add(new CannonBall());
+        }
+    }
+
+    public static void createCollegeAndNPC() {
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
@@ -101,9 +112,6 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
-        CreateBoulders();
-        CreateMonsters();
-        createEnhancements();
     }
 
     public static void createEnhancements() {
@@ -220,6 +228,9 @@ public final class GameManager {
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
 //        pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+        if(currentElement == cacheSize-1) {
+            currentElement=0;
+        }
         ballCache.get(currentElement++).fire(pos, dir, p);
         currentElement %= cacheSize;
     }
@@ -233,5 +244,18 @@ public final class GameManager {
      */
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
+    }
+
+    public static void reset() {
+        if (initialised) {
+            initialised = false;
+            factions = null;
+            ships = null;
+            colleges = null;
+            ballCache = null;
+            currentElement = 0;
+            settings = null;
+            mapGraph = null;
+        }
     }
 }

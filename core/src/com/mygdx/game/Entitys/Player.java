@@ -79,6 +79,12 @@ public class Player extends Ship {
     public void update() {
 //        getComponent(Renderable.class).setTexture(new Sprite(ResourceManager.getTexture("darealthang.png")));
         super.update();
+        if(getHealth() > 100) {
+            setHealth(100);
+        }
+        if(getArmor() > 100) {
+            setArmor(100);
+        }
         if (getHealth() <= 0) {
             healthBar.hide();
         } else {

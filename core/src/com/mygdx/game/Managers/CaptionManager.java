@@ -21,6 +21,10 @@ public class CaptionManager {
         message = "";
     }
 
+    public static void reset() {
+        initialised = false;
+    }
+
     public static void update() {
         deltaTimeHandler();
         displayHandler();
@@ -42,6 +46,10 @@ public class CaptionManager {
 
     public static void setMaxTime(float mT) {
         maxTime = mT;
+    }
+
+    public static float getMaxTime() {
+        return maxTime;
     }
 
     public static String getdisplay() {

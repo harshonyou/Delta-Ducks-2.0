@@ -105,4 +105,12 @@ public class Monster extends Entity implements CollisionCallBack {
             contact = false;
         }
     }
+
+    public void hurt() {
+        if(GameManager.getPlayer().getHealth() - 1 <= 0) {
+            GameManager.getPlayer().setHealth(1);
+        } else {
+            GameManager.getPlayer().setHealth(GameManager.getPlayer().getHealth() - 1);
+        }
+    }
 }
