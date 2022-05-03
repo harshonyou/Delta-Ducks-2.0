@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-// TODO: Clean up this mess
+/**
+ * Cleaned the mess for assessment 2
+ */
+
 /**
  * creates game constants and is updated when appropriate (I know some aren't technically constants)
  */

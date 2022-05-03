@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Added the whole class for assessment 2
+ * It helps to manage the management of different enhancements the player can get in the game
+ */
 public final class EnhancementManager {
     public static boolean initialised = false;
 
@@ -46,6 +50,9 @@ public final class EnhancementManager {
     private static float xpTimerCounter;
     private static float XP_TIMER = 1f;
 
+    /**
+     * Should only be called once although if it isn't called at all it will be called automatically
+     */
     public static void Initialise() {
         if (initialised) {
             return;
@@ -78,6 +85,9 @@ public final class EnhancementManager {
         xpTimerCounter = 0;
     }
 
+    /**
+     * reset the manager for testing
+     */
     public static void reset() {
         initialised = false;
         IMMUNITY_MAX_TIMER = .5f;
@@ -114,6 +124,9 @@ public final class EnhancementManager {
         infiniteAmmoHandlerExtension();
     }
 
+    /**
+     * Update all the counters per delta time
+     */
     public static void deltaTimeHandler() {
         immunityCounter += EntityManager.getDeltaTime();
         bulletspeedCounter += EntityManager.getDeltaTime();
@@ -127,14 +140,26 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param p update the unit price for enhancement
+     */
     public static void setUnitPrice(float p) {
         unitPrice = p;
     }
 
+    /**
+     *
+     * @return unit price for enhancement
+     */
     public static float getUnitPrice() {
         return unitPrice;
     }
 
+    /**
+     * Deduce the plunder from player balance
+     * @param p plunder to make player pay
+     */
     public static void taxation(float p) {
         if(GameManager.getPlayer().getPlunder() - p <= 0) {
             GameManager.getPlayer().setPlunder(0);
@@ -143,6 +168,11 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * Set the amount of plunder each enhancement will cost the player
+     * @param e enhancement
+     * @param tax cost
+     */
     public static void setTax(enhancement e, float tax) {
         switch (e){
             case HEALTH:
@@ -168,6 +198,11 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * Get the amount of plunder each enhancement will cost the player
+     * @param e enhancement
+     * @return cost
+     */
     public static float getTaxation(enhancement e) {
         switch (e){
             case HEALTH:
@@ -187,6 +222,11 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * Check if a player is able to afford each enhancement
+     * @param e enhancement
+     * @return true if player have enough balance to spend such plunder
+     */
     public static boolean getValidation(enhancement e) {
         switch (e){
             case HEALTH:
@@ -206,14 +246,26 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param h health to gain in enhancement
+     */
     public static void setHealth(int h) {
         health = h;
     }
 
+    /**
+     *
+     * @return health to gain in enhancement
+     */
     public static int getHealth() {
          return health;
     }
 
+    /**
+     * health enhancement
+     * @param free true if the enhancement was found on the map
+     */
     public static void healthHandler(boolean free) {
         if(free) {
             if (GameManager.getPlayer().getHealth() >= 100) {
@@ -242,16 +294,30 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param d default speed of the player
+     * @param s speed boost
+     * @param t max time to apply it
+     */
     public static void setSpeed(int d, int s, float t) {
         defaultSpeed = d;
         speed = s;
         SPEED_MAX_TIMER = t;
     }
 
+    /**
+     *
+     * @return speed to gain in enhancement
+     */
     public static int getSpeed() {
         return speed;
     }
 
+    /**
+     * speed enhancement
+     * @param free true if the enhancement was found on the map
+     */
     public static void speedHandler(boolean free) {
         if(free) {
             if(GameManager.getPlayer().getPlayerSpeed() == defaultSpeed) {
@@ -276,6 +342,9 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * check if the time of speed boost has been completed
+     */
     public static void speedHandlerExtension() {
         if(speedTimer >= SPEED_MAX_TIMER) {
             speedTimer = 0;
@@ -283,18 +352,30 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param a ammo to gain in enhancement
+     */
     public static void setAmmo(int a) {
         ammo = a;
     }
 
+    /**
+     *
+     * @return ammo to gain in enhancement
+     */
     public static int getAmmo() {
          return ammo;
     }
 
+    /**
+     * ammo enhancement
+     * @param free true if the enhancement was found on the map
+     */
     public static void ammoHandler(boolean free) {
         if(free) {
             GameManager.getPlayer().setAmmo(GameManager.getPlayer().getAmmo() + ammo);
-            CaptionManager.setDisplay("You just purchased " + ammo + " ammo.");
+            CaptionManager.setDisplay("You just gained " + ammo + " ammo.");
         } else {
             if (!getValidation(enhancement.AMMO)) {
                 CaptionManager.setDisplay("You have not got sufficient plunder to buy ammo.");
@@ -308,14 +389,26 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param a armor to gain in enhancement
+     */
     public static void setArmor(int a) {
         armor = a;
     }
 
+    /**
+     *
+     * @return armor to gain in enhancement
+     */
     public static int getArmor() {
         return armor;
     }
 
+    /**
+     * armor enhancement
+     * @param free true if the enhancement was found on the map
+     */
     public static void armorHandler(boolean free) {
         if(free) {
             if (GameManager.getPlayer().getArmor() >= 100) {
@@ -349,10 +442,18 @@ public final class EnhancementManager {
         IMMUNITY_MAX_TIMER = t;
     }
 
+    /**
+     *
+     * @return
+     */
     public static float getImmunity() {
         return IMMUNITY_MAX_TIMER;
     }
 
+    /**
+     * immunity enhancement (or infinite armor)
+     * @param free true if the enhancement was found on the map
+     */
     public static void immunityHandler(boolean free) {
         if(free) {
             if(!immunityToggle) {
@@ -382,6 +483,9 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * Check if the time is over for the immunity enhancement
+     */
     public static void immunityHandlerExtension() {
         if(immunityCounter >= IMMUNITY_MAX_TIMER && immunityToggle) {
             immunityCounter = 0;
@@ -391,14 +495,26 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     *
+     * @param t max time for the enhancement
+     */
     public static void setInfiniteAmmo(float t) {
         INFINITEAMMO_MAX_TIMER = t;
     }
 
+    /**
+     *
+     * @return max time for the enhancement
+     */
     public static float getInfiniteAmmo() {
         return INFINITEAMMO_MAX_TIMER;
     }
 
+    /**
+     * infinite ammo enhancement
+     * @param free true if the enhancement was found on the map
+     */
     public static void infiniteAmmoHandler(boolean free) {
         if(free) {
             if(!infiniteAmmoToggle) {
@@ -428,6 +544,9 @@ public final class EnhancementManager {
         }
     }
 
+    /**
+     * Check if the time is over for the infinite ammo enhancement
+     */
     public static void infiniteAmmoHandlerExtension() {
         if(infiniteAmmoCounter >= INFINITEAMMO_MAX_TIMER && infiniteAmmoToggle) {
             infiniteAmmoCounter = 0;

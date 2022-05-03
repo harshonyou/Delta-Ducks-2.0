@@ -24,31 +24,34 @@ import com.mygdx.game.Quests.Quest;
 
 import static com.mygdx.utils.Constants.*;
 
+/**
+ * Update the most of the class for assessment 2
+ */
 public class GameScreen extends Page {
     private Label healthLabel;
-    private Label armorLabel;
+    private Label armorLabel; // added for assessment 2
     private Label dosh;
     private Label ammo;
-    private Label xp;
+    private Label xp; // added for assessment 2
     private final Label questDesc;
     private final Label questName;
-    private int enhancement_id;
-    private int button_id;
+    private int enhancement_id; // added for assessment 2
+    private int button_id; // added for assessment 2
 
-    private Label healthTax;
-    private Label speedTax;
-    private Label ammoTax;
-    private Label armorTax;
-    private Label immunityTax;
-    private Label infiniteBulletTax;
+    private Label healthTax; // added for assessment 2
+    private Label speedTax; // added for assessment 2
+    private Label ammoTax; // added for assessment 2
+    private Label armorTax; // added for assessment 2
+    private Label immunityTax; // added for assessment 2
+    private Label infiniteBulletTax; // added for assessment 2
 
-    private Pixmap pixmap;
-    private float ratio = .045f;
-    private Window minimapWindow;
-    private Table minimapTable;
+    private Pixmap pixmap; // added for assessment 2
+    private float ratio = .045f; // added for assessment 2
+    private Window minimapWindow; // added for assessment 2
+    private Table minimapTable; // added for assessment 2
 
-    private Table caption;
-    private Label cc;
+    private Table caption; // added for assessment 2
+    private Label cc; // added for assessment 2
 
     /*private final Label questComplete;
     private float showTimer = 0;
@@ -85,7 +88,9 @@ public class GameScreen extends Page {
         EntityManager.raiseEvents(ComponentEvent.Awake, ComponentEvent.Start);
 
         Window questWindow = new Window("Current Quest", parent.skin);
-
+        /*
+        Assessment 2 Update starts
+         */
         questWindow.getTitleLabel().setAlignment(3);
 
         Quest q = QuestManager.currentQuest();
@@ -115,7 +120,7 @@ public class GameScreen extends Page {
         questWindow.setSize(100 * ratio * TILE_SIZE, 100);
         questWindow.setPosition(questWindow.getX(), questWindow.getY() + 100 * ratio * TILE_SIZE);
 //        actors.add(t);
-        actors.add(questWindow);
+        actors.add(questWindow); // Quest Window
 
 
 
@@ -125,7 +130,7 @@ public class GameScreen extends Page {
         minimapTable = new Table();
 
         minimapTable.setFillParent(true);
-        actors.add(minimapTable);
+        actors.add(minimapTable); // Minimap
         minimapTable.bottom().left();
 
 //        actors.add(minimapWindow);
@@ -133,13 +138,15 @@ public class GameScreen extends Page {
         Table t1 = new Table();
         t1.top().right();
         t1.setFillParent(true);
-        actors.add(t1);
+        actors.add(t1); // Tutorial Window
 
         Window tutWindow = new Window("Controls", parent.skin);
 
         tutWindow.getTitleLabel().setAlignment(3);
 
-
+        /*
+        Assessment 2 Update ends
+         */
         Table table = new Table();
         tutWindow.add(table);
         t1.add(tutWindow);
@@ -160,6 +167,9 @@ public class GameScreen extends Page {
         table.add(new Label("Pause", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
 
+        /*
+        Assessment 2 Update starts
+         */
         EnhancementManager.Initialise();
 
         Window enhWindow = new Window("Enhancements", parent.skin);
@@ -236,7 +246,7 @@ public class GameScreen extends Page {
 //        enhTable.debug();
 //        enhTable.scaleBy(.5f);
 
-        t2.add(enhWindow);
+        t2.add(enhWindow); // Tutorial Window
 //        t2.scaleBy(.5f);
 
 //        DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
@@ -258,6 +268,9 @@ public class GameScreen extends Page {
         actors.add(caption);
 
         CaptureManager.Initialise(parent);
+        /*
+        Assessment 2 Update ends
+         */
     }
 
     private float accumulator;
@@ -282,6 +295,9 @@ public class GameScreen extends Page {
         }
 
         GameManager.update();
+        /*
+        Added for assessment 2
+         */
         // show pause screen if esc is pressed
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             parent.pause();
@@ -331,10 +347,15 @@ public class GameScreen extends Page {
         super.update();
         Player p = GameManager.getPlayer();
 
+        /*
+        Assessment 2 Updates Starts
+         */
+        // if the player have got less than 0 HP then the game ends
         if (p.getHealth() <= 0) {
             parent.setScreen(parent.end);
         }
 
+        // generate the minimap for information
         minimapTable.clear();
         int width = Math.round(100 * ratio * TILE_SIZE);
         int height = Math.round(100 * ratio * TILE_SIZE);
@@ -345,7 +366,7 @@ public class GameScreen extends Page {
         pixmap.setColor(new Color(0.1f, 0.1f, 0.1f, .6f));
         pixmap.fillRectangle(0, 0, width, height);
 
-
+        // add ships to minimap
         for(Ship ship : GameManager.getShips()) {
             int player_radius;
             Color clr;
@@ -365,6 +386,7 @@ public class GameScreen extends Page {
             pixmap.setColor(clr);
             pixmap.fillCircle(player_x, player_y, player_radius);
         }
+        // add colleges to minimap
         for (College college : GameManager.getColleges()) {
             for(Building building: college.getBuildings()) {
                 if(building.isAlive()) {
@@ -383,17 +405,19 @@ public class GameScreen extends Page {
             }
         }
 
+        // add caption to the game screen
         cc.setText(CaptionManager.getdisplay());
 //        cc.setText("Hey");
 
 
-
+        // update the player stats
         healthLabel.setText(String.valueOf(p.getHealth()));
         xp.setText(String.valueOf(p.getXp()));
         armorLabel.setText(String.valueOf(p.getArmor()));
         dosh.setText(String.valueOf(p.getPlunder()));
         ammo.setText(String.valueOf(p.getAmmo()));
 
+        // update the tax for enhancements
         healthTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.HEALTH)));
         speedTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.SPEED)));
         ammoTax.setText(String.valueOf((int)EnhancementManager.getTaxation(EnhancementManager.enhancement.AMMO)));
@@ -416,6 +440,7 @@ public class GameScreen extends Page {
             }*/
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
+            // highlight the quest location for the player to naviage
             if(q instanceof LocateQuest) {
                 int player_x = Math.round(((LocateQuest) q).getLocation().x * ratio) + 3/2;
                 int player_y = height - Math.round(((LocateQuest) q).getLocation().y * ratio) - 3/2;
@@ -434,6 +459,9 @@ public class GameScreen extends Page {
         minimapTable.add(new Image(new Texture(new PixmapTextureData(pixmap, Pixmap.Format.RGBA8888, false, false, true))));
         EnhancementManager.update();
         CaptionManager.update();
+        /*
+        Assessment 2 Updates End
+         */
     }
 
     /**
@@ -450,7 +478,9 @@ public class GameScreen extends Page {
         table.add(healthLabel).top().left().size(50);
 
         table.row();
-
+        /*
+        added for assessment 2
+         */
         table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("Tome.png")))).top().left().size(1.25f * TILE_SIZE);
         xp = new Label("N/A", parent.skin);
         table.add(xp).top().left().size(50);
@@ -462,7 +492,9 @@ public class GameScreen extends Page {
         table.add(dosh).top().left().size(50);
 
         table.row();
-
+        /*
+        added for assessment 2
+         */
         table.add(new Image(ResourceManager.getTexture(ResourceManager.getId("ShieldT2.png")))).top().left().size(1.25f * TILE_SIZE);
         armorLabel = new Label("N/A", parent.skin);
         table.add(armorLabel).top().left().size(50);
@@ -473,6 +505,9 @@ public class GameScreen extends Page {
         ammo = new Label("N/A", parent.skin);
         table.add(ammo).top().left().size(50);
 
+        /*
+        added for assessment 2
+         */
         table.top().left();
 
         table.setDebug(false);

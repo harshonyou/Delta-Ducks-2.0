@@ -179,11 +179,17 @@ public class QuestManager {
         return currentQuest() != null;
     }
 
+    /**
+     * Added for assessment 2 for testing
+     */
     public static void removeQuests() {
         tryInit();
         allQuests = new ArrayList<>();
     }
 
+    /**
+     * Added for assessment 2 for testing
+     */
     public static void reset()  {
         initialised = false;
     }

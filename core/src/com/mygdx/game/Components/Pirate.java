@@ -13,11 +13,11 @@ import com.mygdx.utils.QueueFIFO;
 public class Pirate extends Component {
     private int factionId;
     private int plunder;
-    private int xp;
+    private int xp; // Added for assessment 2
     protected boolean isAlive;
     private int health;
     private int ammo;
-    private int armor;
+    private int armor; // Added for assessment 2
     private final int attackDmg;
 
     /**
@@ -48,6 +48,10 @@ public class Pirate extends Component {
         return plunder;
     }
 
+    /**
+     *  Added for assessment 2
+     * @param p to set the plunder
+     */
     public void setPlunder(int p) {
         plunder = p;
     }
@@ -56,14 +60,26 @@ public class Pirate extends Component {
         plunder += money;
     }
 
+    /**
+     * Added for assessment 2
+     * @return xp
+     */
     public int getXp() {
         return xp;
     }
 
+    /**
+     * Added for assessment 2
+     * @param xp to set the entity XP
+     */
     public void setXp(int xp) {
         this.xp = xp;
     }
 
+    /**
+     * Added for assessment 2
+     * @param xp to add to the entity XP
+     */
     public void addXp(int xp) {
         this.xp += xp;
     }
@@ -77,6 +93,10 @@ public class Pirate extends Component {
         this.factionId = factionId;
     }
 
+    /**
+     * Updated for assessment 2
+     * @param dmg to make entity armor or health take damage
+     */
     public void takeDamage(float dmg) {
         if(armor<=0) {
             health -= dmg;
@@ -120,14 +140,26 @@ public class Pirate extends Component {
         return health;
     }
 
+    /**
+     * Added for assessment 2
+     * @param h to set the health
+     */
     public void setHealth(int h) {
         health = h;
     }
 
+    /**
+     * Added for assessment 2
+     * @return armror
+     */
     public int getArmor() {
         return armor;
     }
 
+    /**
+     * Added for assessment 2
+     * @param a to set the armor
+     */
     public void setArmor(int a) {
         armor = a;
     }
@@ -147,6 +179,10 @@ public class Pirate extends Component {
         return false;
     }
 
+    /**
+     * Added for assessment 2
+     * @return the location of the targeted ship
+     */
     public Vector2 targetPos() {
         Ship p = (Ship) parent;
         Vector2 pos = p.getPosition();

@@ -25,8 +25,8 @@ public final class ResourceManager {
     private static HashMap<String, FreeTypeFontGenerator> fontGenerators;
     private static HashMap<String, BitmapFont> fonts;
 
-    private static FreeTypeFontGenerator fontGenerator;
-    private static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    private static FreeTypeFontGenerator fontGenerator; // Added for assessment 2
+    private static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter; // Added for assessment 2
 
     /**
      * The equivalent to a constructor
@@ -87,10 +87,19 @@ public final class ResourceManager {
         return ids.size();
     }
 
+    /**
+     * Added for assessment 2
+     * @param fontPath path to the font file
+     */
     public static void initFont(String fontPath) {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
     }
 
+    /**
+     * Added for assessment 2
+     * @param size of the font
+     * @return BitmapFont or Rendered Font
+     */
     public static BitmapFont genFont(int size) {
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = size;
@@ -324,6 +333,10 @@ public final class ResourceManager {
         }
     }
 
+    /**
+     * Added for assessment 2
+     * Reset for the testing
+     */
     public static void reset() {
         cleanUp();
         initialised = false;

@@ -17,27 +17,27 @@ import com.mygdx.game.Managers.ResourceManager;
  */
 public class Player extends Ship {
 
-    private Renderable healthBar;
-    private Renderable armorBar;
+    private Renderable healthBar; // Added for assessment 2
+    private Renderable armorBar; // Added for assessment 2
 
 
 
-    private Animation<TextureRegion>[] rolls;
-    private Animation<TextureRegion>[] idleRolls;
+    private Animation<TextureRegion>[] rolls; // Added for assessment 2
+    private Animation<TextureRegion>[] idleRolls; // Added for assessment 2
 
-    int roll;
-    float rollVerticalTimer;
-    float rollHorizontalTimer;
-    float stateTime;
+    int roll; // Added for assessment 2
+    float rollVerticalTimer; // Added for assessment 2
+    float rollHorizontalTimer; // Added for assessment 2
+    float stateTime; // Added for assessment 2
 
-    private Animation <TextureRegion> shipMove;
+    private Animation <TextureRegion> shipMove; // Added for assessment 2
 
-    private final int PIXEL_SHIP_WIDTH = 1280;
-    private final int PIXEL_SHIP_HEIGHT = 1280;
+    private final int PIXEL_SHIP_WIDTH = 1280; // Added for assessment 2
+    private final int PIXEL_SHIP_HEIGHT = 1280; // Added for assessment 2
 
-    private final float SHIP_FRAME_DURATION = 0.5f;
-    private String previousState = "";
-    private float stateTimer;
+    private final float SHIP_FRAME_DURATION = 0.5f; // Added for assessment 2
+    private String previousState = ""; // Added for assessment 2
+    private float stateTimer; // Added for assessment 2
 
     /**
      * Adds ship with PlayerController component and sets its speed.
@@ -52,6 +52,10 @@ public class Player extends Ship {
 
         setName("Player");
 
+        /*
+        Added for assessment 2
+        Initialize the health and armor bar
+         */
         healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
         armorBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
 
@@ -75,9 +79,19 @@ public class Player extends Ship {
 
     }
 
+    /**
+     * Added for assessment 2
+     * update function of libgdx to update the sprite or characteristics
+     *
+     * Check if the health is less than 0; if yes the player is dead and game is over
+     * For all other cases it measures the armor and health and makes health and armor bar
+     * and set the color corresponding to its percentage.
+     *
+     */
     @Override
     public void update() {
 //        getComponent(Renderable.class).setTexture(new Sprite(ResourceManager.getTexture("darealthang.png")));
+
         super.update();
         if(getHealth() > 100) {
             setHealth(100);
@@ -110,14 +124,27 @@ public class Player extends Ship {
         }
     }
 
+    /**
+     * Added for assessment 2
+     * Hides the armor bar
+     */
     public void hideArmor() {
         armorBar.hide();
     }
 
+    /**
+     * Added for assessment 2
+     * Shows the armor bar
+     */
     public void showArmor() {
         armorBar.show();
     }
 
+    /**
+     * Added for assessment 2
+     * Updates the player direction
+     * @param dir to update
+     */
     public void updatePlayerDirection(Vector2 dir) {
         getComponent(Renderable.class).setTexture(new Sprite(getFrame(EntityManager.getDeltaTime(), getShipDirection(dir))));
     }
@@ -138,14 +165,26 @@ public class Player extends Ship {
         return getComponent(Pirate.class).getAmmo();
     }
 
+    /**
+     * Added for assessment 2
+     * @param s speed to set for the player
+     */
     public void setPlayerSpeed(float s) {
         getComponent(PlayerController.class).setPlayerSpeed(s);
     }
 
+    /**
+     * Added for assessment 2
+     * @return the player speed
+     */
     public float getPlayerSpeed() {
         return getComponent(PlayerController.class).getPlayerSpeed();
     }
 
+    /**
+     * Added for assessment 2
+     * Initialize the player sprite for every movement
+     */
     public void initPlayerShip () {
         roll = 4;
         rolls = new Animation[8];
@@ -179,6 +218,12 @@ public class Player extends Ship {
         frames.clear();
     }
 
+    /**
+     * Added for assessment 2
+     * @param deltaTime     delta time
+     * @param currentState  state counter
+     * @return the frame for that certain delta time
+     */
     public TextureRegion getFrame(float deltaTime, String currentState) {
 //            shipDirections.put(new Vector2(0, 1), "-up");
 //            shipDirections.put(new Vector2(0, -1), "-down");

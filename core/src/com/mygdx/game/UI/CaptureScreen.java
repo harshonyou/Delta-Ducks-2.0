@@ -20,7 +20,8 @@ import com.mygdx.game.PirateGame;
 
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 /**
- * Contains widgets defining the start-of-game menu screen.
+ * added the whole class for assessment 2
+ * Contains widgets defining the capture screen.
  */
 public class CaptureScreen extends Page {
     private BitmapFont font;
@@ -64,6 +65,9 @@ public class CaptureScreen extends Page {
         t.row();
 
         TextButton capture = new TextButton("Capture", textButtonStyle);
+        /*
+        If the player capture the college
+         */
         capture.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -78,6 +82,9 @@ public class CaptureScreen extends Page {
         t.row();
 
         TextButton destroy = new TextButton("Destroy", textButtonStyle);
+        /*
+        If the player destroys the college
+         */
         destroy.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -113,6 +120,9 @@ public class CaptureScreen extends Page {
     public void resize(int width, int height) {
         super.resize(width, height);
         Table t = (Table) actors.get(0);
+         /*
+        Added the background image
+         */
         TextureRegion luffy = new TextureRegion(
                 ResourceManager.getTexture("darealthang.png"),
                 ResourceManager.getTexture("darealthang.png").getWidth()/2 - width/2,

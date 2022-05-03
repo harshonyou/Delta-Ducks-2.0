@@ -21,6 +21,7 @@ import com.mygdx.game.PirateGame;
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 
 /**
+ * updated the whole class for assessment 2
  * Contains widgets defining the game end screen.
  */
 public class EndScreen extends Page {
@@ -114,6 +115,9 @@ public class EndScreen extends Page {
     public void resize(int width, int height) {
         super.resize(width, height);
         Table t = (Table) actors.get(0);
+        /*
+        Added the background image
+         */
         TextureRegion luffy = new TextureRegion(
                 ResourceManager.getTexture("darealthang.png"),
                 ResourceManager.getTexture("darealthang.png").getWidth()/2 - width/2,

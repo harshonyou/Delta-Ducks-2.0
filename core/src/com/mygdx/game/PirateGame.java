@@ -16,16 +16,16 @@ import java.util.logging.Level;
  */
 public class PirateGame extends Game {
     public MenuScreen menu;
-    public LevelScreen level;
-    public GameScreen game;
+    public LevelScreen level; // added for assessment 2
+    public GameScreen game; // added for assessment 2
     public PauseScreen pause;
     public EndScreen end;
     public Stage stage;
     public Skin skin;
-    public CaptureScreen capture;
-    private static int id_map;
+    public CaptureScreen capture; // added for assessment 2
+    private static int id_map; // added for assessment 2
 
-    public static GameManager GM;
+    public static GameManager GM; // added for assessment 2
 
     /**
      * Create instances of game stage and UI screens.
@@ -47,6 +47,10 @@ public class PirateGame extends Game {
 //        setScreen(capture);
     }
 
+    /**
+     * added for assessment 2
+     * load all the required resources (done for testing)
+     */
     public static void loadResources() {
         // load resources
         int id_ship = ResourceManager.addTexture("ship.png");

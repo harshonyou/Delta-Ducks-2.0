@@ -27,11 +27,11 @@ public class Ship extends Entity implements CollisionCallBack {
 
     private final Vector2 currentDir;
 
-    private float damageDelt;
+    private float damageDelt; // Added for assessment 2
 
-    private float bulletSpeed;
-    private float plunderBonus;
-    private float xpBonus;
+    private float bulletSpeed; // Added for assessment 2
+    private float plunderBonus; // Added for assessment 2
+    private float xpBonus; // Added for assessment 2
 
 
 
@@ -97,6 +97,10 @@ public class Ship extends Entity implements CollisionCallBack {
         setShipDirection("-up");
     }
 
+    /**
+     * Added for assessment 2
+     * @return the faction of the ship
+     */
     public Faction getFaction () {
         return getComponent(Pirate.class).getFaction();
     }
@@ -164,26 +168,50 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getHealth();
     }
 
+    /**
+     *
+     * @param h
+     */
     public void setHealth(int h) {
         getComponent(Pirate.class).setHealth(h);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getArmor() {
         return getComponent(Pirate.class).getArmor();
     }
 
+    /**
+     *
+     * @param a
+     */
     public void setArmor(int a) {
         getComponent(Pirate.class).setArmor(a);
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void setSpeed(float x, float y) {
         getComponent(RigidBody.class).setVelocity(x, y);
     }
 
+    /**
+     *
+     * @return
+     */
     public Vector2 getSpeed() {
         return getComponent(RigidBody.class).getVelocity();
     }
 
+    /**
+     *
+     */
     public void destroy() {
         setHealth(0);
     }
@@ -192,48 +220,96 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getPlunder();
     }
 
+    /**
+     * Added for assessment 2
+     * @param p set the plunder
+     */
     public void setPlunder(int p) {
         getComponent(Pirate.class).setPlunder(p);
     }
 
+    /**
+     * Added for assessment 2
+     * @return get the plunder
+     */
     public float getPlunderBonus() {
         return plunderBonus;
     }
 
+    /**
+     * Added for assessment 2
+     * @param plunder set the plunder will receive on achievement
+     */
     public void setPlunderBonus(float plunder) {
         plunderBonus = plunder;
     }
 
+    /**
+     * Added for assessment 2
+     * @return the xp
+     */
     public int getXp() {
         return getComponent(Pirate.class).getXp();
     }
 
+    /**
+     * Added for assessment 2
+     * @param xp update the current XP
+     */
     public void setXp(int xp) {
         getComponent(Pirate.class).setXp(xp);
     }
 
+    /**
+     * Added for assessment 2
+     * @return the current XP
+     */
     public float getXpBonus() {
         return xpBonus;
     }
 
+    /**
+     * Added for assessment 2
+     * @param xpBonus set the xp, which will be received on any achievement
+     */
     public void setXpBonus(float xpBonus) {
         this.xpBonus = xpBonus;
     }
 
+    /**
+     * Added for assessment 2
+     * @return the current ammo
+     */
     public int getAmmo() { return getComponent(Pirate.class).getAmmo(); }
 
+    /**
+     * Added for assessment 2
+     * @param a update the current ammo
+     */
     public void setAmmo(int a) {
         getComponent(Pirate.class).setAmmo(a);
     }
 
+    /**
+     * Added for assessment 2
+     * @param dmgDlt update the current dmaage delt
+     */
     public void setDamageDelt(float dmgDlt) {
         damageDelt = dmgDlt;
     }
 
+    /**
+     * Added for assessment 2
+     * @return the bullet speed
+     */
     public float getBulletSpeed() {
         return bulletSpeed;
     }
 
+    /**
+     * Added for assessment 2
+     * @param bSpeed update the current bullet speed
+     */
     public void setBulletSpeed(float bSpeed) {
         bulletSpeed = bSpeed;
     }
@@ -253,10 +329,18 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Transform.class).getPosition().cpy();
     }
 
+    /**
+     * Added for assessment 2
+     * @param pos update the position of the ship
+     */
     public void setPosition(Vector2 pos) {
         getComponent(Transform.class).setPosition(pos);
     }
 
+    /**
+     * Added for assessment 2
+     * @return the velicoty of the ship
+     */
     public Vector2 getVelocity() {
         return getComponent(Transform.class).getVelocity();
     }
@@ -279,6 +363,10 @@ public class Ship extends Entity implements CollisionCallBack {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
         }
+        /*
+        Added for assessment 2
+        Damage the ship if the bullet does not come from the same faction as the ship (thus, it came from enemy)
+         */
         if (info.a instanceof CannonBall) {
             if (((CannonBall) info.a).getShooter().getFaction() != getFaction()) {
                 getComponent(Pirate.class).takeDamage(damageDelt);

@@ -28,14 +28,14 @@ public class NPCShip extends Ship implements CollisionCallBack {
     private final QueueFIFO<Vector2> path;
     private long shootTime;
 
-    private Renderable healthBar;
+    private Renderable healthBar; // Added for assessment 2
 
-    private static float FREEZE_TIME = GameManager.getSettings().get("AI").getFloat("cannonTimeout");
-    private float freezeTimer;
+    private static float FREEZE_TIME = GameManager.getSettings().get("AI").getFloat("cannonTimeout"); // Added for assessment 2
+    private float freezeTimer; // Added for assessment 2
 
-    private float damageDelt;
+    private float damageDelt; // Added for assessment 2
 
-    private boolean bonusGained = false;
+    private boolean bonusGained = false; // Added for assessment 2
 
 //    private float bulletSpeed;
 
@@ -57,7 +57,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         AINavigation nav = new AINavigation();
 
         addComponent(nav);
-        healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent);
+        healthBar = new Renderable(ResourceManager.getId("blank.png"), RenderLayer.Transparent); // Added for assessment 2
 
         RigidBody rb = getComponent(RigidBody.class);
         // rb.setCallback(this);
@@ -67,6 +67,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
         // agro trigger
         rb.addTrigger(Utilities.tilesToDistance(starting.getFloat("argoRange_tiles")), "agro");
 
+        /*
+        Added for assessment 2
+        Initialized the health bar
+         */
         addComponents(healthBar);
         healthBar.show();
         healthBar.setDisplacement(-3, 0);
@@ -92,9 +96,15 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void update() {
-        freezeTimer += EntityManager.getDeltaTime();
+        freezeTimer += EntityManager.getDeltaTime(); // Added for assessment 2
         super.update();
 
+        /*
+        Added for assessment 2
+        Check if the health is less than 0; if yes the player is dead and game is over
+        For all other cases it measures the armor and health and makes health and armor bar
+        and set the color corresponding to its percentage.
+         */
         if (getHealth() <= 0) {
             removeOnDeath();
             healthBar.hide();
@@ -174,6 +184,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     }
 
+    /**
+     * Added for assessment 2
+     * @param dmgDlt amount of damage to deal
+     */
     public void setDamageDelt(float dmgDlt) {
         damageDelt = dmgDlt;
     }
@@ -209,6 +223,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
             Pirate pirate = getComponent(Pirate.class);
             pirate.addTarget(other);
         }
+        /*
+        Added for assessment 2
+        if the damage is done by any other ship than the NPC college's ships then it will receive the damage
+         */
         if (info.a instanceof CannonBall) {
             if (((CannonBall) info.a).getShooter().getFaction() != super.getFaction()) {
                 getComponent(Pirate.class).takeDamage(damageDelt);
@@ -218,7 +236,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
-     * if a taget has left remove it from the potential targets Queue
+     * if a target has left remove it from the potential targets Queue
      *
      * @param info collision info
      */
@@ -238,6 +256,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
         }
     }
 
+    /**
+     * Added for assessment 2
+     * Remove the NPC ship once they take sufficient damage
+     */
     private void removeOnDeath() {
         stopMovement();
         getComponent(Renderable.class).hide();

@@ -14,8 +14,8 @@ import com.mygdx.game.Managers.ResourceManager;
 public class Renderable extends Component {
     protected Sprite sprite;
     private boolean isVisible;
-    private float displacementX;
-    private float displacementY;
+    private float displacementX; // Added for assessment 2
+    private float displacementY; // Added for assessment 2
 
     /**
      * Called in other constructors, loads no textures by itself.
@@ -72,7 +72,7 @@ public class Renderable extends Component {
         Vector2 p = c.getPosition();
         Vector2 s = c.getScale();
 
-        sprite.setPosition(p.x + displacementX, p.y + displacementY);
+        sprite.setPosition(p.x + displacementX, p.y + displacementY); // Added displacement to the location for assessment 2
         sprite.setRotation(MathUtils.radiansToDegrees * c.getRotation());
         sprite.setScale(s.x, s.y);
     }
@@ -129,14 +129,30 @@ public class Renderable extends Component {
         isVisible = !isVisible;
     }
 
+    /**
+     * Added for assessment 2
+     * @param c to set the color of the sprite
+     */
     public void setColor(Color c) {
         sprite.setColor(c);
     }
 
+    /**
+     * Added for assessment 2
+     * to set the size of the sprite
+     * @param width of the sprite
+     * @param height of the sprite
+     */
     public void setSize(float width, float height) {
         sprite.setSize(width, height);
     }
 
+    /**
+     * Added for assessment 2
+     * to set the displacement or offset from the initial location
+     * @param x loc
+     * @param y loc
+     */
     public void setDisplacement(float x, float y) {
         displacementX = x;
         displacementY = y;

@@ -137,10 +137,17 @@ public final class PhysicsManager {
         }
     }
 
+    /**
+     * Added for assessment 2
+     * @param b body to remove form the box2d world
+     */
     public static void eraseBody(Body b) {
         box2DWorld.destroyBody(b);
     }
 
+    /**
+     * Added for assessment 2 for testing
+     */
     public static void restart() {
         if (initialised) {
             initialised = false;

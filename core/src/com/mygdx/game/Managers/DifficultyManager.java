@@ -2,12 +2,20 @@ package com.mygdx.game.Managers;
 
 import com.mygdx.game.Entitys.Ship;
 
+/**
+ * Added the whole class for assessment 2
+ * It helps to manage the management of different difficulties the player can choose from
+ */
 public class DifficultyManager {
     public static boolean initialised = false;
 
     public enum Difficulty {EASY, MEDIUM, HARD};
     public static Difficulty currentDifficulty;
 
+    /**
+     * Initialize the manager with chosen difficulty
+     * @param difficulty the player selected
+     */
     public static void Initialise(Difficulty difficulty) {
         if (initialised) {
             return;
@@ -17,10 +25,16 @@ public class DifficultyManager {
         difficultyHandler();
     }
 
+    /**
+     * reset the manager for testing
+     */
     public static void reset() {
         initialised = false;
     }
 
+    /**
+     * trigger the correct manager corresponding to the difficulty
+     */
     private static void difficultyHandler() {
         switch (currentDifficulty) {
             case EASY:
@@ -35,6 +49,9 @@ public class DifficultyManager {
         }
     }
 
+    /**
+     * Set all the settings corresponding to easy difficulty
+     */
     private static void easyHandler() {
         System.out.println("Easy");
         GameManager.getPlayer().setHealth(100);
@@ -77,6 +94,9 @@ public class DifficultyManager {
         }
     }
 
+    /**
+     * Set all the settings corresponding to medium difficulty
+     */
     private static void mediumHandler() {
         System.out.println("Medium");
         GameManager.getPlayer().setHealth(80);
@@ -119,6 +139,9 @@ public class DifficultyManager {
         }
     }
 
+    /**
+     * Set all the settings corresponding to hard difficulty
+     */
     private static void hardHandler() {
         System.out.println("Hard");
         GameManager.getPlayer().setHealth(60);
@@ -161,6 +184,10 @@ public class DifficultyManager {
         }
     }
 
+    /**
+     *
+     * @return current difficulty
+     */
     public static String getCurrentDifficulty() {
         switch (currentDifficulty) {
             case EASY:

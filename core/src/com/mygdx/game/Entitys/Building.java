@@ -25,9 +25,9 @@ public class Building extends Entity implements CollisionCallBack {
     private static int atlas_id;
     private boolean isFlag;
 
-    private boolean activeQuestToggle;
+    private boolean activeQuestToggle; //Added for assessment 2
 
-    public Faction f;
+    public Faction f; //Added for assessment 2
 
     Building() {
         super();
@@ -51,6 +51,10 @@ public class Building extends Entity implements CollisionCallBack {
         this.isFlag = isFlag;
     }
 
+    /**
+     * Added for assessment 2
+     * @return  true if the building is actually a flag
+     */
     public boolean isFlag() {
         return isFlag;
     }
@@ -89,6 +93,9 @@ public class Building extends Entity implements CollisionCallBack {
         GameManager.getPlayer().setXp((int) (GameManager.getPlayer().getXp() + 5f));
     }
 
+    /**
+     * Destory the flag if player chooses to destroy the whole college
+     */
     public void destroyFlag() {
         Sprite s = ResourceManager.getSprite(atlas_id, "white");
         Renderable r = getComponent(Renderable.class);
@@ -106,14 +113,26 @@ public class Building extends Entity implements CollisionCallBack {
         CaptureManager.destroyHandler(f.getName(), acc);
     }
 
+    /**
+     * Added for assessment 2
+     * @return  if the current college is active kill quest
+     */
     public boolean isActiveQuest() {
         return activeQuestToggle;
     }
 
+    /**
+     * Added for assessment 2
+     * set the current college active kill quest
+     */
     public void setActiveQuest() {
         activeQuestToggle = true;
     }
 
+    /**
+     * Added for assessment 2
+     * set the current college inactive kill quest
+     */
     public void setInactiveQuest() {
         activeQuestToggle = false;
     }
@@ -122,22 +141,43 @@ public class Building extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).isAlive();
     }
 
+    /**
+     * Added for assessment 2
+     * @return the position of the building of a college
+     */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition();
     }
 
+    /**
+     * Added for assessment 2
+     * @return the faction of the building of a college
+     */
     public Faction getFaction() {
         return f;
     }
 
+    /**
+     * Added for assessment 2
+     * Set the faction of the building of a college to the faction of the player
+     */
     public void setFaction() {
         f = GameManager.getPlayer().getFaction();
     }
 
+    /**
+     * Added for assessment 2
+     * Set the faction of the building of a college to custom faction
+     * @param f Faction
+     */
     public void setFactionCustom(Faction f) {
         this.f = f;
     }
 
+    /**
+     * Added for assessment 2
+     * Update the flag is the college is being captured successfully
+     */
     public void updateFlag() {
         getComponent(Renderable.class).setTexture(ResourceManager.getSprite(atlas_id, f.getColour()));
         CaptureManager.captureHandler(f.getName());

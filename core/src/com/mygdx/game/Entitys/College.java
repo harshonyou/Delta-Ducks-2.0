@@ -18,11 +18,11 @@ public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
 
-    private boolean aliveToggle;
+    private boolean aliveToggle; // Added for assessment 2
 
-    Building flag;
+    Building flag; // Added for assessment 2
 
-    public Faction f;
+    public Faction f; // Added for assessment 2
     public College() {
         super();
         buildings = new ArrayList<>();
@@ -33,7 +33,7 @@ public class College extends Entity {
         Transform t = new Transform();
         Pirate p = new Pirate();
         addComponents(t, p);
-        aliveToggle = true;
+        aliveToggle = true; // Updated for assessment 2
     }
 
     /**
@@ -43,7 +43,7 @@ public class College extends Entity {
      */
     public College(int factionId) {
         this();
-        f = GameManager.getFaction(factionId);
+        f = GameManager.getFaction(factionId); // Updated for assessment 2
         Transform t = getComponent(Transform.class);
         t.setPosition(f.getPosition());
         Pirate p = getComponent(Pirate.class);
@@ -78,14 +78,14 @@ public class College extends Entity {
 
                 String b_name = Utilities.randomChoice(buildingNames, 0);
 
-                b.create(pos, b_name, f);
+                b.create(pos, b_name, f); // Updated for assessment 2
             }
 
 
         }
-        flag = new Building(true);
+        flag = new Building(true); // Updated for assessment 2
         buildings.add(flag);
-        flag.create(origin, colour, f);
+        flag.create(origin, colour, f); // Updated for assessment 2
     }
 
     /**
@@ -99,6 +99,10 @@ public class College extends Entity {
                 res = true;
             }
         }
+        /*
+        Added for assessment 2
+        Fixes the bug of using extra memory on every update after the college is dead
+         */
         if (!res && aliveToggle) {
             aliveToggle = false;
             getComponent(Pirate.class).kill();
@@ -111,10 +115,18 @@ public class College extends Entity {
         }
     }
 
+    /**
+     * Added for assessment 2
+     * @return all the buildings within the college
+     */
     public ArrayList<Building> getBuildings() {
         return buildings;
     }
 
+    /**
+     * Added for assessment 2
+     * @return true if all the buildings of the college is alive
+     */
     public boolean aliveTest() {
         boolean res = false;
         for (int i = 0; i < buildings.size() - 1; i++) {
@@ -129,6 +141,10 @@ public class College extends Entity {
         return true;
     }
 
+    /**
+     * Added for assessment 2
+     * Destroys all the buildings within the college
+     */
     public void destroy() {
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);

@@ -51,14 +51,23 @@ public class Text extends Component {
         position.set(x, y);
     }
 
+    /*
+    Added for assessment 2 for testing
+     */
     public Vector2 getPosition() {
         return position;
     }
 
+    /*
+    Added for assessment 2 for testing
+     */
     public void setFontColour(Vector3 col) {
         fontColour = col;
     }
 
+    /*
+    Added for assessment 2 for testing
+     */
     public Vector3 getFontColour() {
         return fontColour;
     }
@@ -67,6 +76,9 @@ public class Text extends Component {
         this.text = text;
     }
 
+    /*
+    Added for assessment 2 for testing
+     */
     public String getText() {
         return text;
     }

@@ -19,7 +19,8 @@ import com.mygdx.game.PirateGame;
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 
 /**
- * Contains widgets defining the start-of-game menu screen.
+ * added the whole class for assessment 2
+ * Contains widgets defining the pause screen.
  */
 public class PauseScreen extends Page {
     private BitmapFont font;
@@ -114,6 +115,9 @@ public class PauseScreen extends Page {
     public void resize(int width, int height) {
         super.resize(width, height);
         Table t = (Table) actors.get(0);
+         /*
+        Added the background image
+         */
         TextureRegion luffy = new TextureRegion(
                 ResourceManager.getTexture("darealthang.png"),
                 ResourceManager.getTexture("darealthang.png").getWidth()/2 - width/2,

@@ -78,6 +78,17 @@ public class RigidBody extends Component {
         shape.dispose();
     }
 
+    /**
+     * Added for assessment 2
+     *
+     * Can create body that is trigger or callable
+     *
+     * @param type      defines how it interacts with other objects
+     * @param r         used for creating the fixture (aka the collider)
+     * @param t         used for positioning and scaling the collider
+     * @param isTrigger false allows for collision true doesn't
+     * @param circle    true to make a circular trigger around the target
+     */
     public RigidBody(PhysicsBodyType type, Renderable r, Transform t, boolean isTrigger, boolean circle) {
         this();
         BodyDef def = new BodyDef();
@@ -176,6 +187,11 @@ public class RigidBody extends Component {
         b.setTransform(position, 0);
     }
 
+    /**
+     * Added for assessment 2
+     *
+     * @param s     radius of the circular trigger
+     */
     public void setRadius(float s) {
         Body b = PhysicsManager.getBody(bodyId);
 
@@ -225,6 +241,10 @@ public class RigidBody extends Component {
         getBody().applyForceToCenter(force, true);
     }
 
+    /**
+     * Added for assessment 2
+     * Delete or erase the rigid body
+     */
     public void erase() {
         PhysicsManager.eraseBody(getBody());
     }

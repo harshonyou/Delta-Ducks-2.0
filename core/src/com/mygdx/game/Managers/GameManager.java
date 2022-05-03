@@ -77,12 +77,16 @@ public final class GameManager {
         return ships;
     }
 
+
     /**
      * Creates the game with player maps, NPCs, colleges
      *
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
+        /*
+        Updated for assessment 2
+         */
         createCanonBall();
         CreateWorldMap(mapId);
         CreatePlayer();
@@ -92,6 +96,9 @@ public final class GameManager {
         createEnhancements();
     }
 
+    /**
+     * Added for assessment 2
+     */
     public static void createCanonBall() {
         ballCache = new ArrayList<>(cacheSize);
         for (int i = 0; i < cacheSize; i++) {
@@ -114,6 +121,9 @@ public final class GameManager {
         }
     }
 
+    /**
+     * Added for assessment 2
+     */
     public static void createEnhancements() {
         tryInit();
         for(int i=0; i<20; i++) {
@@ -124,6 +134,9 @@ public final class GameManager {
         e.getComponent(Transform.class).setPosition((float) (getPlayer().getPosition().x + Math.random()*100 + 100), (float) (getPlayer().getPosition().y - Math.random()*100 - 100));
     }
 
+    /**
+     * Added for assessment 2
+     */
     public static void CreateMonsters() {
         tryInit();
         for(int i=0; i<10; i++) {
@@ -134,6 +147,9 @@ public final class GameManager {
         m.getComponent(Transform.class).setPosition(1696, 770);
     }
 
+    /**
+     * Added for assessment 2
+     */
     public static void CreateBoulders() {
         tryInit();
         for(int i=0; i<20; i++) {
@@ -215,6 +231,11 @@ public final class GameManager {
         tryInit();
         return colleges.get(factionId - 1);
     }
+
+    /**
+     * Added for assessment 2
+     * @return the colleges within the game
+     */
     public static ArrayList<College> getColleges(){
         return colleges;
     }
@@ -228,6 +249,10 @@ public final class GameManager {
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
 //        pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
+        /*
+        Added for assessment 2
+        Fixed the cache out of size bug
+         */
         if(currentElement == cacheSize-1) {
             currentElement=0;
         }
@@ -246,6 +271,10 @@ public final class GameManager {
         return mapGraph.findOptimisedPath(loc, dst);
     }
 
+    /**
+     * Added for assessment 2
+     * Reset for testing purpose
+     */
     public static void reset() {
         if (initialised) {
             initialised = false;

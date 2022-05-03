@@ -13,6 +13,10 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
+/**
+ * Added the whole class for assessment 2
+ * Sea Monster an Obstacle, which poisons the health of the player, if stand nearby.
+ */
 public class Monster extends Entity implements CollisionCallBack {
     private static int monsterCount = 0;
 
@@ -28,6 +32,9 @@ public class Monster extends Entity implements CollisionCallBack {
 
     private boolean contact;
 
+    /**
+     * Initialize the sea monster at certain location and characteristics
+     */
     public Monster() {
         super(4);
         setName("Monster (" + monsterCount++ + ")");
@@ -59,6 +66,9 @@ public class Monster extends Entity implements CollisionCallBack {
         contact = false;
     }
 
+    /**
+     * update function of libgdx to update the sprite or characteristics
+     */
     @Override
     public void update() {
         super.update();
@@ -90,6 +100,10 @@ public class Monster extends Entity implements CollisionCallBack {
 
     }
 
+    /**
+     * An event manager once the player come in contact with sea monster
+     * @param info  related to the collision
+     */
     @Override
     public void EnterTrigger(CollisionInfo info) {
         if(info.a instanceof Player) {
@@ -98,6 +112,10 @@ public class Monster extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * An event manager once the player goes out of contact with sea monster
+     * @param info  related to the collision
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
         if(info.a instanceof Player) {
@@ -106,6 +124,9 @@ public class Monster extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * Amount of damage the player's health will get, per second, for every second it was in contact with sea monster
+     */
     public void hurt() {
         if(GameManager.getPlayer().getHealth() - 1 <= 0) {
             GameManager.getPlayer().setHealth(1);

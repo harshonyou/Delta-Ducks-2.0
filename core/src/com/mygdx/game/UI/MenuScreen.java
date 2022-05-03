@@ -24,6 +24,7 @@ import com.mygdx.game.PirateGame;
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 
 /**
+ * Updated for assessment 2
  * Contains widgets defining the start-of-game menu screen.
  */
 public class MenuScreen extends Page {
@@ -41,6 +42,9 @@ public class MenuScreen extends Page {
      */
     @Override
     protected void CreateActors() {
+        /*
+        Updated for assessment 2
+         */
         font = ResourceManager.genFont(50);
         skinButton = new Skin();
         buttonAtlas = new TextureAtlas("button/buttonmap.atlas");
@@ -75,6 +79,9 @@ public class MenuScreen extends Page {
         t.add(play).top().size(150, 100).spaceBottom(space);
         t.row();
 
+        /*
+        Updated for assessment 2
+         */
         TextButton resume = new TextButton("Resume", textButtonStyle);
         resume.addListener(new ChangeListener() {
             @Override
@@ -120,7 +127,9 @@ public class MenuScreen extends Page {
     public void resize(int width, int height) {
         super.resize(width, height);
         Table t = (Table) actors.get(0);
-
+        /*
+        Updated for assessment 2
+         */
         TextureRegion luffy = new TextureRegion(
                 ResourceManager.getTexture("darealthang.png"),
                 ResourceManager.getTexture("darealthang.png").getWidth()/2 - width/2,

@@ -19,8 +19,8 @@ import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
 public class PlayerController extends Component {
     private Player player;
     private float speed;
-    private static float FREEZE_TIME = GameManager.getSettings().get("starting").getFloat("cannonTimeout");
-    private float freezeTimer;
+    private static float FREEZE_TIME = GameManager.getSettings().get("starting").getFloat("cannonTimeout"); // Added for assessment 2
+    private float freezeTimer; // Added for assessment 2
 
     public PlayerController() {
         super();
@@ -60,6 +60,9 @@ public class PlayerController extends Component {
         RenderingManager.getCamera().update();
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            /**
+             * If the player have exceeded the timeout duration then they can fire the canon ball.
+             */
             if(freezeTimer >= FREEZE_TIME) {
                 freezeTimer = 0;
                 int x = Gdx.input.getX();
@@ -109,10 +112,18 @@ public class PlayerController extends Component {
         return dir;
     }
 
+    /**
+     * Added for assessment 2
+     * @param s to set the speed of the player
+     */
     public void setPlayerSpeed(float s) {
         speed = s;
     }
 
+    /**
+     * Added for assessment 2
+     * @return speed of the player
+     */
     public float getPlayerSpeed() {
         return speed;
     }

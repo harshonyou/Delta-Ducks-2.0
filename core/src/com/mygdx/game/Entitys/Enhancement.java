@@ -12,11 +12,18 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.game.Physics.PhysicsBodyType;
 
+/**
+ * Added the whole class for assessment 2
+ * It generates random enhancement at random locations on the map
+ */
 public class Enhancement extends Entity implements CollisionCallBack {
     private static int enhancementCount = 0;
     private int random;
     private boolean contact;
 
+    /**
+     * Initialize the enhancement at certain location and characteristics
+     */
     public Enhancement() {
         super(4);
         setName("Boulder (" + enhancementCount++ + ")");
@@ -62,6 +69,9 @@ public class Enhancement extends Entity implements CollisionCallBack {
         contact = false;
     }
 
+    /**
+     * update function of libgdx to update the sprite or characteristics
+     */
     @Override
     public void update() {
         super.update();
@@ -73,6 +83,10 @@ public class Enhancement extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * An event manager once the player come in contact with an enhancement
+     * @param info related to the collision
+     */
     @Override
     public void BeginContact(CollisionInfo info) {
         if(info.a instanceof Player && !contact) {

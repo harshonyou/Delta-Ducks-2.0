@@ -13,12 +13,16 @@ import static com.mygdx.utils.Constants.*;
  * holds the primary sprite batch and rendering camera
  */
 public final class RenderingManager {
-    private static boolean initialised = false;
-    private static boolean pred = false;
-    private static ArrayList<ArrayList<Component>> layers;
+    private static boolean initialised = false; // Added for assessment 2
+    private static boolean pred = false; // Added for assessment 2
+    private static ArrayList<ArrayList<Component>> layers; // Updated for assessment 2
     private static OrthographicCamera camera;
     private static SpriteBatch batch;
 
+    /**
+     * Added for assessment 2
+     * This fixes the bug for testing by running it only once for initialization
+     */
     public static void Pre() {
         pred = true;
 
@@ -57,11 +61,21 @@ public final class RenderingManager {
      * @param item  component that utilises render
      * @param layer the layer that it will be rendered in
      */
+
+    /**
+     * Updated for assessment 2
+     * @param item component to add
+     * @param layer layer which to add
+     */
     public static void addItem(Component item, RenderLayer layer) {
         tryPre();
         layers.get(layer.ordinal()).add(item);
     }
 
+    /**
+     * Added for assessment 2
+     * Check if Pre has been initialized or not
+     */
     private static void tryPre() {
         if (!pred) {
             Pre();
@@ -83,6 +97,9 @@ public final class RenderingManager {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
+        /*
+        Updated for assessment 2
+         */
         for (ArrayList<Component> layer : layers) {
             for (Component c : layer) {
                 c.render();

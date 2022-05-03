@@ -18,7 +18,8 @@ import com.mygdx.game.PirateGame;
 import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 
 /**
- * Contains widgets defining the start-of-game menu screen.
+ * updated the whole class for assessment 2
+ * Contains widgets defining the after start-of-game menu, game difficulties menu screen.
  */
 public class LevelScreen extends Page {
     private BitmapFont font;

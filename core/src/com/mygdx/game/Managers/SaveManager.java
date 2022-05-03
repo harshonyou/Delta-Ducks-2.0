@@ -10,8 +10,15 @@ import com.mygdx.game.Entitys.Ship;
 
 import java.util.ArrayList;
 
+/**
+ * Added the whole class for assessment 2
+ * It helps to manage the management of save and load of player data
+ */
 public class SaveManager {
 
+    /**
+     * Save the player data
+     */
     public static void save() {
         Preferences prefs = Gdx.app.getPreferences("saved_preference");
 
@@ -48,8 +55,16 @@ public class SaveManager {
         prefs.flush();
     }
 
+    /**
+     * Load the player data
+     */
     public static void load() {
-        Preferences prefs = Gdx.app.getPreferences("saved_preference");
+        Preferences prefs = Gdx.app.getPreferences("saved_preference");;
+
+        if(prefs.get().isEmpty()) {
+            DifficultyManager.Initialise(DifficultyManager.Difficulty.EASY);
+            return;
+        }
 
         for (College college : GameManager.getColleges()) {
             int acc = 0;
@@ -95,9 +110,5 @@ public class SaveManager {
         GameManager.getPlayer().setAmmo(prefs.getInteger("PlayerAmmo"));
         GameManager.getPlayer().setXp(prefs.getInteger("PlayerXp"));
 
-    }
-
-    public static void test() {
-        Preferences prefs = Gdx.app.getPreferences("saved_preference");
     }
 }

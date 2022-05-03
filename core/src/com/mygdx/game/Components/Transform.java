@@ -96,6 +96,10 @@ public class Transform extends Component implements Location<Vector2> {
         return position;
     }
 
+    /**
+     * Added for assessment 2
+     * @return the velocity of an object
+     */
     public Vector2 getVelocity() {
         RigidBody rb = parent.getComponent(RigidBody.class);
         return rb.getVelocity();

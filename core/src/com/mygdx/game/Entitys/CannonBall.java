@@ -24,7 +24,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
     private Ship shooter;
 
     private static float playerSpeed;
-    private static float npcSpeed;
+    private static float npcSpeed; // Added for assessment 2
 
 
     public CannonBall() {
@@ -60,7 +60,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
         if (toggleLife) {
             getComponent(Renderable.class).hide();
             Transform t = getComponent(Transform.class);
-            t.setPosition(-50, -50);
+            t.setPosition(-50, -50); // Updated for assessment 2
 
             RigidBody rb = getComponent(RigidBody.class);
             rb.setPosition(t.getPosition());
@@ -83,6 +83,10 @@ public class CannonBall extends Entity implements CollisionCallBack {
     public void fire(Vector2 pos, Vector2 dir, Ship sender) {
 
         RigidBody rb = getComponent(RigidBody.class);
+        /*
+        Added for assessment 2
+        Fixes the canon ball bug
+         */
         rb.setPosition(pos.add(15,15));
         Vector2 v;
         if(sender.getFaction() == GameManager.getPlayer().getFaction()) {
@@ -102,7 +106,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * Marks cannonball for removal on next update.
      */
     public void kill() {
-        toggleLife = true;
+        toggleLife = true; // Updated for assessment 2; Fixes the silly mistake or a bug
     }
 
     public Ship getShooter() {
