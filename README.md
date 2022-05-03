@@ -1,6 +1,7 @@
 # How-Hard-Can-It-Be
 
-![Screenshot of game](game.png)
+![image](https://user-images.githubusercontent.com/22548610/165865843-a8d8998b-ee77-4c20-a11a-d8095a7b92b2.png)
+
 
 You control a ship sailing the Lake of York and are tasked with fulfilling certain quests along the way.
 

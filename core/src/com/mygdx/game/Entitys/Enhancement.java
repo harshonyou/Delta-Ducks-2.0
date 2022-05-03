@@ -14,7 +14,7 @@ import com.mygdx.game.Physics.PhysicsBodyType;
 
 public class Enhancement extends Entity implements CollisionCallBack {
     private static int enhancementCount = 0;
-    private static int random;
+    private int random;
     private boolean contact;
 
     public Enhancement() {
